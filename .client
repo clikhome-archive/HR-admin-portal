@@ -1,3 +1,2 @@
-$ cat .client
 CLIENT_DIR=frontend
 DIST_DIR=dist
