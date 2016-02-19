@@ -1,0 +1,17 @@
+Request New Employee Relocation:
+
+User: {{ relocation.user.first_name }} {{ relocation.user.last_name }} ({{ relocation.user.email }})
+Request created: {{ relocation.created_dt }}
+Expected moving date: {{ relocation.expected_moving_date }}
+Relocate from {{ relocation.relocate_from }} to {{ relocation.relocate_to }}
+
+Next exployees:
+{% for employee in relocation.employees.all %}
+*----------------------*
+#{{ forloop.counter }}
+Name: {{ employee.first_name }} {{ employee.last_name }}
+Contancts: Email {{ employee.email }} / Phone {{ employee.phone }}
+Job title: {{ employee.job_title }}
+Need furniture: {% if employee.need_furniture %}Yes{% else %}No{% endif %}
+How long will this employee stay: {{ employee.duration_title }}
+{% endfor %}
