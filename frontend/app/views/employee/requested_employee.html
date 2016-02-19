@@ -1,0 +1,81 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="RequestdEmployeeCtrl">
+    <h1 class="page-header">Add New Employee</h1>
+    <form role="form" class="form" name="EmployeeForm" novalidate>
+        <div class="form-group">
+            <label class="control-label" for="first_name">First name</label>
+            <input type="text" class="form-control" id="first_name" name="first_name" aria-describedby="first_name_help" ng-model="model.first_name" required>
+            <span id="first_name_help" class="help-block">e.g John</span>
+            <div class="alert alert-danger" ng-repeat="error in errors.first_name">{{error}}</div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="last_name">Last name</label>
+            <input type="text" class="form-control" id="last_name" name="last_name" aria-describedby="last_name_help" ng-model="model.last_name" required>
+            <span id="last_name_help" class="help-block">e.g Smith</span>
+            <div class="alert alert-danger" ng-repeat="error in errors.last_name">{{error}}</div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="email">Email</label>
+            <input type="text" class="form-control" id="email" name="email" aria-describedby="email_help" ng-model="model.email" required>
+            <span id="email_help" class="help-block">e.g john@xzc.com</span>
+            <div class="alert alert-danger" ng-repeat="error in errors.email">{{error}}</div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="phone">Phone number</label>
+            <input type="text" class="form-control" id="phone" name="phone" aria-describedby="phone_help" ng-model="model.phone" required>
+            <span id="phone_help" class="help-block">e.g +1 (123) 456-7890</span>
+            <div class="alert alert-danger" ng-repeat="error in errors.phone">{{error}}</div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label" for="job_title">Job Title (optional)</label>
+            <input type="text" class="form-control" id="job_title" name="job_title" aria-describedby="job_title_help" ng-model="model.job_title">
+            <span id="job_title_help" class="help-block">e.g Engineer</span>
+            <div class="alert alert-danger" ng-repeat="error in errors.job_title">{{error}}</div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Need furniture package for this employee?</label>
+            <label class="radio-inline">
+              <input type="radio" name="need_furniture" id="inlineRadio1" value="1" ng-model="model.need_furniture" required> Yes
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="need_furniture" id="inlineRadio2" value="0" ng-model="model.need_furniture" required> No
+            </label>
+            <div class="alert alert-danger" ng-repeat="error in errors.need_furniture">{{error}}</div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">How long will this employee stay?</label>
+            <label class="radio-inline">
+              <input type="radio" name="duration" id="inlineRadio3" value="3" ng-model="model.duration" required> 3 months
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="duration" id="inlineRadio4" value="6" ng-model="model.duration" required> 6 months
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="duration" id="inlineRadio5" value="1" ng-model="model.duration" required> 1 year or longer
+            </label>
+            <div class="alert alert-danger" ng-repeat="error in errors.duration">{{error}}</div>
+        </div>
+
+        <div class="checkbox">
+          <label>
+              <input type="checkbox" name="is_reusable" ng-model="model.is_reusable"> Save the profile for future use?
+          </label>
+        </div>
+
+        <br>
+        <div class="alert alert-danger" ng-repeat="error in errors.non_field_errors">{{error}}</div>
+        <div class="alert alert-danger" ng-if="error">{{error}}</div>
+
+        <input type="checkbox" name="is_requested_stage" checked="checked" ng-model="model.is_requested_stage" style="display: none;">
+        <input type="text" name="id" ng-model="model.id" style="display: none;">
+
+        <button class="btn btn-danger" type="submit" ng-click="$back()">Cancel</button>
+        <button class="btn btn-success" type="submit" ng-click="store(EmployeeForm)">{{ save_button_text }}</button>
+    </form>
+</div>
