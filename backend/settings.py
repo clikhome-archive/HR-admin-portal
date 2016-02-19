@@ -147,12 +147,7 @@ REST_AUTH_SERIALIZERS = {
 AUTH_USER_MODEL = 'authentication.Account'
 
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = {
-    'clikhome.panel.angular:8080',
-    '127.0.0.1:8000',
-    'clikhome.panel.angular:8000',
-    'clikhome.panel.angular',
-}
+# CORS_ORIGIN_WHITELIST = {}
 
 IGNORABLE_404_URLS = (
     re.compile(r'^/apple-touch-icon.*\.png$'),
@@ -160,13 +155,13 @@ IGNORABLE_404_URLS = (
     re.compile(r'^/robots\.txt$'),
 )
 
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'me@gmail.com'
-EMAIL_HOST_PASSWORD = 'password'
-EMAIL_FROM = 'me@gmail.com'
-EMAIL_SUBJECT = 'CLIKHOME BOT'
+EMAIL_USE_TLS = os.environ.get('DJANGO_EMAIL_USE_TLS')
+EMAIL_HOST = os.environ.get('DJANGO_EMAIL_HOST')
+EMAIL_PORT = os.environ.get('DJANGO_EMAIL_PORT')
+EMAIL_HOST_USER = os.environ.get('DJANGO_EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('DJANGO_EMAIL_HOST_PASSWORD')
+EMAIL_FROM = os.environ.get('DJANGO_EMAIL_FROM')
+EMAIL_SUBJECT = os.environ.get('DJANGO_EMAIL_SUBJECT')
 
 
 LOGGING = {
