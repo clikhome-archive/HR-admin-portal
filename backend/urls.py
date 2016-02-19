@@ -37,4 +37,4 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += [url(r'^(?P<path>.*)$',
-                       serve, kwargs={'document_root': settings.STATIC_ROOT, 'show_indexes': True}),]
+                       serve, kwargs={'document_root': settings.STATIC_ROOT}),]
