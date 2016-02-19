@@ -80,6 +80,10 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'staticfiles': 'django.templatetags.static',
+                'i18n': 'django.templatetags.i18n',
+            },
         },
     },
 ]
