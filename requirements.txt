@@ -7,3 +7,4 @@ django-extended-choices==1.0.5
 dj-database-url==0.4.0
 gunicorn==19.4.5
 whitenoise==2.0.6
+newrelic==2.54.0.41
