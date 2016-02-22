@@ -67,9 +67,9 @@ angular.module('ClikhomeApp', [
           })
         .state('app.logout', {
           url: '/logout',
-          onEnter: function(djangoAuth){
+          onEnter: ['djangoAuth', function(djangoAuth){
             djangoAuth.logout();
-          }
+          }]
         })
         .state('app.index', {
           url: '/',
@@ -78,9 +78,9 @@ angular.module('ClikhomeApp', [
               template: ''
             }
           },
-          onEnter: function($state){
+          onEnter: ['$state', function($state){
             $state.go('app.relocation.request');
-          }
-        })
+          }]
+        });
     $locationProvider.html5Mode(true);
 }]).run();

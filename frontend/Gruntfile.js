@@ -288,13 +288,13 @@ module.exports = function (grunt) {
 //          beautify : true,
 //          mangle   : true
 //      }
-////       dist: {
-////         files: {
-////           '<%= yeoman.dist %>/scripts/scripts.js': [
-////             '<%= yeoman.dist %>/scripts/scripts.js'
-////           ]
-////         }
-////       }
+//       dist: {
+//         files: {
+//           '<%= yeoman.dist %>/scripts/scripts.js': [
+//             '<%= yeoman.dist %>/scripts/scripts.js'
+//           ]
+//         }
+//       }
 //    },
     // concat: {
     //   dist: {}

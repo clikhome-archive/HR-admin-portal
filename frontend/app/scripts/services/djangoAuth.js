@@ -94,6 +94,5 @@ angular.module('ClikhomeApp')
           $state.go(toState.data.redirectTo);
         }
       }
-
     });
   }]);
