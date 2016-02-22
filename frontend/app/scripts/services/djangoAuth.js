@@ -80,9 +80,15 @@ angular.module('ClikhomeApp')
     }
     return service;
   }])
-  .run(['$rootScope', '$state', 'djangoAuth', function($rootScope, $state, djangoAuth) {
+  .run(['$rootScope', '$state', '$cookies', 'djangoAuth', function($rootScope, $state, $cookies, djangoAuth) {
 
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+      if (djangoAuth.authenticated == null) {
+        // First run
+        if ($cookies.get('is_authenticated') == '1') {
+          djangoAuth.authenticated = true;
+        }
+      }
       if (!djangoAuth.authenticated) {
         if (djangoAuth.memorizedState && (!fromState.data || !fromState.data.redirectTo || toState.name !== fromState.data.redirectTo)) {
           djangoAuth.logout();
