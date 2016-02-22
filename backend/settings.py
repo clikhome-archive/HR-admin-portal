@@ -51,8 +51,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE_CLASSES = [
-    'authentication.middleware.AuthenticationStatusInCookiesMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'index.middleware.SSLMiddleware',
+    'authentication.middleware.AuthenticationStatusInCookiesMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
