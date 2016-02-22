@@ -283,19 +283,19 @@ module.exports = function (grunt) {
     //     }
     //   }
     // },
-    uglify: {
-      options : {
-          beautify : true,
-          mangle   : true
-      }
-//       dist: {
-//         files: {
-//           '<%= yeoman.dist %>/scripts/scripts.js': [
-//             '<%= yeoman.dist %>/scripts/scripts.js'
-//           ]
-//         }
-//       }
-    },
+//    uglify: {
+//      options : {
+//          beautify : true,
+//          mangle   : true
+//      }
+////       dist: {
+////         files: {
+////           '<%= yeoman.dist %>/scripts/scripts.js': [
+////             '<%= yeoman.dist %>/scripts/scripts.js'
+////           ]
+////         }
+////       }
+//    },
     // concat: {
     //   dist: {}
     // },
@@ -396,6 +396,11 @@ module.exports = function (grunt) {
           cwd: 'bower_components/bootstrap/dist',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>/static/'
+        }, {
+          expand: true,
+          cwd: 'bower_components/jquery-ui/themes/base',
+          src: 'images/*',
+          dest: '<%= yeoman.dist %>/static/styles/'
         }]
       },
       styles: {
