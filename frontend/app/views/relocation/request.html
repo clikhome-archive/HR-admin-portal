@@ -18,14 +18,14 @@
             </thead>
             <tbody>
                 <tr ng-repeat="employee in employees">
-                    <td>{{employee.first_name}}</td>
-                    <td>{{employee.last_name}}</td>
-                    <td>Email: {{employee.email}}<br>Phone: {{employee.phone}}</td>
-                    <td>{{employee.job_title}}</td>
+                    <td>{[{employee.first_name}]}</td>
+                    <td>{[{employee.last_name}]}</td>
+                    <td>Email: {[{employee.email}]}<br>Phone: {[{employee.phone}]}</td>
+                    <td>{[{employee.job_title}]}</td>
                     <td>
                         <div ng-if="employee.need_furniture">Need furniture</div>
                     </td>
-                    <td>{{employee.duration_title}}</td>
+                    <td>{[{employee.duration_title}]}</td>
                     <td>
                         <a ng-click="delete_employee(employee)">Remove</a>
                         <br>
@@ -39,23 +39,23 @@
                 <div class="form-group">
                     <label for="id_relocate_from">Relocating from:</label><br>
                     <input type="text" class="form-control" id="id_relocate_from" name="relocate_from" ng-model="model.relocate_from" placeholder="Type to select the city" required>
-                    <div class="alert alert-danger" ng-repeat="error in errors.relocate_from">{{error}}</div>
+                    <div class="alert alert-danger" ng-repeat="error in errors.relocate_from">{[{error}]}</div>
                 </div>
                 <div class="form-group" style="font-size: 50px; padding: 0 20px 0 20px;">&#10145;</div>
                 <div class="form-group">
                     <label for="id_relocate_to">Relocating to:</label><br>
                     <input type="text" class="form-control" id="id_relocate_to" name="relocate_to" ng-model="model.relocate_to" placeholder="Type to select the city" required>
-                    <div class="alert alert-danger" ng-repeat="error in errors.relocate_to">{{error}}</div>
+                    <div class="alert alert-danger" ng-repeat="error in errors.relocate_to">{[{error}]}</div>
                 </div>
                 <br>
                 <div class="form-group">
                     <label for="id_expected_moving_date">Expected Moving Date:</label><br>
                     <input class="form-control" id="id_expected_moving_date" name="expected_moving_date" ng-model="model.expected_moving_date" required>
-                    <div class="alert alert-danger" ng-repeat="error in errors.expected_moving_date">{{error}}</div>
+                    <div class="alert alert-danger" ng-repeat="error in errors.expected_moving_date">{[{error}]}</div>
                 </div>
             </div>
-            <div class="alert alert-danger" ng-repeat="error in errors.non_field_errors">{{error}}</div>
-            <div class="alert alert-danger" ng-if="error">{{error}}</div>
+            <div class="alert alert-danger" ng-repeat="error in errors.non_field_errors">{[{error}]}</div>
+            <div class="alert alert-danger" ng-if="error">{[{error}]}</div>
             <br>
             <button
               class="btn btn-success"
