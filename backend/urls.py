@@ -19,6 +19,7 @@ from rest_framework import routers
 from index import IndexView
 import settings
 from django.views.static import serve
+from django.conf.urls.static import static
 from employee.views import (EmployeeRelocationViewSet,
                             EmployeeViewSet,
                             RequestedEmployeeViewSet)
@@ -35,7 +36,3 @@ urlpatterns = [
     url(r'^api/v1/', include('rest_auth.urls')),
     url(r'^(?:(?!static).)*$', IndexView.as_view(), name='index')
 ]
-
-if settings.DEBUG:
-    urlpatterns += [url(r'^static(?P<path>.*)$',
-                       serve, kwargs={'document_root': settings.STATIC_ROOT}),]

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.sites',
+    'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
@@ -127,8 +128,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'frontend/dist/static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend/dist/static')]
 
 
 SITE_ID = 1
