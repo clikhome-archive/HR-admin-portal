@@ -161,11 +161,11 @@ IGNORABLE_404_URLS = (
 
 EMAIL_FROM = 'robot@clikhome.com'
 EMAIL_SUBJECT = 'CLIKHOME BOT'
-EMAIL_HOST_USER = os.environ['SENDGRID_USERNAME']
+EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME', 'app47632078@heroku.com')
 EMAIL_HOST= 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_PASSWORD = os.environ['SENDGRID_PASSWORD']
+EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD', 'mi2eomdr4442')
 
 LOGGING = {
     'version': 1,
