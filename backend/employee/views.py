@@ -22,9 +22,14 @@ class EmployeeRelocationViewSet(viewsets.ModelViewSet):
     '''
     Get all relocations of all employees
     '''
+    _ignore_model_permissions = True
+    _user_field = 'user'
+
     serializer_class = EmployeeRelocationSerializer
-    queryset = EmployeeRelocation.objects.all()
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated, IsOwnerOfObject, )
+
+    def get_queryset(self):
+        return EmployeeRelocation.objects.filter(user=self.request.user)
 
 
 class RequestedEmployeeViewSet(viewsets.ModelViewSet):
