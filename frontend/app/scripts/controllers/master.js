@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ClikhomeApp')
-  .controller('MasterCtrl', function ($rootScope, $scope, $location, djangoAuth) {
+  .controller('MasterCtrl', ["$rootScope", "$scope", "$location", "djangoAuth", function ($rootScope, $scope, $location, djangoAuth) {
     // Assume user is not logged in until we hear otherwise
     $scope.authenticated = false;
     // Wait for the status of authentication, set scope var to true if it resolves
@@ -25,4 +25,4 @@ angular.module('ClikhomeApp')
     $scope.$back = function() {
       window.history.back();
     };
-  });
+  }]);

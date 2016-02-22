@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ClikhomeApp')
-  .service('RelocationRequest', function Employee($q, $http, $cookies, $rootScope, $state, djangoHttp) {
+  .service('RelocationRequest', ['$q', '$http', '$cookies', '$rootScope', '$state', 'djangoHttp', function Employee($q, $http, $cookies, $rootScope, $state, djangoHttp) {
     var service = {
       save: function(data) {
         return djangoHttp.request({
@@ -18,4 +18,4 @@ angular.module('ClikhomeApp')
       }
     }
     return service;
-  });
+  }]);

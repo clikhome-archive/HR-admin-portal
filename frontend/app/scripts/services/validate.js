@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ClikhomeApp')
-  .service('Validate', function Validate() {
+  .service('Validate', [function Validate() {
     return {
       'message': {
         'minlength': 'This value is not long enough.',
@@ -47,4 +47,4 @@ angular.module('ClikhomeApp')
         }
       }
     }
-  });
+  }]);

@@ -1,10 +1,8 @@
 'use strict';
 
 angular.module('ClikhomeApp')
-  .controller('RelocationRequestHistoryCtrl', function ($state, $scope, $location, Employee, RelocationRequest, Validate) {
+  .controller('RelocationRequestHistoryCtrl', ["$state", "$scope", "$location", "Employee", "RelocationRequest", "Validate", function ($state, $scope, $location, Employee, RelocationRequest, Validate) {
     RelocationRequest.get_requests().then(function(response){
       $scope.requests = response;
     });
-
-
-  });
+  }]);

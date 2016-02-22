@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ClikhomeApp')
-  .service('djangoHttp', function djangoHttp($q, $http, $cookies) {
+  .service('djangoHttp', ['$q', '$http', '$cookies', function djangoHttp($q, $http, $cookies) {
     var service = {
       'API_URL': '/api/v1',
       'use_session': true,
@@ -57,5 +57,5 @@ angular.module('ClikhomeApp')
       }
     }
     return service;
-  });
+  }]);
 

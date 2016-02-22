@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ClikhomeApp')
-  .controller('RequestdEmployeeCtrl', function ($state, $scope, $location, $stateParams, Employee, Validate) {
+  .controller('RequestdEmployeeCtrl', ["$state", "$scope", "$location", "$stateParams", "Employee", "Validate", function ($state, $scope, $location, $stateParams, Employee, Validate) {
     if ($stateParams.id) {
       Employee.get_employee($stateParams.id)
         .then(function(response){
@@ -46,4 +46,4 @@ angular.module('ClikhomeApp')
           });
       }
     }
-  });
+  }]);

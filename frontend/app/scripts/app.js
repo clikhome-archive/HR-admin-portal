@@ -6,7 +6,7 @@ angular.module('ClikhomeApp', [
   'ngSanitize',
   'ui.router',
   'mwl.confirm'])
-  .config(function($httpProvider, $stateProvider, $urlRouterProvider) {
+  .config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', function($httpProvider, $stateProvider, $urlRouterProvider, $locationProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 
@@ -82,4 +82,5 @@ angular.module('ClikhomeApp', [
             $state.go('app.relocation.request');
           }
         })
-}).run();
+    $locationProvider.html5Mode(true);
+}]).run();

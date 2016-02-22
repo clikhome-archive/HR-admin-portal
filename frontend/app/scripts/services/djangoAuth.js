@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ClikhomeApp')
-  .service('djangoAuth', function djangoAuth($q, $http, $cookies, $rootScope, $state, djangoHttp) {
+  .service('djangoAuth', ['$q', '$http', '$cookies', '$rootScope', '$state', 'djangoHttp', function djangoAuth($q, $http, $cookies, $rootScope, $state, djangoHttp) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     var service = {
       'memorizedState': null,
@@ -79,7 +79,7 @@ angular.module('ClikhomeApp')
 
     }
     return service;
-  })
+  }])
   .run(['$rootScope', '$state', 'djangoAuth', function($rootScope, $state, djangoAuth) {
 
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {

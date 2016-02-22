@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ClikhomeApp')
-  .controller('LoginCtrl', function ($state, $scope, $location, djangoAuth, Validate) {
+  .controller('LoginCtrl', ["$state", "$scope", "$location", "djangoAuth", "Validate", function ($state, $scope, $location, djangoAuth, Validate) {
     $scope.model = {'username':'','password':''};
   	$scope.complete = false;
     $scope.login = function(formData){
@@ -18,4 +18,4 @@ angular.module('ClikhomeApp')
         });
       }
     }
-  });
+  }]);

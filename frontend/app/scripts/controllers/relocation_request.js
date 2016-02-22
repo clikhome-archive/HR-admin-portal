@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ClikhomeApp')
-  .controller('RelocationRequestCtrl', function ($state, $scope, $location, Employee, RelocationRequest, Validate) {
+  .controller('RelocationRequestCtrl', ["$state", "$scope", "$location", "Employee", "RelocationRequest", "Validate", function ($state, $scope, $location, Employee, RelocationRequest, Validate) {
 
     // Fill page
     Employee.get_requested_employees().then(function(response){
@@ -39,4 +39,4 @@ angular.module('ClikhomeApp')
         $state.reload();
       })
     }
-  });
+  }]);

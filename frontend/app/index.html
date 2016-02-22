@@ -1,13 +1,14 @@
 <!doctype html>
 <html ng-app="ClikhomeApp" ng-controller="MasterCtrl">
     <head>
+        <base href="/">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
         <title>Clikhome.HR {{ title }}</title>
-        <!-- build:css({.,app}) styles/vendor.css -->
+        <!-- build:css({.,app}) /static/styles/vendor.css -->
         <!-- bower:css -->
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="bower_components/jquery-ui/themes/base/jquery-ui.css" />
@@ -17,7 +18,7 @@
         <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
         <!-- endbuild -->
 
-        <!-- build:css(.tmp) styles/style.css -->
+        <!-- build:css(.tmp) /static/styles/style.css -->
         <!-- Custom styles for this template -->
         <link href="styles/style.css" rel="stylesheet">
         <!-- endbuild -->
@@ -65,7 +66,7 @@
             </div>
         </div>
 
-        <!-- build:js(.) scripts/vendor.js -->
+        <!-- build:js(.) /static/scripts/vendor.js -->
         <!-- bower:js -->
         <script src="bower_components/jquery/dist/jquery.js"></script>
         <script src="bower_components/angular/angular.js"></script>
@@ -83,11 +84,11 @@
         <!-- endbower -->
         <!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/app.js -->
+        <!-- build:js({.tmp,app}) /static/scripts/app.js -->
         <script src="scripts/app.js"></script>
         <!-- endbuild -->
 
-        <!-- build:js(app) scripts/controllers.js -->
+        <!-- build:js(app) /static/scripts/controllers.js -->
         <script src="scripts/controllers/login.js"></script>
         <script src="scripts/controllers/master.js"></script>
         <script src="scripts/controllers/relocation_request.js"></script>
@@ -95,7 +96,7 @@
         <script src="scripts/controllers/relocation_request_history.js"></script>
         <!-- endbuild -->
 
-        <!-- build:js(app) scripts/services.js -->
+        <!-- build:js(app) /static/scripts/services.js -->
         <script src="scripts/services/djangoHttp.js"></script>
         <script src="scripts/services/djangoAuth.js"></script>
         <script src="scripts/services/validate.js"></script>
@@ -103,13 +104,13 @@
         <script src="scripts/services/relocations.js"></script>
         <!-- endbuild -->
 
-        <!-- build:js(app) scripts/assets.js -->
+        <!-- build:js(app) /static/scripts/assets.js -->
         <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
         <script src="assets/js/ie-emulation-modes-warning.js"></script>
         <script src="assets/js/holder.min.js"></script>
         <!-- endbuild -->
 
-        <!-- build:js({.,app}) scripts/ie9.js -->
+        <!-- build:js({.,app}) /static/scripts/ie9.js -->
         <!--[if lt IE 9]>
         <script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
         <!-- endbuild -->
