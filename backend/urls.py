@@ -28,13 +28,14 @@ router.register(r'employee/relocation_request', RequestedEmployeeViewSet, base_n
 router.register(r'employee', EmployeeViewSet, base_name='employee') # Work with employee
 router.register(r'relocation', EmployeeRelocationViewSet, base_name='employee-relocation') # Work with relocation request (new/exists)
 
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/v1/', include(router.urls)),
     url(r'^api/v1/', include('rest_auth.urls')),
-    url(r'^$', IndexView.as_view(), name='index')
+    url(r'^(?:(?!static).)*$', IndexView.as_view(), name='index')
 ]
 
 if settings.DEBUG:
-    urlpatterns += [url(r'^(?P<path>.*)$',
+    urlpatterns += [url(r'^static(?P<path>.*)$',
                        serve, kwargs={'document_root': settings.STATIC_ROOT}),]

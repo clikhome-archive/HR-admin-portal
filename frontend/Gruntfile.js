@@ -226,10 +226,10 @@ module.exports = function (grunt) {
     filerev: {
       dist: {
         src: [
-          '<%= yeoman.dist %>/scripts/{,*/}*.js',
-          '<%= yeoman.dist %>/styles/{,*/}*.css',
-          '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          '<%= yeoman.dist %>/styles/fonts/*'
+          '<%= yeoman.dist %>/static/scripts/{,*/}*.js',
+          '<%= yeoman.dist %>/static/styles/{,*/}*.css',
+          '<%= yeoman.dist %>/static/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          '<%= yeoman.dist %>/static/styles/fonts/*'
         ]
       }
     },
@@ -283,15 +283,19 @@ module.exports = function (grunt) {
     //     }
     //   }
     // },
-    // uglify: {
-    //   dist: {
-    //     files: {
-    //       '<%= yeoman.dist %>/scripts/scripts.js': [
-    //         '<%= yeoman.dist %>/scripts/scripts.js'
-    //       ]
-    //     }
-    //   }
-    // },
+    uglify: {
+      options : {
+          beautify : true,
+          mangle   : true
+      }
+//       dist: {
+//         files: {
+//           '<%= yeoman.dist %>/scripts/scripts.js': [
+//             '<%= yeoman.dist %>/scripts/scripts.js'
+//           ]
+//         }
+//       }
+    },
     // concat: {
     //   dist: {}
     // },
@@ -391,7 +395,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: 'bower_components/bootstrap/dist',
           src: 'fonts/*',
-          dest: '<%= yeoman.dist %>'
+          dest: '<%= yeoman.dist %>/static/'
         }]
       },
       styles: {
