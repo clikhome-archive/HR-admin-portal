@@ -31,6 +31,10 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
+    phone = models.CharField(_('Contact phone number'), max_length=40, blank=True)
+    company_name = models.CharField(_('Company Name'), max_length=100, blank=True)
+    company_address = models.CharField(_('Company Address'), max_length=200, blank=True)
+
     is_staff = models.BooleanField(
         _('staff status'),
         default=False,

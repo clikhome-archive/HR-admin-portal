@@ -63,7 +63,8 @@ class AccountAdmin(AccountAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         ('Permissions', {'fields': ('is_staff','is_superuser')}),
-        (('Personal info'), {'fields': ('first_name', 'last_name')}),
+        (('Personal info'), {'fields': ('first_name', 'last_name', 'phone')}),
+        (('Company info'), {'fields': ('company_name', 'company_address')}),
         (('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. AccountAdmin

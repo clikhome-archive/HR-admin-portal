@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Clikhome.HR {[{ title }]}</title>
+        <title>Clikhome.HR {[{ company_name }]}</title>
         <!-- build:css({.,app}) /static/styles/vendor.css -->
         <!-- bower:css -->
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
@@ -33,7 +33,7 @@
         <nav class="navbar navbar-inverse navbar-fixed-top" ng-show="authenticated">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/">Clikhome.HR</a>
+                    <a class="navbar-brand" href="/">{[{company_name}]}</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <a class="navbar-right navbar-brand">Hello {[{first_name}]} {[{last_name}]}!</a>
