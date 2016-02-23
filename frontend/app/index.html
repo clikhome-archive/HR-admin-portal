@@ -37,12 +37,13 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <a class="navbar-right navbar-brand">Hello {[{first_name}]} {[{last_name}]}!</a>
-                    <!--<ul class="nav navbar-nav navbar-right">-->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a ui-sref="app.logout">Logout</a></li>
                     <!--<li><a href="#">Dashboard</a></li>-->
                     <!--<li><a href="#">Settings</a></li>-->
                     <!--<li><a href="#">Profile</a></li>-->
                     <!--<li><a href="#">Help</a></li>-->
-                    <!--</ul>-->
+                    </ul>
                     <!--<form class="navbar-form navbar-right">-->
                     <!--<input type="text" class="form-control" placeholder="Search...">-->
                     <!--</form>-->
@@ -57,9 +58,6 @@
                         <li><h3 style="padding-left: 10px">Relocation</h3></li>
                         <li><a ui-sref="app.relocation.request">New Request</a></li>
                         <li><a ui-sref="app.relocation.history">Request History</a></li>
-                    </ul>
-                    <ul class="nav nav-sidebar">
-                        <li><a ui-sref="app.logout">Logout</a></li>
                     </ul>
                 </div>
                 <div ui-view="content"></div>
