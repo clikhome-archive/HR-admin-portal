@@ -10,7 +10,7 @@ class EmployeeAdmin(admin.ModelAdmin):
 class EmployeeRelocationAdmin(admin.ModelAdmin):
     ordering = search_fields = list_filter = list_display = (
         'user', 'relocate_from', 'relocate_to', 'expected_moving_date',
-        'need_furniture', 'duration', 'status', 'created_dt')
+        'need_furniture', 'duration', 'status', 'created_dt', 'updated_dt')
 
 
 admin.site.register(models.Employee, EmployeeAdmin)

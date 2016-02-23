@@ -1,5 +1,5 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="RequestdEmployeeCtrl">
-    <h1 class="page-header">Request New Employee Relocation</h1>
+    <h1 class="page-header">Add Employee Relocation</h1>
     <form role="form" class="form" name="EmployeeForm" novalidate>
         <div class="form-group">
             <label class="control-label" for="first_name">First name</label>
@@ -94,20 +94,8 @@
 
         <input type="text" name="id" ng-model="model.id" style="display: none;">
 
-        <button
-          class="btn btn-success"
-          mwl-confirm
-          title="Confirmation"
-          message="Are you confirm submitting data?"
-          confirm-text="Yes <i class='glyphicon glyphicon-ok'></i>"
-          cancel-text="No <i class='glyphicon glyphicon-remove'></i>"
-          on-confirm="store(EmployeeForm)"
-          on-cancel=""
-          placement="right"
-          confirm-button-type="danger"
-          cancel-button-type="default">
-          Request
-        </button>
+        <button class="btn btn-danger" type="submit" ng-click="$back()">Cancel</button>
+        <button class="btn btn-success" type="submit" ng-click="store(EmployeeForm)">{[{ save_button_text }]}</button>
     </form>
 </div>
 

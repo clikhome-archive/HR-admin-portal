@@ -6,6 +6,7 @@ from django.template import Context
 from django.core.mail import EmailMultiAlternatives
 from authentication.models import Account
 from django.db.models import Q
+from datetime import datetime
 import settings
 
 
@@ -36,13 +37,42 @@ class EmployeeRelocationSerializer(serializers.ModelSerializer):
         employee_data = validated_data.pop('employee')
         employee = Employee.objects.create(user=user, **employee_data)
         relocation = EmployeeRelocation.objects.create(user=user, employee=employee, **validated_data)
-        self.send_email(relocation)
         return relocation
 
-    def send_email(self, relocation_instance):
+    def update(self, instance, validated_data):
+        employee = validated_data.pop('employee')
+        for attr, value in employee.iteritems():
+            setattr(instance.employee, attr, value)
+        instance.employee.save()
+        for attr, value in validated_data.iteritems():
+            setattr(instance, attr, value)
+        instance.save()
+        return instance
+
+
+class EmployeeRelocationsSerializer(serializers.ModelSerializer):
+    employee = EmployeeSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = EmployeeRelocation
+        read_only_fields = fields = ('id', 'employee', 'relocate_from', 'relocate_to',
+                  'expected_moving_date', 'status', 'status_title', 'created_dt',
+                  'need_furniture', 'duration', 'duration_title')
+
+    def create(self, validated_data):
+        user = self.context.get('request').user
+        relocations = EmployeeRelocation.objects.filter(user=user,
+            status=EmployeeRelocation.STATUS_CHOICE.INITIAL)
+        self.send_email(relocations, user)
+        relocations.update(status=EmployeeRelocation.STATUS_CHOICE.RECEIVED)
+        return relocations
+
+    def send_email(self, relocation_instances, user):
         plaintext = get_template('request_new_employee_relocation.txt')
         htmly = get_template('request_new_employee_relocation.html')
-        context = Context({'relocation' : relocation_instance})
+        context = Context({
+            'relocations' : relocation_instances,
+            'user': user})
 
         subject, from_email = settings.EMAIL_SUBJECT, settings.EMAIL_FROM
         text_content = plaintext.render(context)

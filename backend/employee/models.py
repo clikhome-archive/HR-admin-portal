@@ -4,6 +4,7 @@ from django.db import models
 from extended_choices import Choices
 from django.utils.translation import ugettext_lazy as _
 from authentication.models import Account
+from django.utils import timezone
 
 
 class Employee(models.Model):
@@ -30,6 +31,7 @@ class Employee(models.Model):
 
 class EmployeeRelocation(models.Model):
     STATUS_CHOICE = Choices(
+        ('INITIAL', 0, 'Initial'),
         ('RECEIVED', 1, 'Received'),
         ('CONFIRMED', 2, 'Confirmed'),
         ('CANCELLED', 3, 'Cancelled')
@@ -58,9 +60,10 @@ class EmployeeRelocation(models.Model):
            verbose_name=_('How long will this employee stay?'))
 
     status = models.PositiveIntegerField(choices=STATUS_CHOICE,
-             default=STATUS_CHOICE.RECEIVED,
+             default=STATUS_CHOICE.INITIAL,
              verbose_name=_('Employee status'))
-    created_dt = models.DateTimeField(auto_now_add=True)
+    created_dt = models.DateTimeField(_('Created date'), auto_now_add=True)
+    updated_dt = models.DateTimeField(_('Update date'), null=True)
     user = models.ForeignKey(Account)
 
     def __unicode__(self):
@@ -73,4 +76,8 @@ class EmployeeRelocation(models.Model):
     @property
     def duration_title(self):
         return self.DURATION_CHOICE.for_value(self.duration).display
+
+    def save(self, *a, **kw):
+        self.updated_dt = timezone.now()
+        return super(EmployeeRelocation, self).save(*a, **kw)
 

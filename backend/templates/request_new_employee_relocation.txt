@@ -1,13 +1,18 @@
-Request New Employee Relocation:
+Request New Employees Relocation:
 
-User: {{ relocation.user.first_name }} {{ relocation.user.last_name }} ({{ relocation.user.email }})
-Request created: {{ relocation.created_dt }}
-Expected moving date: {{ relocation.expected_moving_date }}
-Relocate from {{ relocation.relocate_from }} to {{ relocation.relocate_to }}
+User: {{ user.first_name }} {{ user.last_name }} ({{ user.email }})
+Date: {% now "SHORT_DATETIME_FORMAT" %}
 
-Next exployee:
+Next exployees:
+{% for relocation in relocations %}
+*----------------------*
+#{{ forloop.counter }}
 Name: {{ relocation.employee.first_name }} {{ relocation.employee.last_name }}
 Contancts: Email {{ relocation.employee.email }} / Phone {{ relocation.employee.phone }}
 Job title: {{ relocation.employee.job_title }}
 Need furniture: {% if relocation.need_furniture %}Yes{% else %}No{% endif %}
 How long will this employee stay: {{ relocation.duration_title }}
+Expected moving date: {{ relocation.expected_moving_date }}
+Relocate from {{ relocation.relocate_from }} to {{ relocation.relocate_to }}
+Request created: {{ relocation.created_dt }}
+{% endfor %}

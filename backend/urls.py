@@ -21,10 +21,14 @@ import settings
 from django.views.static import serve
 from django.conf.urls.static import static
 from employee.views import (EmployeeRelocationViewSet,
+                            EmployeeRelocationsHistoryViewSet,
+                            EmployeeRelocationsViewSet,
                             EmployeeViewSet)
 
 router = routers.SimpleRouter()
-router.register(r'employee/relocation', EmployeeRelocationViewSet, base_name='employee-relocation') # Work with relocation request (new/exists)
+router.register(r'employee/relocations_history', EmployeeRelocationsHistoryViewSet, base_name='employee-relocations-history') # Work with relocation request (new/exists)
+router.register(r'employee/relocation_requests', EmployeeRelocationsViewSet, base_name='employee-relocation') # Work with relocation request (new/exists)
+router.register(r'employee/relocation_request', EmployeeRelocationViewSet, base_name='employee-relocation') # Work with relocation request (new/exists)
 router.register(r'employee', EmployeeViewSet, base_name='employee') # Work with employee
 
 
