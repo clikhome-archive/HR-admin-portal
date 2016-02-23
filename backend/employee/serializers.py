@@ -13,9 +13,8 @@ class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
         fields = ('id', 'email', 'first_name', 'last_name', 'phone', 'job_title',
-                  'need_furniture', 'duration', 'duration_title', 'created_dt',
-                  'is_reusable', 'is_requested_stage')
-        read_only_fields = ('id', 'created_dt', 'duration_title')
+                  'created_dt', 'is_reusable')
+        read_only_fields = ('id', 'created_dt')
 
     def create(self, validated_data):
         user = self.context.get('request').user
@@ -23,24 +22,20 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
 
 class EmployeeRelocationSerializer(serializers.ModelSerializer):
-    employees = EmployeeSerializer(many=True, read_only=True)
+    employee = EmployeeSerializer(many=False, read_only=False)
 
     class Meta:
         model = EmployeeRelocation
-        fields = ('id', 'employees', 'relocate_from', 'relocate_to',
-                  'expected_moving_date', 'status', 'status_title', 'created_dt')
-        read_only_fields = ('id', 'created_dt', 'status', 'status_title' )
+        fields = ('id', 'employee', 'relocate_from', 'relocate_to',
+                  'expected_moving_date', 'status', 'status_title', 'created_dt',
+                  'need_furniture', 'duration', 'duration_title')
+        read_only_fields = ('id', 'created_dt', 'status', 'status_title', 'duration_title')
 
     def create(self, validated_data):
         user = self.context.get('request').user
-        employees = Employee.objects.filter(user=user, is_requested_stage=True)
-        if not employees:
-            raise ValidationError(
-                {'non_field_errors': ['You must fill one or more employees',]})
-        relocation = EmployeeRelocation.objects.create(user=user, **validated_data)
-        relocation.employees.add(*employees)
-        relocation.save()
-        employees.update(is_requested_stage=False)
+        employee_data = validated_data.pop('employee')
+        employee = Employee.objects.create(user=user, **employee_data)
+        relocation = EmployeeRelocation.objects.create(user=user, employee=employee, **validated_data)
         self.send_email(relocation)
         return relocation
 

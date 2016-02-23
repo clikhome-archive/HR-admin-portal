@@ -6,14 +6,14 @@ angular.module('ClikhomeApp')
       save: function(data) {
         return djangoHttp.request({
           'method': "POST",
-          'url': '/relocation/',
+          'url': '/employee/relocation/',
           'data': data
         })
       },
       get_requests: function() {
         return djangoHttp.request({
           'method': "GET",
-          'url': "/relocation/"
+          'url': "/employee/relocation/"
         });
       }
     }

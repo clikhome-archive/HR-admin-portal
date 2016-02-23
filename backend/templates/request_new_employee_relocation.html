@@ -6,15 +6,11 @@ Expected moving date: {{ relocation.expected_moving_date }}
 Relocate from {{ relocation.relocate_from }} to {{ relocation.relocate_to }}
 </pre>
 <br><br>
-<b>Next exployees:</b>
+<b>Next exployee:</b>
 <pre>
-{% for employee in relocation.employees.all %}
-*----------------------*
-#{{ forloop.counter }}
-Name: {{ employee.first_name }} {{ employee.last_name }}
-Contancts: Email {{ employee.email }} / Phone {{ employee.phone }}
-Job title: {{ employee.job_title }}
-Need furniture: {% if employee.need_furniture %}Yes{% else %}No{% endif %}
-How long will this employee stay: {{ employee.duration_title }}
-{% endfor %}
+Name: {{ relocation.employee.first_name }} {{ relocation.employee.last_name }}
+Contancts: Email {{ relocation.employee.email }} / Phone {{ relocation.employee.phone }}
+Job title: {{ relocation.employee.job_title }}
+Need furniture: {% if relocation.need_furniture %}Yes{% else %}No{% endif %}
+How long will this employee stay: {{ relocation.duration_title }}
 </pre>

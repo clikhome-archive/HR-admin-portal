@@ -7,20 +7,23 @@ from utils.permissions import IsOwnerOfObject
 
 class EmployeeViewSet(viewsets.ModelViewSet):
     '''
-    Get all reusable employees exclude employees in requested stage
+    Get/Set reusable employees
     '''
+
+    _ignore_model_permissions = True
+    _user_field = 'user'
+
     serializer_class = EmployeeSerializer
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated, IsOwnerOfObject )
 
     def get_queryset(self):
-        return Employee.objects.filter(is_requested_stage=False,
-                                       is_reusable=True,
+        return Employee.objects.filter(is_reusable=True,
                                        user=self.request.user)
 
 
 class EmployeeRelocationViewSet(viewsets.ModelViewSet):
     '''
-    Get all relocations of all employees
+    Get/Set relocations of all employees
     '''
     _ignore_model_permissions = True
     _user_field = 'user'
@@ -30,18 +33,3 @@ class EmployeeRelocationViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return EmployeeRelocation.objects.filter(user=self.request.user)
-
-
-class RequestedEmployeeViewSet(viewsets.ModelViewSet):
-    '''
-    Get all employees in requested stage
-    '''
-    _ignore_model_permissions = True
-    _user_field = 'user'
-
-    serializer_class = EmployeeSerializer
-    permission_classes = (IsAuthenticated, IsOwnerOfObject, )
-
-    def get_queryset(self):
-        return Employee.objects.filter(is_requested_stage=True,
-                                       user=self.request.user)

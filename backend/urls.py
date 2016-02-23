@@ -21,13 +21,11 @@ import settings
 from django.views.static import serve
 from django.conf.urls.static import static
 from employee.views import (EmployeeRelocationViewSet,
-                            EmployeeViewSet,
-                            RequestedEmployeeViewSet)
+                            EmployeeViewSet)
 
 router = routers.SimpleRouter()
-router.register(r'employee/relocation_request', RequestedEmployeeViewSet, base_name='employee-requested') # Show only employees in requested stage
+router.register(r'employee/relocation', EmployeeRelocationViewSet, base_name='employee-relocation') # Work with relocation request (new/exists)
 router.register(r'employee', EmployeeViewSet, base_name='employee') # Work with employee
-router.register(r'relocation', EmployeeRelocationViewSet, base_name='employee-relocation') # Work with relocation request (new/exists)
 
 
 urlpatterns = [

@@ -15,12 +15,11 @@
                     <th>Status</th>
                 </tr>
             </thead>
-            <tbody ng-repeat="request in requests">
-                <tr ng-repeat="employee in request.employees">
-
-                    <td>{[{employee.first_name}]}</td>
-                    <td>{[{employee.last_name}]}</td>
-                    <td>Email: {[{employee.email}]}<br>Phone: {[{employee.phone}]}</td>
+            <tbody>
+                <tr ng-repeat="request in requests">
+                    <td>{[{request.employee.first_name}]}</td>
+                    <td>{[{request.employee.last_name}]}</td>
+                    <td>Email: {[{request.employee.email}]}<br>Phone: {[{request.employee.phone}]}</td>
                     <td>{[{request.relocate_from}]} to {[{request.relocate_to}]}</td>
                     <td>{[{request.expected_moving_date | date : 'yyyy-MM-dd'}]}</td>
                     <td>{[{request.created_dt | date : 'yyyy-MM-dd'}]}</td>

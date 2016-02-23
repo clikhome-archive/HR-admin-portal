@@ -30,14 +30,6 @@ angular.module('ClikhomeApp', [
         .state('app.relocation', {
           url: '/relocation'
         })
-          .state('app.relocation.request', {
-            url: '/new_reuqest',
-            views: {
-              'content@': {
-                templateUrl: 'views/relocation/request.html'
-              }
-            }
-          })
           .state('app.relocation.history', {
             url: '/history',
             views: {
@@ -49,19 +41,11 @@ angular.module('ClikhomeApp', [
         .state('app.employee', {
           url: '/employee'
         })
-          .state('app.employee.requested_employee', {
+          .state('app.employee.create_relocation_request', {
             url: '/requested_employee',
             views: {
               'content@': {
-                templateUrl: 'views/employee/requested_employee.html'
-              }
-            }
-          })
-          .state('app.employee.requested_employee_edit', {
-            url: '/requested_employee/{id:int}',
-            views: {
-              'content@': {
-                templateUrl: 'views/employee/requested_employee.html'
+                templateUrl: 'views/employee/relocation_request.html'
               }
             }
           })
@@ -79,7 +63,7 @@ angular.module('ClikhomeApp', [
             }
           },
           onEnter: ['$state', function($state){
-            $state.go('app.relocation.request');
+            $state.go('app.employee.create_relocation_request');
           }]
         });
     $locationProvider.html5Mode(true);
