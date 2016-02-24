@@ -20,7 +20,7 @@ class Employee(models.Model):
     job_title = models.CharField(_('Job Title'), blank=True,
                                  max_length=100,
                                  help_text=_('eg. Engineer'))
-    is_reusable = models.BooleanField(_('Is reusable employee?'))
+    is_reusable = models.BooleanField(_('Is reusable employee?'), default=True)
 
     created_dt = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(Account)

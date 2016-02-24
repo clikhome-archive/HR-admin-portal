@@ -2,6 +2,33 @@
 
 angular.module('ClikhomeApp')
   .service('Employee', ['$q', '$http', '$cookies', '$rootScope', '$state', 'djangoHttp', function Employee($q, $http, $cookies, $rootScope, $state, djangoHttp) {
-    var service = {}
+    var service = {
+      save: function(data) {
+        var base_url = '/employee/';
+        return djangoHttp.request({
+          'method': data.id ? "PUT" : "POST",
+          'url': data.id ? base_url + data.id + '/' : base_url,
+          'data': data
+        })
+      },
+      delete: function(_id) {
+        return djangoHttp.request({
+          'method': "DELETE",
+          'url': '/employee/' + _id + '/'
+        })
+      },
+      edit: function(_id) {
+        return djangoHttp.request({
+          'method': "GET",
+          'url': "/employee/" + _id + "/"
+        });
+      },
+      get_list: function() {
+        return djangoHttp.request({
+          'method': "GET",
+          'url': "/employee/"
+        });
+      }
+    }
     return service;
   }]);
