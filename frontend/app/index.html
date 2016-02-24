@@ -23,7 +23,7 @@
         <link href="styles/style.css" rel="stylesheet">
         <!-- endbuild -->
     </head>
-    <body>
+    <body ng-cloak>
         <!--[if lte IE 8]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
             your browser</a> to improve your experience.</p>
@@ -39,6 +39,7 @@
                     <a class="navbar-right navbar-brand">Hello {[{first_name}]} {[{last_name}]}!</a>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a ui-sref="app.logout">Logout</a></li>
+                        <li><a ui-sref="app.profile">Profile</a></li>
                     <!--<li><a href="#">Dashboard</a></li>-->
                     <!--<li><a href="#">Settings</a></li>-->
                     <!--<li><a href="#">Profile</a></li>-->
@@ -83,6 +84,7 @@
         <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
         <script src="bower_components/jquery-ui/jquery-ui.js"></script>
         <script src="bower_components/angular-bootstrap-confirm/dist/angular-bootstrap-confirm.js"></script>
+        <script src="bower_components/angular-password/angular-password.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -98,6 +100,7 @@
         <script src="scripts/controllers/relocation_request.js"></script>
         <script src="scripts/controllers/employee_list.js"></script>
         <script src="scripts/controllers/employee_form.js"></script>
+        <script src="scripts/controllers/profile_form.js"></script>
         <!-- endbuild -->
 
         <!-- build:js(app) /static/scripts/services.js -->
@@ -106,6 +109,7 @@
         <script src="scripts/services/validate.js"></script>
         <script src="scripts/services/employee.js"></script>
         <script src="scripts/services/relocations.js"></script>
+        <script src="scripts/services/profile.js"></script>
         <!-- endbuild -->
 
         <!-- build:js(app) /static/scripts/assets.js -->

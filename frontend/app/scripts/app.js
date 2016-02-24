@@ -5,7 +5,8 @@ angular.module('ClikhomeApp', [
   'ngResource',
   'ngSanitize',
   'ui.router',
-  'mwl.confirm'])
+  'mwl.confirm',
+  'ngPassword'])
   .config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$interpolateProvider', function($httpProvider, $stateProvider, $urlRouterProvider, $locationProvider, $interpolateProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -27,6 +28,14 @@ angular.module('ClikhomeApp', [
           memory: true
         }
       })
+        .state('app.profile', {
+          url: '/profile',
+          views: {
+            'content@': {
+              templateUrl: 'views/profile/form.html'
+            }
+          }
+        })
         .state('app.relocation', {
           url: '/relocation'
         })
