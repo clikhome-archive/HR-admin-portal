@@ -21,7 +21,11 @@
                     <td>{[{request.employee.first_name}]}</td>
                     <td>{[{request.employee.last_name}]}</td>
                     <td>Email: {[{request.employee.email}]}<br>Phone: {[{request.employee.phone}]}</td>
-                    <td>{[{request.relocate_from}]} to {[{request.relocate_to}]}</td>
+                    <td>
+                        <b>Relocate</b> from {[{request.relocate_from}]} to {[{request.relocate_to}]}<br>
+                        <b>Need furniture:</b> <span ng-show="request.need_furniture">Yes</span><span ng-show="!request.need_furniture">No</span><br>
+                        <b>How long will this employee stay:</b> {[{ request.duration_title }]}
+                    </td>
                     <td>{[{request.expected_moving_date | date : 'yyyy-MM-dd'}]}</td>
                     <td>{[{request.created_dt | date : 'yyyy-MM-dd'}]}</td>
                     <td>

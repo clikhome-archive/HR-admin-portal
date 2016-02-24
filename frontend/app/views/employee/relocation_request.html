@@ -62,12 +62,6 @@
             <div class="alert alert-danger" ng-repeat="error in errors.duration">{[{error}]}</div>
         </div>
 
-        <div class="checkbox">
-          <label>
-              <input type="checkbox" name="is_reusable" ng-model="model.employee.is_reusable"> Save the profile for future use?
-          </label>
-        </div>
-
         <div class="form-inline">
             <div class="form-group">
                 <label for="id_relocate_from">Relocating from:</label><br>
@@ -96,6 +90,13 @@
 
         <button class="btn btn-danger" type="submit" ng-click="$back()">Cancel</button>
         <button class="btn btn-success" type="submit" ng-click="store(EmployeeForm)">{[{ save_button_text }]}</button>
+
+        <div class="checkbox">
+          <label>
+              <input type="checkbox" name="is_reusable" ng-model="model.employee.is_reusable"> Save the profile for future use?
+          </label>
+        </div>
+
     </form>
 </div>
 

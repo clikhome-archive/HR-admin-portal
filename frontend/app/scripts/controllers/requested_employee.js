@@ -2,7 +2,7 @@
 
 angular.module('ClikhomeApp')
   .controller('RequestdEmployeeCtrl', ["$state", "$scope", "$location", "$stateParams", "RelocationRequest", "Validate", function ($state, $scope, $location, $stateParams, RelocationRequest, Validate) {
-    $scope.save_button_text = 'Add request';
+    $scope.save_button_text = 'Add employee';
     $scope.model = {
       'id': '',
       'employee': {
