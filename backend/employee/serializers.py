@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import NotFound
 from models import Employee, EmployeeRelocation
 from django.template.loader import get_template
 from django.template import Context
@@ -63,6 +63,8 @@ class EmployeeRelocationsSerializer(serializers.ModelSerializer):
         user = self.context.get('request').user
         relocations = EmployeeRelocation.objects.filter(user=user,
             status=EmployeeRelocation.STATUS_CHOICE.INITIAL)
+        if not relocations:
+            raise NotFound
         self.send_email(relocations, user)
         relocations.update(status=EmployeeRelocation.STATUS_CHOICE.RECEIVED)
         return relocations

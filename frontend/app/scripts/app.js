@@ -5,8 +5,11 @@ angular.module('ClikhomeApp', [
   'ngResource',
   'ngSanitize',
   'ui.router',
+  'ui.bootstrap',
   'mwl.confirm',
-  'ngPassword'])
+  'ngPassword',
+  'dialogs.main',
+  'dialogs.default-translations'])
   .config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$interpolateProvider', function($httpProvider, $stateProvider, $urlRouterProvider, $locationProvider, $interpolateProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -115,4 +118,12 @@ angular.module('ClikhomeApp', [
     $locationProvider.html5Mode(true);
     $interpolateProvider.startSymbol('{[{');
     $interpolateProvider.endSymbol('}]}');
-}]).run();
+  }])
+	.config(['dialogsProvider','$translateProvider',function(dialogsProvider,$translateProvider){
+		dialogsProvider.useBackdrop('static');
+		dialogsProvider.useEscClose(false);
+		dialogsProvider.useCopy(false);
+		dialogsProvider.setSize('sm');
+		$translateProvider.preferredLanguage('en-US');
+    $translateProvider.useSanitizeValueStrategy('sanitize');
+	}]).run();
