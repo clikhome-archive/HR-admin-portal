@@ -5,12 +5,18 @@ from django.template.loader import get_template
 from django.template import Context
 from django.core.mail import EmailMultiAlternatives
 from authentication.models import Account
-from django.db.models import Q
-from datetime import datetime
+from django.db.models import Q, F
+from rest_framework.validators import UniqueValidator
 import settings
 
 
 class EmployeeSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(validators=[
+        UniqueValidator(
+            queryset=Employee.objects.filter(email=F('email'), is_reusable=True)
+        )
+    ])
+
     class Meta:
         model = Employee
         fields = ('id', 'email', 'first_name', 'last_name', 'phone', 'job_title',
@@ -22,8 +28,15 @@ class EmployeeSerializer(serializers.ModelSerializer):
         return Employee.objects.create(user=user, **validated_data)
 
 
+class _EmployeeSerializer(EmployeeSerializer):
+    '''
+    It's private class for EmployeeRelocationSerializer
+    '''
+    email = serializers.EmailField()
+
+
 class EmployeeRelocationSerializer(serializers.ModelSerializer):
-    employee = EmployeeSerializer(many=False, read_only=False)
+    employee = _EmployeeSerializer(many=False, read_only=False)
 
     class Meta:
         model = EmployeeRelocation
@@ -35,12 +48,23 @@ class EmployeeRelocationSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = self.context.get('request').user
         employee_data = validated_data.pop('employee')
-        employee = Employee.objects.create(user=user, **employee_data)
+        if employee_data.get('is_reusable') == True:
+            email = employee_data.pop('email')
+            employee, created = Employee.objects.get_or_create(email=email, defaults=employee_data)
+            if not created:
+                for attr, value in employee_data.iteritems():
+                    setattr(employee, attr, value)
+                employee.save()
+        else:
+            employee = Employee.objects.create(user=user, **employee_data)
         relocation = EmployeeRelocation.objects.create(user=user, employee=employee, **validated_data)
         return relocation
 
     def update(self, instance, validated_data):
         employee = validated_data.pop('employee')
+        # We dont give permission to modify email here
+        if employee.get('is_reusable') == True:
+            employee.pop('email')
         for attr, value in employee.iteritems():
             setattr(instance.employee, attr, value)
         instance.employee.save()

@@ -28,6 +28,12 @@ angular.module('ClikhomeApp')
           'method': "GET",
           'url': "/employee/"
         });
+      },
+      seaerch_employee: function(query) {
+        return djangoHttp.request({
+          'method': "GET",
+          'url': "/employee/search/" + query + "/"
+        });
       }
     }
     return service;

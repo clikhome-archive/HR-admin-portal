@@ -5,9 +5,28 @@ from extended_choices import Choices
 from django.utils.translation import ugettext_lazy as _
 from authentication.models import Account
 from django.utils import timezone
+from django.core.exceptions import ValidationError
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+
+
+class EmployeeManager(models.Manager):
+    def search(self, query):
+        splited_query = query.split()
+        fields = ['first_name', 'last_name', 'email']
+        query_filter = models.Q()
+        for query in splited_query:
+            for field in fields:
+                query_filter |= models.Q(**{
+                    '%s__icontains' % field: query
+                })
+        return self.get_queryset().filter(query_filter)
 
 
 class Employee(models.Model):
+    # XXX: We must make unqique fields with condition.
+    # Now we can validate it from ModelForm and EmployeeSerializer
+    # We can't validate from raw (didn't lose .update .create)
     first_name = models.CharField(_('first name'), max_length=30,
                                   help_text=_('eg. John'))
     last_name = models.CharField(_('last name'), max_length=30,
@@ -25,8 +44,17 @@ class Employee(models.Model):
     created_dt = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(Account)
 
+    objects = EmployeeManager()
+
     def __unicode__(self):
         return self.first_name + ' ' + self.last_name
+
+    def validate_unique(self, exclude=None):
+        if hasattr(self, 'user') and self.email and self.is_reusable and \
+           Employee.objects.exclude(pk=self.pk)\
+                   .filter(email=self.email, user=self.user).exists():
+            raise ValidationError({'email': _('You have this employee in your employees')})
+        super(Employee, self).validate_unique(exclude=exclude)
 
 
 class EmployeeRelocation(models.Model):

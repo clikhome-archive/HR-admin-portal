@@ -8,7 +8,7 @@ angular.module('ClikhomeApp')
       $scope.requests = response;
     }, function(response) {
       // didn't have licenses
-      dialogs.error('Error', response);
+      dialogs.error('Error', response.detail);
     });
 
     $scope.store = function() {

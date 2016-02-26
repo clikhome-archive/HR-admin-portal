@@ -1,44 +1,63 @@
 'use strict';
 
 angular.module('ClikhomeApp')
-  .controller('RequestdEmployeeCtrl', ["$state", "$scope", "$location", "$stateParams", "RelocationRequest", "Validate", function ($state, $scope, $location, $stateParams, RelocationRequest, Validate) {
-    $scope.save_button_text = 'Add employee';
-    $scope.model = {
-      'id': '',
-      'employee': {
-          'first_name': '',
-          'last_name': '',
-          'email': '',
-          'phone': '',
-          'job_title': '',
-          'is_reusable': false
-      },
-      'need_furniture': '',
-      'duration': '',
-      'relocate_from': '',
-      'relocate_to': '',
-      'expected_moving_date': ''
+  .controller('RequestdEmployeeCtrl', ["$state", "$scope", "$location", "$stateParams", "RelocationRequest", "Validate", "Employee", function ($state, $scope, $location, $stateParams, RelocationRequest, Validate, Employee) {
+    var fill_form = function(data) {
+      $scope.model = {
+        'id': data.id,
+        'employee': {
+            'first_name': data.employee.first_name,
+            'last_name': data.employee.last_name,
+            'email': data.employee.email,
+            'phone': data.employee.phone,
+            'job_title': data.employee.job_title,
+            'is_reusable': data.employee.is_reusable
+        },
+        'need_furniture': data.need_furniture,
+        'duration': data.duration,
+        'relocate_from': data.relocate_from,
+        'relocate_to': data.relocate_to,
+        'expected_moving_date': data.expected_moving_date
+      };
+    }
+
+    $scope.EmployeeSelectOption = {
+      options: {
+        select: function(e, ui) {
+          RelocationRequest.edit(ui.item.data).then(function(response){
+            // It's not edit mission
+            delete response.id;
+            fill_form(response);
+            $scope.disable_email = true;
+          });
+        },
+        source: function(rx, tx) {
+          Employee.seaerch_employee(rx.term)
+            .then(function(response){
+              tx(
+                response.map(
+                  function(obj){
+                    return {
+                      'data': obj.id,
+                      'value': [obj.first_name, obj.last_name, obj.email].join(' ')
+                    }
+                  }
+                )
+              );
+            })
+        }
+      }
     };
+
+    $scope.save_button_text = 'Add employee';
+    var empty_data = {'employee': {}};
+    fill_form(empty_data)
+    $scope.disable_email = false;
 
     if ($stateParams.id) {
       RelocationRequest.edit($stateParams.id).then(function(response){
           $scope.save_button_text = 'Save changes';
-          $scope.model = {
-            'id': response.id,
-            'employee': {
-                'first_name': response.employee.first_name,
-                'last_name': response.employee.last_name,
-                'email': response.employee.email,
-                'phone': response.employee.phone,
-                'job_title': response.employee.job_title,
-                'is_reusable': response.employee.is_reusable
-            },
-            'need_furniture': response.need_furniture,
-            'duration': response.duration,
-            'relocate_from': response.relocate_from,
-            'relocate_to': response.relocate_to,
-            'expected_moving_date': response.expected_moving_date
-          };
+          fill_form(response)
         });
     }
 

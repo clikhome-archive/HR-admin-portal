@@ -9,7 +9,8 @@ angular.module('ClikhomeApp', [
   'mwl.confirm',
   'ngPassword',
   'dialogs.main',
-  'dialogs.default-translations'])
+  'dialogs.default-translations',
+  'ui.autocomplete'])
   .config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$interpolateProvider', function($httpProvider, $stateProvider, $urlRouterProvider, $locationProvider, $interpolateProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
