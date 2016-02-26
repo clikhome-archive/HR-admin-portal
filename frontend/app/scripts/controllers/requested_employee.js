@@ -24,10 +24,10 @@ angular.module('ClikhomeApp')
     $scope.EmployeeSelectOption = {
       options: {
         select: function(e, ui) {
-          RelocationRequest.edit(ui.item.data).then(function(response){
+          Employee.edit(ui.item.data).then(function(response){
             // It's not edit mission
             delete response.id;
-            fill_form(response);
+            fill_form({'employee': response});
             $scope.disable_email = true;
           });
         },
