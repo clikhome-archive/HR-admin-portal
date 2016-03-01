@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.translation import ugettext_lazy as _
 import models
 
 
@@ -8,9 +9,21 @@ class EmployeeAdmin(admin.ModelAdmin):
 
 
 class EmployeeRelocationAdmin(admin.ModelAdmin):
-    ordering = search_fields = list_filter = list_display = (
+    list_display = (
+        'user', 'relocate_from', 'relocate_to', 'expected_moving_date',
+        '_need_furniture', '_duration', 'status', 'created_dt', 'updated_dt')
+    ordering = search_fields = list_filter = (
         'user', 'relocate_from', 'relocate_to', 'expected_moving_date',
         'need_furniture', 'duration', 'status', 'created_dt', 'updated_dt')
+
+    def _need_furniture(self, instance):
+        return instance.need_furniture
+    _need_furniture.short_description = _('Need furniture')
+    _need_furniture.boolean = True
+
+    def _duration(self, instance):
+        return instance.duration_title
+    _duration.short_description = _('Preferred lease term')
 
 
 admin.site.register(models.Employee, EmployeeAdmin)
