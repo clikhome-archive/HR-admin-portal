@@ -91,7 +91,7 @@ class EmployeeRelocation(models.Model):
              default=STATUS_CHOICE.INITIAL,
              verbose_name=_('Employee status'))
     created_dt = models.DateTimeField(_('Created date'), auto_now_add=True)
-    updated_dt = models.DateTimeField(_('Update date'), null=True)
+    updated_dt = models.DateTimeField(_('Update date'), auto_now=True, null=True)
     user = models.ForeignKey(Account)
 
     def __unicode__(self):
