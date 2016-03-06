@@ -9,11 +9,29 @@
 
 module.exports = function (grunt) {
 
+  var lessCreateConfig = function (context, block) {
+    var cfg = {files: []},
+      outfile = path.join(context.outDir, block.dest),
+      filesDef = {};
+
+    filesDef.dest = outfile;
+    filesDef.src = [];
+
+    context.inFiles.forEach(function (inFile) {
+      filesDef.src.push(path.join(context.inDir, inFile));
+    });
+
+    cfg.files.push(filesDef);
+    context.outFiles = [block.dest];
+    return cfg;
+  };
+
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
   // Automatically load required Grunt tasks
   require('jit-grunt')(grunt, {
+    less: 'grunt-contrib-less',
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
     cdnify: 'grunt-google-cdn'
@@ -47,6 +65,10 @@ module.exports = function (grunt) {
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'newer:jscs:test', 'karma']
+      },
+      less: {
+        files: ['<%= yeoman.app %>/styles/less/{,*/}*.less'],
+        tasks: ['newer:less:compile', 'postcss']
       },
       styles: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
@@ -155,6 +177,20 @@ module.exports = function (grunt) {
       }
     },
 
+    less: {
+      compile: {
+        options: {
+          paths: ['<%= yeoman.app %>/styles/less'],
+          sourceMap: true
+        },
+        files: {
+          '.tmp/styles/bootstrap.css': '<%= yeoman.app %>/styles/less/bootstrap.less',
+          '.tmp/styles/bootstrap-extend.css': '<%= yeoman.app %>/styles/less/bootstrap-extend.less',
+          '.tmp/styles/site.css': '<%= yeoman.app %>/styles/less/site.less'
+        }
+      }
+    },
+
     // Empties folders to start fresh
     clean: {
       dist: {
@@ -220,7 +256,7 @@ module.exports = function (grunt) {
             }
           }
       }
-    }, 
+    },
 
     // Renames files for browser caching purposes
     filerev: {
@@ -414,13 +450,15 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
-        'copy:styles'
+        'copy:styles',
+        'less:compile'
       ],
       test: [
         'copy:styles'
       ],
       dist: [
         'copy:styles',
+        'less:compile',
         'imagemin',
         'svgmin'
       ]
