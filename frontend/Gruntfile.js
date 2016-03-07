@@ -440,6 +440,12 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>/static/'
         }]
       },
+      fonts: {
+        expand: true,
+        cwd: '<%= yeoman.app %>/assets/fonts',
+        dest: '.tmp/static/fonts/',
+        src: '{,*/}*.*'
+      },
       styles: {
         expand: true,
         cwd: '<%= yeoman.app %>/styles',
@@ -451,6 +457,7 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
+        'copy:fonts',
         'copy:styles',
         'less:compile'
       ],
