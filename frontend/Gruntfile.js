@@ -8,25 +8,7 @@
 // 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
-
-  var lessCreateConfig = function (context, block) {
-    var cfg = {files: []},
-      outfile = path.join(context.outDir, block.dest),
-      filesDef = {};
-
-    filesDef.dest = outfile;
-    filesDef.src = [];
-
-    context.inFiles.forEach(function (inFile) {
-      filesDef.src.push(path.join(context.inDir, inFile));
-    });
-
-    cfg.files.push(filesDef);
-    context.outFiles = [block.dest];
-    return cfg;
-  };
-
-  // Time how long tasks take. Can help when optimizing build times
+    // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
   // Automatically load required Grunt tasks
@@ -34,7 +16,8 @@ module.exports = function (grunt) {
     less: 'grunt-contrib-less',
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn'
+    cdnify: 'grunt-google-cdn',
+    'configureProxies': 'grunt-connect-proxy'
   });
 
   // Configurable paths for the application
@@ -98,10 +81,21 @@ module.exports = function (grunt) {
         livereload: 35729
       },
       livereload: {
+        proxies: [
+          {
+            context: [
+              '/admin', '/api', '/static', '__debug__', '/accounts', '/rest-auth', '/docs', '/media'
+            ],
+            host: '127.0.0.1',
+            port: 8000,
+            https: false,
+            xforward: false
+          }
+        ],
         options: {
           open: true,
           middleware: function (connect) {
-            return [
+            var middleware = [
               connect.static('.tmp'),
               connect().use(
                 '/bower_components',
@@ -113,6 +107,8 @@ module.exports = function (grunt) {
               ),
               connect.static(appConfig.app)
             ];
+            middleware.unshift(require('grunt-connect-proxy/lib/utils').proxyRequest);
+            return middleware;
           }
         }
       },
@@ -422,7 +418,7 @@ module.exports = function (grunt) {
             'images/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*'
           ]
-        }, {
+        },{
           expand: true,
           cwd: '.tmp/images',
           dest: '<%= yeoman.dist %>/images',
@@ -437,6 +433,11 @@ module.exports = function (grunt) {
           cwd: 'bower_components/jquery-ui/themes/base',
           src: 'images/*',
           dest: '<%= yeoman.dist %>/static/styles/'
+        }, {
+          expand: true,
+          cwd: '<%= yeoman.app %>/assets',
+          src: 'fonts/{,*/}*.*',
+          dest: '<%= yeoman.dist %>/static/'
         }]
       },
       styles: {
@@ -484,6 +485,7 @@ module.exports = function (grunt) {
       'wiredep',
       'concurrent:server',
       'postcss:server',
+      'configureProxies:livereload',
       'connect:livereload',
       'watch'
     ]);
