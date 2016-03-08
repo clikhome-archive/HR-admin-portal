@@ -94,7 +94,21 @@ module.exports = function (grunt) {
         ],
         options: {
           open: true,
-          middleware: function (connect) {
+          middleware: function (connect, options) {
+            var handleRequest = function(req, res) {
+              if(/\.html$/g.test(req.url) == false) {
+                for(var file, i = 0; i < options.base.length; i++) {
+                  file = appConfig.app + '/index.html';
+                  if (grunt.file.exists(file)){
+                    require('fs').createReadStream(file).pipe(res);
+                    return;
+                  }
+                }
+              }
+              res.writeHead(404, {"Content-Type": "application/json"});
+              res.end();
+            };
+
             var middleware = [
               connect.static('.tmp'),
               connect().use(
@@ -105,7 +119,8 @@ module.exports = function (grunt) {
                 '/app/styles',
                 connect.static('./app/styles')
               ),
-              connect.static(appConfig.app)
+              connect.static(appConfig.app),
+              handleRequest
             ];
             middleware.unshift(require('grunt-connect-proxy/lib/utils').proxyRequest);
             return middleware;
