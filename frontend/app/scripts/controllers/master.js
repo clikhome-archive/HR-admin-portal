@@ -2,6 +2,7 @@
 
 angular.module('ClikhomeApp')
   .controller('MasterCtrl', ["$rootScope", "$scope", "$location", "djangoAuth", function ($rootScope, $scope, $location, djangoAuth) {
+    $scope.isMainSearchActive = false;
     // Assume user is not logged in until we hear otherwise
     $scope.authenticated = false;
     // Wait for the status of authentication, set scope var to true if it resolves

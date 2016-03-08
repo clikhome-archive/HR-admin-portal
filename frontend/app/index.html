@@ -62,7 +62,7 @@
             <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="gridmenu">
               <a href="#" ui-sref="app.index"><img class="navbar-brand-logo" src="/images/global/logos/logo_white.png" title="Clikhome"></a>
             </div>
-            <button type="button" class="navbar-toggle collapsed" data-target="#site-navbar-search" data-toggle="collapse">
+            <button type="button" class="navbar-toggle collapsed" ng-click="isMainSearchActive = true">
               <span class="sr-only">Toggle Search</span>
               <i class="icon wb-search" aria-hidden="true"></i>
             </button>
@@ -70,7 +70,7 @@
 
           <div class="navbar-container container-fluid">
             <!-- Navbar Collapse -->
-            <div class="collapse navbar-collapse navbar-collapse-toolbar">
+            <div class="collapse navbar-collapse navbar-collapse-toolbar" uib-collapse="isMainSearchActive">
               <!-- Navbar Toolbar -->
               <ul class="nav navbar-toolbar">
                 <li class="hidden-float">
@@ -82,7 +82,7 @@
                 </li>
 
                 <li class="hidden-float">
-                  <a href="#" class="icon wb-search"></a>
+                  <a href="#" class="icon wb-search" ng-click="isMainSearchActive = true"></a>
                 </li>
               </ul>
               <!-- End Navbar Toolbar -->
@@ -111,6 +111,20 @@
               <!-- End Navbar Toolbar Right-->
             </div>
             <!-- End Navbar Collapse -->
+
+            <!-- Navbar Search -->
+            <div class="collapse navbar-search-overlap" uib-collapse="!isMainSearchActive">
+              <form role="search">
+                <div class="form-group">
+                  <div class="input-search">
+                    <i class="input-search-icon wb-search"></i>
+                    <input type="text" class="form-control" name="site_search" placeholder="Search...">
+                    <button type="button" class="input-search-close icon wb-close" aria-label="Close" ng-click="isMainSearchActive = false"></button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- End Navbar Search -->
           </div>
         </nav>
 
