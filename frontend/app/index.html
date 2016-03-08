@@ -34,23 +34,8 @@
         <![endif]-->
         <div ui-view="sigin"></div>
 
-        <!-- <nav class="navbar navbar-inverse navbar-fixed-top" ng-show="authenticated">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="/">{[{company_name}]}</a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <a class="navbar-right navbar-brand">Hello {[{first_name}]} {[{last_name}]}!</a>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a ui-sref="app.logout">Logout</a></li>
-                        <li><a ui-sref="app.profile">Profile</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav> -->
-
         <!-- Navbar -->
-        <nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega">
+        <nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega" ng-if="authenticated">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle hamburger hamburger-close navbar-toggle-left hided" data-toggle="menubar">
               <span class="sr-only">Toggle navigation</span>
@@ -126,9 +111,9 @@
             </div>
             <!-- End Navbar Search -->
           </div>
-        </nav>
+        </nav ng-if="authenticated">
 
-        <div class="container-fluid" ng-show="authenticated">
+        <div class="container-fluid" ng-if="authenticated">
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
