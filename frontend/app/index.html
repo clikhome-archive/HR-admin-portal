@@ -27,7 +27,7 @@
         <link href="styles/style.css" rel="stylesheet">
         <!-- endbuild -->
     </head>
-    <body ng-cloak>
+    <body ng-cloak class="site-menubar-unfold">
         <!--[if lte IE 8]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
             your browser</a> to improve your experience.</p>
@@ -37,15 +37,16 @@
         <!-- Navbar -->
         <nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega" ng-if="authenticated">
           <div class="navbar-header">
-            <button type="button" class="navbar-toggle hamburger hamburger-close navbar-toggle-left hided" data-toggle="menubar">
+            <button type="button" class="navbar-toggle hamburger hamburger-close navbar-toggle-left hided">
               <span class="sr-only">Toggle navigation</span>
               <span class="hamburger-bar"></span>
             </button>
-            <button type="button" class="navbar-toggle collapsed" data-target="#site-navbar-collapse" data-toggle="collapse">
+            <button type="button" class="navbar-toggle collapsed">
               <i class="icon wb-more-horizontal" aria-hidden="true"></i>
             </button>
-            <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="gridmenu">
-              <a href="#" ui-sref="app.index"><img class="navbar-brand-logo" src="/images/global/logos/logo_white.png" title="Clikhome"></a>
+            <div class="navbar-brand navbar-brand-center site-gridmenu-toggle">
+              <img class="navbar-brand-logo" src="/images/global/logos/logo_sm_white.png" title="Clikhome">
+              <span class="navbar-brand-text"> ClikHome</span>
             </div>
             <button type="button" class="navbar-toggle collapsed" ng-click="isMainSearchActive = true">
               <span class="sr-only">Toggle Search</span>
@@ -111,9 +112,9 @@
             </div>
             <!-- End Navbar Search -->
           </div>
-        </nav ng-if="authenticated">
+        </nav>
 
-        <div class="container-fluid" ng-if="authenticated">
+<!--        <div class="container-fluid" ng-if="authenticated">
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
@@ -128,7 +129,57 @@
                 </div>
                 <div ui-view="content"></div>
             </div>
+        </div>-->
+        <!-- Site Menubar -->
+        <div class="site-menubar" ng-if="authenticated">
+          <!-- Site Menubar Body -->
+          <div class="site-menubar-body">
+            <ul class="site-menu">
+              <li class="site-menu-category">Relocation</li>
+              <li class="site-menu-item">
+                <a ui-sref="app.relocation.request">
+                  <i class="site-menu-icon wb-plus"></i>
+                  <span>New Request</span>
+                </a>
+              </li>
+              <li class="site-menu-item">
+                <a ui-sref="app.relocation.history">
+                  <i class="site-menu-icon wb-pluse"></i>
+                  <span>Request History</span>
+                </a>
+              </li>
+              <li class="site-menu-category">People</li>
+              <li class="site-menu-item">
+                <a ui-sref="app.employee.list">
+                  <i class="site-menu-icon wb-users"></i>
+                  <span>Employee Management</span>
+                </a>
+              </li>
+            </ul>
+            <!-- End Site Menubar Body -->
+          </div>
+          <!-- Site Menubar Footer -->
+          <div class="site-menubar-footer">
+            <a ui-sref="app.profile"
+               uib-tooltip="Profile"
+               tooltip-placement="top">
+              <span class="icon wb-settings" aria-hidden="true"></span>
+            </a>
+            <a href="#">
+              <span class="icon wb-eye-close" aria-hidden="true"></span>
+            </a>
+            <a ui-sref="app.logout"
+               uib-tooltip="Logout"
+               tooltip-placement="top">
+              <span class="icon wb-power" aria-hidden="true"></span>
+            </a>
+            <!-- End Site Menubar Footer -->
+          </div>
+          <!-- End Site Menubar -->
         </div>
+
+        <!-- Page Content -->
+        <div ui-view="content" class="page" ng-if="authenticated"></div>
 
         <!-- build:js(.) /static/scripts/vendor.js -->
         <!-- bower:js -->
