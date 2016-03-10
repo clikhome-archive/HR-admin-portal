@@ -41,7 +41,7 @@
               <span class="sr-only">Toggle navigation</span>
               <span class="hamburger-bar"></span>
             </button>
-            <button type="button" class="navbar-toggle collapsed">
+            <button type="button" class="navbar-toggle collapsed" ng-click="navbarCollapsed = !navbarCollapsed">
               <i class="icon wb-more-horizontal" aria-hidden="true"></i>
             </button>
             <div class="navbar-brand navbar-brand-center site-gridmenu-toggle">
@@ -56,7 +56,7 @@
 
           <div class="navbar-container container-fluid">
             <!-- Navbar Collapse -->
-            <div class="collapse navbar-collapse navbar-collapse-toolbar" uib-collapse="isMainSearchActive">
+            <div class="collapse navbar-collapse navbar-collapse-toolbar" uib-collapse="navbarCollapsed">
               <!-- Navbar Toolbar -->
               <ul class="nav navbar-toolbar">
                 <li class="hidden-float">
