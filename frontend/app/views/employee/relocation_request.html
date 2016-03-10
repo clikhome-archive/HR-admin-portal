@@ -1,91 +1,125 @@
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="RequestdEmployeeCtrl">
-    <h1 class="page-header">Add Employee Relocation</h1>
-    <form role="form" class="form" name="EmployeeForm" novalidate>
-        <div class="form-group">
-            <input type="text" class="form-control" id="employee_select" ui-autocomplete="EmployeeSelectOption" ng-model="employee_select">
-            <span id="employee_select" class="help-block">Search user</span>
-        </div>
-        <be></be>
+<div class="page-header">
+  <h1 class="page-title">Add Employee Relocation</h1>
+</div>
 
-        <div class="form-group">
-            <label class="control-label" for="first_name">First name</label>
-            <input type="text" class="form-control" id="first_name" name="first_name" aria-describedby="first_name_help" ng-model="model.employee.first_name" required>
-            <span id="first_name_help" class="help-block">e.g John</span>
-            <div class="alert alert-danger" ng-repeat="error in errors.employee.first_name">{[{error}]}</div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label" for="last_name">Last name</label>
-            <input type="text" class="form-control" id="last_name" name="last_name" aria-describedby="last_name_help" ng-model="model.employee.last_name" required>
-            <span id="last_name_help" class="help-block">e.g Smith</span>
-            <div class="alert alert-danger" ng-repeat="error in errors.employee.last_name">{[{error}]}</div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label" for="email">Email</label>
-            <input ng-disabled="disable_email" type="text" class="form-control" id="email" name="email" aria-describedby="email_help" ng-model="model.employee.email" required>
-            <span id="email_help" class="help-block">e.g john@xzc.com</span>
-            <div class="alert alert-danger" ng-repeat="error in errors.employee.email">{[{error}]}</div>
+<div class="page-content">
+  <!-- Panel Add Employee Relocation-->
+  <div class="panel" ng-controller="RequestdEmployeeCtrl">
+    <div class="panel-body">
+      <form role="form" class="form" name="EmployeeForm" novalidate>
+        <div class="form-group row">
+          <div class="col-xlg-3 col-xlg-offset-9 col-lg-3 col-lg-offset-9 col-md-6 col-md-offset-6">
+            <div class="input-search input-search-dark">
+              <i class="input-search-icon wb-search"></i>
+              <input type="text"
+                     class="form-control"
+                     placeholder="Search for user"
+                     id="employee_select"
+                     ui-autocomplete="EmployeeSelectOption"
+                     ng-model="employee_select">
+            </div>
+          </div>
         </div>
 
         <div class="form-group">
-            <label class="control-label" for="phone">Phone number</label>
-            <input type="text" class="form-control" id="phone" name="phone" aria-describedby="phone_help" ng-model="model.employee.phone" required>
-            <span id="phone_help" class="help-block">e.g +1 (123) 456-7890</span>
-            <div class="alert alert-danger" ng-repeat="error in errors.employee.phone">{[{error}]}</div>
+          <label class="control-label" for="first_name">First name</label>
+          <input type="text" class="form-control" id="first_name" name="first_name" aria-describedby="first_name_help" ng-model="model.employee.first_name" required>
+          <span id="first_name_help" class="help-block">e.g John</span>
+          <div class="alert alert-danger" ng-repeat="error in errors.employee.first_name">{[{error}]}</div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="last_name">Last name</label>
+          <input type="text" class="form-control" id="last_name" name="last_name" aria-describedby="last_name_help" ng-model="model.employee.last_name" required>
+          <span id="last_name_help" class="help-block">e.g Smith</span>
+          <div class="alert alert-danger" ng-repeat="error in errors.employee.last_name">{[{error}]}</div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="email">Email</label>
+          <input ng-disabled="disable_email" type="text" class="form-control" id="email" name="email" aria-describedby="email_help" ng-model="model.employee.email" required>
+          <span id="email_help" class="help-block">e.g john@xzc.com</span>
+          <div class="alert alert-danger" ng-repeat="error in errors.employee.email">{[{error}]}</div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="phone">Phone number</label>
+          <input type="text" class="form-control" id="phone" name="phone" aria-describedby="phone_help" ng-model="model.employee.phone" required>
+          <span id="phone_help" class="help-block">e.g +1 (123) 456-7890</span>
+          <div class="alert alert-danger" ng-repeat="error in errors.employee.phone">{[{error}]}</div>
         </div>
 
 
         <div class="form-group">
-            <label class="control-label" for="job_title">Job Title (optional)</label>
-            <input type="text" class="form-control" id="job_title" name="job_title" aria-describedby="job_title_help" ng-model="model.employee.job_title">
-            <span id="job_title_help" class="help-block">e.g Engineer</span>
-            <div class="alert alert-danger" ng-repeat="error in errors.employee.job_title">{[{error}]}</div>
+          <label class="control-label" for="job_title">Job Title (optional)</label>
+          <input type="text" class="form-control" id="job_title" name="job_title" aria-describedby="job_title_help" ng-model="model.employee.job_title">
+          <span id="job_title_help" class="help-block">e.g Engineer</span>
+          <div class="alert alert-danger" ng-repeat="error in errors.employee.job_title">{[{error}]}</div>
         </div>
 
         <div class="form-group">
-            <label class="control-label">Need furniture package for this employee?</label>
-            <label class="radio-inline">
-              <input type="radio" name="need_furniture" id="inlineRadio1" value="1" ng-model="model.need_furniture" required> Yes
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="need_furniture" id="inlineRadio2" value="0" ng-model="model.need_furniture" required> No
-            </label>
-            <div class="alert alert-danger" ng-repeat="error in errors.need_furniture">{[{error}]}</div>
+          <label class="control-label">Need furniture package for this employee?</label>
+          <ul class="list-unstyled list-inline">
+            <li>
+              <div class="radio-custom radio-primary radio-inline">
+                <input type="radio" name="need_furniture" id="inlineRadio1" value="1" ng-model="model.need_furniture" required>
+                <label for="inlineRadio1">Yes</label>
+              </div>
+            </li>
+            <li>
+              <div class="radio-custom radio-primary radio-inline">
+                <input type="radio" name="need_furniture" id="inlineRadio2" value="0" ng-model="model.need_furniture" required>
+                <label for="inlineRadio2">No</label>
+              </div>
+            </li>
+          </ul>
+          <div class="alert alert-danger" ng-repeat="error in errors.need_furniture">{[{error}]}</div>
         </div>
 
         <div class="form-group">
-            <label class="control-label">How long will this employee stay?</label>
-            <label class="radio-inline">
-              <input type="radio" name="duration" id="inlineRadio3" value="3" ng-model="model.duration" required> 3 months
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="duration" id="inlineRadio4" value="6" ng-model="model.duration" required> 6 months
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="duration" id="inlineRadio5" value="1" ng-model="model.duration" required> 1 year or longer
-            </label>
-            <div class="alert alert-danger" ng-repeat="error in errors.duration">{[{error}]}</div>
+          <label class="control-label">How long will this employee stay?</label>
+          <ul class="list-unstyled list-inline">
+            <li>
+              <div class="radio-custom radio-primary radio-inline">
+                <input type="radio" name="duration" id="inlineRadio3" value="3" ng-model="model.duration" required>
+                <label for="inlineRadio3">3 months</label>
+              </div>
+            </li>
+            <li>
+              <div class="radio-custom radio-primary radio-inline">
+                <input type="radio" name="duration" id="inlineRadio4" value="6" ng-model="model.duration" required>
+                <label for="inlineRadio4">6 months</label>
+              </div>
+            </li>
+            <li>
+              <div class="radio-custom radio-primary radio-inline">
+                <input type="radio" name="duration" id="inlineRadio5" value="1" ng-model="model.duration" required>
+                <label for="inlineRadio5">1 year or longer</label>
+              </div>
+            </li>
+          </ul>
+
+          <div class="alert alert-danger" ng-repeat="error in errors.duration">{[{error}]}</div>
         </div>
 
         <div class="form-inline">
-            <div class="form-group">
-                <label for="id_relocate_from">Relocating from:</label><br>
-                <input type="text" class="form-control" id="id_relocate_from" name="relocate_from" ng-model="model.relocate_from" placeholder="Type to select the city" required>
-                <div class="alert alert-danger" ng-repeat="error in errors.relocate_from">{[{error}]}</div>
-            </div>
-            <div class="form-group" style="font-size: 50px; padding: 0 20px 0 20px;">&#10145;</div>
-            <div class="form-group">
-                <label for="id_relocate_to">Relocating to:</label><br>
-                <input type="text" class="form-control" id="id_relocate_to" name="relocate_to" ng-model="model.relocate_to" placeholder="Type to select the city" required>
-                <div class="alert alert-danger" ng-repeat="error in errors.relocate_to">{[{error}]}</div>
-            </div>
-            <br>
-            <div class="form-group">
-                <label for="id_expected_moving_date">Expected Moving Date:</label><br>
-                <input class="form-control" id="id_expected_moving_date" name="expected_moving_date" ng-model="model.expected_moving_date" required>
-                <div class="alert alert-danger" ng-repeat="error in errors.expected_moving_date">{[{error}]}</div>
-            </div>
+          <div class="form-group">
+            <label for="id_relocate_from">Relocating from:</label><br>
+            <input type="text" class="form-control" id="id_relocate_from" name="relocate_from" ng-model="model.relocate_from" placeholder="Type to select the city" required>
+            <div class="alert alert-danger" ng-repeat="error in errors.relocate_from">{[{error}]}</div>
+          </div>
+          <div class="form-group" style="font-size: 50px; padding: 0 20px 0 20px;">&#10145;</div>
+          <div class="form-group">
+            <label for="id_relocate_to">Relocating to:</label><br>
+            <input type="text" class="form-control" id="id_relocate_to" name="relocate_to" ng-model="model.relocate_to" placeholder="Type to select the city" required>
+            <div class="alert alert-danger" ng-repeat="error in errors.relocate_to">{[{error}]}</div>
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="id_expected_moving_date">Expected Moving Date:</label><br>
+            <input class="form-control" id="id_expected_moving_date" name="expected_moving_date" ng-model="model.expected_moving_date" required>
+            <div class="alert alert-danger" ng-repeat="error in errors.expected_moving_date">{[{error}]}</div>
+          </div>
         </div>
 
         <br>
@@ -97,15 +131,18 @@
         <button class="btn btn-danger" type="submit" ng-click="$back()">Cancel</button>
         <button class="btn btn-success" type="submit" ng-click="store(EmployeeForm)">{[{ save_button_text }]}</button>
 
-        <div class="checkbox">
-          <label>
-              <input type="checkbox" name="is_reusable" ng-model="model.employee.is_reusable"> Save the profile for future use?
+        <div class="checkbox-custom checkbox-primary">
+          <input type="checkbox" name="is_reusable" id="is_reusable_check" ng-model="model.employee.is_reusable">
+          <label for="is_reusable_check">
+            Save the profile for future use?
           </label>
         </div>
 
-    </form>
+      </form>
+    </div>
+    <!-- End Panel Add Employee Relocation-->
+  </div>
 </div>
-
 
 <script type="text/javascript">
   $(function() {
