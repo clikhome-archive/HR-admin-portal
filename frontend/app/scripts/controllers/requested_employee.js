@@ -2,6 +2,10 @@
 
 angular.module('ClikhomeApp')
   .controller('RequestdEmployeeCtrl', ["$state", "$scope", "$location", "$stateParams", "RelocationRequest", "Validate", "Employee", function ($state, $scope, $location, $stateParams, RelocationRequest, Validate, Employee) {
+    $scope.google_autocomplete_options = {
+      types: ['(cities)'],
+      language: 'en'
+    }
     var fill_form = function(data) {
       $scope.model = {
         'id': data.id,

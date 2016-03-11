@@ -71,13 +71,13 @@
         <div class="form-inline">
             <div class="form-group">
                 <label for="id_relocate_from">Relocating from:</label><br>
-                <input type="text" class="form-control" id="id_relocate_from" name="relocate_from" ng-model="model.relocate_from" placeholder="Type to select the city" required>
+                <input type="text" class="form-control" id="id_relocate_from" name="relocate_from" ng-model="model.relocate_from" placeholder="Type to select the city" required vs-google-autocomplete="google_autocomplete_options">
                 <div class="alert alert-danger" ng-repeat="error in errors.relocate_from">{[{error}]}</div>
             </div>
             <div class="form-group" style="font-size: 50px; padding: 0 20px 0 20px;">&#10145;</div>
             <div class="form-group">
                 <label for="id_relocate_to">Relocating to:</label><br>
-                <input type="text" class="form-control" id="id_relocate_to" name="relocate_to" ng-model="model.relocate_to" placeholder="Type to select the city" required>
+                <input type="text" class="form-control" id="id_relocate_to" name="relocate_to" ng-model="model.relocate_to" placeholder="Type to select the city" required vs-google-autocomplete="google_autocomplete_options">
                 <div class="alert alert-danger" ng-repeat="error in errors.relocate_to">{[{error}]}</div>
             </div>
             <br>
