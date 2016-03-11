@@ -44,6 +44,22 @@ angular.module('ClikhomeApp')
           $state.go('login');
         });
       },
+      'forgot_password': function(email) {
+        return djangoHttp.request({
+          'method': 'POST',
+          'url': '/password/reset/',
+          'data': {
+            'email': email
+          }
+        })
+      },
+      'password_reset_confirm': function(data) {
+        return djangoHttp.request({
+          'method': 'POST',
+          'url': '/password/reset/confirm/',
+          'data': data
+        })
+      },
       'authenticationStatus': function (restrict, force) {
         // Set restrict to true to reject the promise if not logged in
         // Set to false or omit to resolve when status is known
@@ -89,11 +105,11 @@ angular.module('ClikhomeApp')
           djangoAuth.authenticated = true;
         }
       }
-      if (!djangoAuth.authenticated) {
+      if (!djangoAuth.authenticated && toState.data && toState.data.authorization) {
         if (djangoAuth.memorizedState && (!fromState.data || !fromState.data.redirectTo || toState.name !== fromState.data.redirectTo)) {
           djangoAuth.logout();
         }
-        if (toState.data && toState.data.authorization && toState.data.redirectTo) {
+        if (toState.data.redirectTo) {
           if (toState.data.memory) {
             djangoAuth.memorizedState = toState.name;
           }

@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from models import Account
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import update_session_auth_hash, login, authenticate
+from rest_auth.serializers import PasswordResetConfirmSerializer as PasswordResetConfirmSerializerBase
 
 class UserDetailsSerializer(serializers.ModelSerializer):
     password = serializers.CharField(allow_blank=True)
@@ -28,3 +29,11 @@ class TokenSerializer(serializers.ModelSerializer):
     class Meta:
         model = Token
         fields = ('key', 'user')
+
+
+class PasswordResetConfirmSerializer(PasswordResetConfirmSerializerBase):
+    def save(self):
+        super(PasswordResetConfirmSerializer, self).save()
+        user = authenticate(username=self.user.email,
+                            password=self.set_password_form.cleaned_data['new_password1'])
+        login(self.context.get('request'), user)
