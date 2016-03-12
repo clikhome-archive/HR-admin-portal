@@ -2,6 +2,7 @@
 
 angular.module('ClikhomeApp')
   .controller('RequestdEmployeeCtrl', ["$state", "$scope", "$location", "$stateParams", "RelocationRequest", "Validate", "Employee", function ($state, $scope, $location, $stateParams, RelocationRequest, Validate, Employee) {
+    var search_mode = false;
     $scope.google_autocomplete_options = {
       types: ['(cities)'],
       language: 'en'
@@ -32,7 +33,7 @@ angular.module('ClikhomeApp')
             // It's not edit mission
             delete response.id;
             fill_form({'employee': response});
-            $scope.disable_email = true;
+            search_mode = true;
           });
         },
         source: function(rx, tx) {
@@ -57,6 +58,14 @@ angular.module('ClikhomeApp')
     var empty_data = {'employee': {}};
     fill_form(empty_data)
     $scope.disable_email = false;
+
+    $scope.change_email = function() {
+      if (search_mode == true) {
+        fill_form(empty_data);
+        $scope.employee_select = '';
+      }
+    };
+
 
     if ($stateParams.id) {
       RelocationRequest.edit($stateParams.id).then(function(response){
