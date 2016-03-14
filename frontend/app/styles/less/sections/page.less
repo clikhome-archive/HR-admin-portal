@@ -3,7 +3,7 @@
   background: @page-bg;
   position: relative;
 
-  @height: %(~"calc(100% - %d)", @site-footer-height);
+  @height: %(~"calc(100%)", @site-footer-height);
   min-height: @height;
 }
 
@@ -176,7 +176,7 @@
 
 @media (max-width: @grid-float-breakpoint-max) {
   .page {
-    @height: %(~"calc(100% - %d)", @site-footer-xs-height);
+    @height: %(~"calc(100%)", @site-footer-xs-height);
     min-height: @height;
   }
 }
