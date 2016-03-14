@@ -30,7 +30,7 @@ router.register(r'employee/relocation_requests', EmployeeRelocationsViewSet, bas
 router.register(r'employee/relocation_request', EmployeeRelocationViewSet, base_name='employee-relocation') # Work with relocation request (new/exists)
 router.register(r'employee/search/(?P<query>.+)', EmployeeSearchViewSet, base_name='employee_search') # Work with employee
 router.register(r'employee', EmployeeViewSet, base_name='employee') # Work with employee
-router.register(r'profile', ProfileViewSet, base_name='profile') # Work with employee
+router.register(r'profile', ProfileViewSet, base_name='profile') # Work with profile
 
 
 urlpatterns = [

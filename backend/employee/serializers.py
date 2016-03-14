@@ -7,6 +7,8 @@ from django.core.mail import EmailMultiAlternatives
 from authentication.models import Account
 from django.db.models import Q, F
 from rest_framework.validators import UniqueValidator
+from django.utils.translation import ugettext_lazy as _
+from db_logging import get_extra, logger
 import settings
 
 
@@ -25,7 +27,12 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = self.context.get('request').user
-        return Employee.objects.create(user=user, **validated_data)
+        employee = Employee.objects.create(user=user, **validated_data)
+        logger.info(_('Create employee'), extra=get_extra(
+                                                            self.context.get('request'),
+                                                            object=employee)
+                                                        )
+
 
 
 class _EmployeeSerializer(EmployeeSerializer):
@@ -55,9 +62,18 @@ class EmployeeRelocationSerializer(serializers.ModelSerializer):
                 for attr, value in employee_data.iteritems():
                     setattr(employee, attr, value)
                 employee.save()
+                logger.info(_('Update reusable employee'), extra=get_extra(self.context.get('request'),
+                                                                           object=employee))
+            else:
+                logger.info(_('Create reusable employee'), extra=get_extra(self.context.get('request'),
+                                                                           object=employee))
         else:
             employee = Employee.objects.create(user=user, **employee_data)
+            logger.info(_('Create not reusable employee'), extra=get_extra(self.context.get('request'),
+                                                                           object=employee))
         relocation = EmployeeRelocation.objects.create(user=user, employee=employee, **validated_data)
+        logger.info(_('Create employee relocation request'), extra=get_extra(self.context.get('request'),
+                                                                             object=relocation))
         return relocation
 
     def update(self, instance, validated_data):
@@ -71,6 +87,8 @@ class EmployeeRelocationSerializer(serializers.ModelSerializer):
         for attr, value in validated_data.iteritems():
             setattr(instance, attr, value)
         instance.save()
+        logger.info(_('Update employee relocation request'), extra=get_extra(self.context.get('request'),
+                                                                             object=instance))
         return instance
 
 
@@ -90,6 +108,9 @@ class EmployeeRelocationsSerializer(serializers.ModelSerializer):
         if not relocations:
             raise NotFound
         self.send_email(relocations, user)
+        for relocation in relocations:
+            logger.info(_('Send relocation request'), extra=get_extra(self.context.get('request'),
+                                                                      object=relocation))
         relocations.update(status=EmployeeRelocation.STATUS_CHOICE.RECEIVED)
         return relocations
 
