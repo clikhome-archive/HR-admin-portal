@@ -145,7 +145,8 @@ REST_FRAMEWORK = {
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'authentication.serializers.UserDetailsSerializer',
-    'TOKEN_SERIALIZER': 'authentication.serializers.TokenSerializer'
+    'TOKEN_SERIALIZER': 'authentication.serializers.TokenSerializer',
+    'PASSWORD_RESET_CONFIRM_SERIALIZER': 'authentication.serializers.PasswordResetConfirmSerializer'
 }
 
 AUTH_USER_MODEL = 'authentication.Account'

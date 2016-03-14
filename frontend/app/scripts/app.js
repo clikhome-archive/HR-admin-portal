@@ -10,7 +10,8 @@ angular.module('ClikhomeApp', [
   'ngPassword',
   'dialogs.main',
   'dialogs.default-translations',
-  'ui.autocomplete'])
+  'ui.autocomplete',
+  'vsGoogleAutocomplete'])
   .config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$interpolateProvider', function($httpProvider, $stateProvider, $urlRouterProvider, $locationProvider, $interpolateProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -20,7 +21,19 @@ angular.module('ClikhomeApp', [
       .state('login', {
         url: '/login',
         views: {
-          'sigin@': { templateUrl: 'views/login.html' }
+          'sigin@': { templateUrl: 'views/auth/login.html' }
+        }
+      })
+      .state('forgot_password', {
+        url: '/forgot_password',
+        views: {
+          'sigin@': { templateUrl: 'views/auth/forgot_password.html' }
+        }
+      })
+      .state('reset_password_confirm', {
+        url: '/password-reset/confirm/{uidb64}/{token}',
+        views: {
+          'sigin@': { templateUrl: 'views/auth/reset_password_confirm.html' }
         }
       })
       .state('app', {
