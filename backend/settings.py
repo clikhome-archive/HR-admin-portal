@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'authentication',
     'employee',
     'extended_choices',
+    'db_logging'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -59,6 +60,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'db_logging.middleware.DBLoggingMiddleware'
 ]
 
 ROOT_URLCONF = 'urls'
@@ -168,34 +170,27 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD', 'mi2eomdr4442')
 
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'filters': {
-#         'require_debug_false': {
-#             '()': 'django.utils.log.RequireDebugFalse'
-#         }
-#     },
-#     'handlers': {
-#         'mail_admins': {
-#             'level': 'ERROR',
-#             'filters': ['require_debug_false'],
-#             'class': 'django.utils.log.AdminEmailHandler'
-#         },
-#         'console': {
-#             'level': 'INFO',
-#             'class': 'logging.StreamHandler',
-#             'stream': sys.stdout
-#         },
-#     },
-#     'loggers': {
-#         'django.request': {
-#             'handlers': ['mail_admins', 'console'],
-#             'level': 'ERROR',
-#             'propagate': True,
-#         },
-#     }
-# }
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout
+        },
+        'database': {
+            'level': 'DEBUG',
+            'class': 'db_logging.handler.DBLoggingHandler'
+        }
+    },
+    'loggers': {
+        'user': {
+            'handlers': ['database'],
+            'level': 'DEBUG'
+        }
+    }
+}
 
 try:
     from local_settings import *

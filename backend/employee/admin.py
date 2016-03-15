@@ -10,7 +10,7 @@ class EmployeeAdmin(admin.ModelAdmin):
 
 class EmployeeRelocationAdmin(admin.ModelAdmin):
     list_display = (
-        'user', 'relocate_from', 'relocate_to', 'expected_moving_date',
+        'user', '_user_company_name', 'employee', 'relocate_from', 'relocate_to', 'expected_moving_date',
         '_need_furniture', '_duration', 'status', 'created_dt', 'updated_dt')
     ordering = search_fields = list_filter = (
         'user', 'relocate_from', 'relocate_to', 'expected_moving_date',
@@ -25,6 +25,10 @@ class EmployeeRelocationAdmin(admin.ModelAdmin):
         return instance.duration_title
     _duration.short_description = _('Preferred lease term')
 
+    def _user_company_name(self, obj):
+        return obj.user.company_name
+    _user_company_name.short_description = _('Company name')
+    _user_company_name.admin_order_field = 'user__company_name'
 
 admin.site.register(models.Employee, EmployeeAdmin)
 admin.site.register(models.EmployeeRelocation, EmployeeRelocationAdmin)

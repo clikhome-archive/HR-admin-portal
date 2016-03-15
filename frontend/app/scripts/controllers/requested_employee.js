@@ -63,6 +63,7 @@ angular.module('ClikhomeApp')
       if (search_mode == true) {
         fill_form(empty_data);
         $scope.employee_select = '';
+        search_mode = false;
       }
     };
 

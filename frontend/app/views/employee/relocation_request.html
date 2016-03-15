@@ -37,7 +37,7 @@
 
         <div class="form-group">
           <label class="control-label" for="email">Email</label>
-          <input ng-disabled="disable_email" type="text" class="form-control" id="email" name="email" aria-describedby="email_help" ng-model="model.employee.email" required>
+          <input ng-change="change_email()" type="text" class="form-control" id="email" name="email" aria-describedby="email_help" ng-model="model.employee.email" required>
           <span id="email_help" class="help-block">e.g john@xzc.com</span>
           <div class="alert alert-danger" ng-repeat="error in errors.employee.email">{[{error}]}</div>
         </div>
