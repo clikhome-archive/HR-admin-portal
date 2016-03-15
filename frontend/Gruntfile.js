@@ -14,9 +14,11 @@ module.exports = function (grunt) {
 
   // Automatically load required Grunt tasks
   require('jit-grunt')(grunt, {
+    less: 'grunt-contrib-less',
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn'
+    cdnify: 'grunt-google-cdn',
+    'configureProxies': 'grunt-connect-proxy'
   });
 
   // Configurable paths for the application
@@ -47,6 +49,10 @@ module.exports = function (grunt) {
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'newer:jscs:test', 'karma']
+      },
+      less: {
+        files: ['<%= yeoman.app %>/styles/less/{,*/}*.less'],
+        tasks: ['newer:less:compile', 'postcss']
       },
       styles: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
@@ -90,11 +96,11 @@ module.exports = function (grunt) {
         options: {
           open: true,
           middleware: function (connect, options) {
-            var handleRequest = function (req, res) {
-              if (/\.html$/g.test(req.url) == false) {
-                for (var file, i = 0; i < options.base.length; i++) {
+            var handleRequest = function(req, res) {
+              if(/\.html$/g.test(req.url) == false) {
+                for(var file, i = 0; i < options.base.length; i++) {
                   file = appConfig.app + '/index.html';
-                  if (grunt.file.exists(file)) {
+                  if (grunt.file.exists(file)){
                     require('fs').createReadStream(file).pipe(res);
                     return;
                   }
@@ -180,6 +186,20 @@ module.exports = function (grunt) {
       },
       test: {
         src: ['test/spec/{,*/}*.js']
+      }
+    },
+
+    less: {
+      compile: {
+        options: {
+          paths: ['<%= yeoman.app %>/styles/less'],
+          sourceMap: true
+        },
+        files: {
+          '.tmp/styles/bootstrap.css': '<%= yeoman.app %>/styles/less/bootstrap.less',
+          '.tmp/styles/bootstrap-extend.css': '<%= yeoman.app %>/styles/less/bootstrap-extend.less',
+          '.tmp/styles/site.css': '<%= yeoman.app %>/styles/less/site.less'
+        }
       }
     },
 
@@ -419,38 +439,44 @@ module.exports = function (grunt) {
     // Copies remaining files to places other tasks can use
     copy: {
       dist: {
-        files: [
-          {
-            expand: true,
-            dot: true,
-            cwd: '<%= yeoman.app %>',
-            dest: '<%= yeoman.dist %>',
-            src: [
-              '*.{ico,png,txt}',
-              '*.html',
-              'images/{,*/}*.{webp}',
-              'styles/fonts/{,*/}*.*'
-            ]
-          },
-          {
-            expand: true,
-            cwd: '.tmp/images',
-            dest: '<%= yeoman.dist %>/images',
-            src: ['generated/*']
-          },
-          {
-            expand: true,
-            cwd: 'bower_components/bootstrap/dist',
-            src: 'fonts/*',
-            dest: '<%= yeoman.dist %>/static/'
-          },
-          {
-            expand: true,
-            cwd: 'bower_components/jquery-ui/themes/base',
-            src: 'images/*',
-            dest: '<%= yeoman.dist %>/static/styles/'
-          }
-        ]
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: '<%= yeoman.app %>',
+          dest: '<%= yeoman.dist %>',
+          src: [
+            '*.{ico,png,txt}',
+            '*.html',
+            'images/{,*/}*.{webp}',
+            'styles/fonts/{,*/}*.*'
+          ]
+        },{
+          expand: true,
+          cwd: '.tmp/images',
+          dest: '<%= yeoman.dist %>/images',
+          src: ['generated/*']
+        }, {
+          expand: true,
+          cwd: 'bower_components/bootstrap/dist',
+          src: 'fonts/*',
+          dest: '<%= yeoman.dist %>/static/'
+        }, {
+          expand: true,
+          cwd: 'bower_components/jquery-ui/themes/base',
+          src: 'images/*',
+          dest: '<%= yeoman.dist %>/static/styles/'
+        }, {
+          expand: true,
+          cwd: '<%= yeoman.app %>/assets',
+          src: 'fonts/{,*/}*.*',
+          dest: '<%= yeoman.dist %>/static/'
+        }]
+      },
+      fonts: {
+        expand: true,
+        cwd: '<%= yeoman.app %>/assets/fonts',
+        dest: '.tmp/static/fonts/',
+        src: '{,*/}*.*'
       },
       styles: {
         expand: true,
@@ -463,13 +489,16 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
-        'copy:styles'
+        'copy:fonts',
+        'copy:styles',
+        'less:compile'
       ],
       test: [
         'copy:styles'
       ],
       dist: [
         'copy:styles',
+        'less:compile',
         'imagemin',
         'svgmin'
       ]
@@ -495,6 +524,7 @@ module.exports = function (grunt) {
       'wiredep',
       'concurrent:server',
       'postcss:server',
+      'configureProxies:livereload',
       'connect:livereload',
       'watch'
     ]);

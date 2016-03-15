@@ -21,54 +21,149 @@
 
         <!-- build:css(.tmp) /static/styles/style.css -->
         <!-- Custom styles for this template -->
+        <link href="styles/bootstrap.css" rel="stylesheet">
+        <link href="styles/bootstrap-extend.css" rel="stylesheet">
+        <link href="styles/site.css" rel="stylesheet">
         <link href="styles/style.css" rel="stylesheet">
         <!-- endbuild -->
     </head>
-    <body ng-cloak>
+    <body ng-cloak layout>
         <!--[if lte IE 8]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
             your browser</a> to improve your experience.</p>
         <![endif]-->
-        <div ui-view="sigin"></div>
+        <div ui-view="sigin" class="page vertical-align text-center" ng-if="!authenticated"></div>
 
-        <nav class="navbar navbar-inverse navbar-fixed-top" ng-show="authenticated">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="/">{[{company_name}]}</a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <a class="navbar-right navbar-brand">Hello {[{first_name}]} {[{last_name}]}!</a>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a ui-sref="app.logout">Logout</a></li>
-                        <li><a ui-sref="app.profile">Profile</a></li>
-                    <!--<li><a href="#">Dashboard</a></li>-->
-                    <!--<li><a href="#">Settings</a></li>-->
-                    <!--<li><a href="#">Profile</a></li>-->
-                    <!--<li><a href="#">Help</a></li>-->
-                    </ul>
-                    <!--<form class="navbar-form navbar-right">-->
-                    <!--<input type="text" class="form-control" placeholder="Search...">-->
-                    <!--</form>-->
-                </div>
+        <!-- Navbar -->
+        <nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega" ng-if="authenticated">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle hamburger hamburger-close navbar-toggle-left hided">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="hamburger-bar"></span>
+            </button>
+            <button type="button" class="navbar-toggle collapsed" ng-click="navbarCollapsed = !navbarCollapsed">
+              <i class="icon wb-more-horizontal" aria-hidden="true"></i>
+            </button>
+            <div class="navbar-brand navbar-brand-center site-gridmenu-toggle">
+              <img class="navbar-brand-logo" src="/images/global/logos/logo_sm_white.png" title="Clikhome">
+              <span class="navbar-brand-text"> ClikHome</span>
             </div>
+            <button type="button" class="navbar-toggle collapsed" ng-click="isMainSearchActive = true">
+              <span class="sr-only">Toggle Search</span>
+              <i class="icon wb-search" aria-hidden="true"></i>
+            </button>
+          </div>
+
+          <div class="navbar-container container-fluid">
+            <!-- Navbar Collapse -->
+            <div class="collapse navbar-collapse navbar-collapse-toolbar" uib-collapse="navbarCollapsed">
+              <!-- Navbar Toolbar -->
+              <ul class="nav navbar-toolbar">
+                <li class="hidden-float">
+                  <a href="#">
+                    <i class="icon hamburger hamburger-arrow-left">
+                      <span class="hamburger-bar"></span>
+                    </i>
+                  </a>
+                </li>
+
+                <li class="hidden-float">
+                  <a href="#" class="icon wb-search" ng-click="isMainSearchActive = true"></a>
+                </li>
+              </ul>
+              <!-- End Navbar Toolbar -->
+
+              <!-- Navbar Toolbar Right-->
+              <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
+                <li uib-dropdown>
+                  <a href="#" class="navbar-avatar" uib-dropdown-toggle role="button">
+                    <span class="avatar avatar-online">
+                      <img src="/images/global/portraits/default-user-img-225x225.png" alt="...">
+                      <i></i>
+                    </span>
+                  </a>
+                  <ul uib-dropdown-menu role="menu">
+                    <li role="presentation" class="dropdown-header">{[{first_name + ' ' + last_name}]}</li>
+                    <li class="divider" role="presentation"></li>
+                    <li role="presentation">
+                      <a href="#" ui-sref="app.profile" role="menuitem"><i class="icon wb-user" aria-hidden="true"></i> Profile</a>
+                    </li>
+                    <li role="presentation">
+                      <a href="#" ui-sref="app.logout" role="menuitem"><i class="icon wb-power" aria-hidden="true"></i> Logout</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <!-- End Navbar Toolbar Right-->
+            </div>
+            <!-- End Navbar Collapse -->
+
+            <!-- Navbar Search -->
+            <div class="collapse navbar-search-overlap" uib-collapse="!isMainSearchActive">
+              <form role="search">
+                <div class="form-group">
+                  <div class="input-search">
+                    <i class="input-search-icon wb-search"></i>
+                    <input type="text" class="form-control" name="site_search" placeholder="Search...">
+                    <button type="button" class="input-search-close icon wb-close" aria-label="Close" ng-click="isMainSearchActive = false"></button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- End Navbar Search -->
+          </div>
         </nav>
 
-        <div class="container-fluid" ng-show="authenticated">
-            <div class="row">
-                <div class="col-sm-3 col-md-2 sidebar">
-                    <ul class="nav nav-sidebar">
-                        <li><h3 style="padding-left: 10px">Relocation</h3></li>
-                        <li><a ui-sref="app.relocation.request">New Request</a></li>
-                        <li><a ui-sref="app.relocation.history">Request History</a></li>
-                    </ul>
-                    <ul class="nav nav-sidebar">
-                        <li><h3 style="padding-left: 10px">People</h3></li>
-                        <li><a ui-sref="app.employee.list">Employee Management</a></li>
-                    </ul>
-                </div>
-                <div ui-view="content"></div>
-            </div>
+        <!-- Site Menubar -->
+        <div class="site-menubar" ng-if="authenticated">
+          <!-- Site Menubar Body -->
+          <div class="site-menubar-body">
+            <ul class="site-menu">
+              <li class="site-menu-category">Relocation</li>
+              <li class="site-menu-item">
+                <a ui-sref="app.relocation.request">
+                  <i class="site-menu-icon wb-plus"></i>
+                  <span>New Request</span>
+                </a>
+              </li>
+              <li class="site-menu-item">
+                <a ui-sref="app.relocation.history">
+                  <i class="site-menu-icon wb-pluse"></i>
+                  <span>Request History</span>
+                </a>
+              </li>
+              <li class="site-menu-category">People</li>
+              <li class="site-menu-item">
+                <a ui-sref="app.employee.list">
+                  <i class="site-menu-icon wb-users"></i>
+                  <span>Employee Management</span>
+                </a>
+              </li>
+            </ul>
+            <!-- End Site Menubar Body -->
+          </div>
+          <!-- Site Menubar Footer -->
+          <div class="site-menubar-footer">
+            <a ui-sref="app.profile"
+               uib-tooltip="Profile"
+               tooltip-placement="top">
+              <span class="icon wb-settings" aria-hidden="true"></span>
+            </a>
+            <a href="#">
+              <span class="icon wb-eye-close" aria-hidden="true"></span>
+            </a>
+            <a ui-sref="app.logout"
+               uib-tooltip="Logout"
+               tooltip-placement="top">
+              <span class="icon wb-power" aria-hidden="true"></span>
+            </a>
+            <!-- End Site Menubar Footer -->
+          </div>
+          <!-- End Site Menubar -->
         </div>
+
+        <!-- Page Content -->
+        <div ui-view="content" class="page" ng-if="authenticated"></div>
 
         <!-- build:js(.) /static/scripts/vendor.js -->
         <!-- bower:js -->
@@ -119,6 +214,12 @@
         <script src="scripts/services/employee.js"></script>
         <script src="scripts/services/relocations.js"></script>
         <script src="scripts/services/profile.js"></script>
+        <script src="scripts/services/layoutswitcher.js"></script>
+        <script src="scripts/services/layout_types.js"></script>
+        <!-- endbuild -->
+
+        <!-- build:js(app) /static/scripts/directives.js -->
+        <script src="scripts/directives/layout.js"></script>
         <!-- endbuild -->
 
         <!-- build:js(app) /static/scripts/assets.js -->
