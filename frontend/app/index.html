@@ -32,7 +32,7 @@
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
             your browser</a> to improve your experience.</p>
         <![endif]-->
-        <div ui-view="sigin" class="page vertical-align text-center"></div>
+        <div ui-view="sigin" class="page vertical-align text-center" ng-if="!authenticated"></div>
 
         <!-- Navbar -->
         <nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega" ng-if="authenticated">
@@ -214,6 +214,12 @@
         <script src="scripts/services/employee.js"></script>
         <script src="scripts/services/relocations.js"></script>
         <script src="scripts/services/profile.js"></script>
+        <script src="scripts/services/layoutswitcher.js"></script>
+        <script src="scripts/services/layout_types.js"></script>
+        <!-- endbuild -->
+
+        <!-- build:js(app) /static/scripts/directives.js -->
+        <script src="scripts/directives/layout.js"></script>
         <!-- endbuild -->
 
         <!-- build:js(app) /static/scripts/assets.js -->
@@ -225,9 +231,6 @@
         <!-- build:js({.,app}) /static/scripts/ie9.js -->
         <!--[if lt IE 9]>
         <script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-        <script src="scripts/services/layoutswitcher.js"></script>
-        <script src="scripts/services/layout_types.js"></script>
-        <script src="scripts/directives/layout.js"></script>
         <!-- endbuild -->
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->

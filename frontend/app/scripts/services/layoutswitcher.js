@@ -8,7 +8,7 @@
  * Factory in the ClikhomeApp.
  */
 angular.module('ClikhomeApp')
-  .factory('layoutSwitcher', function ( $rootScope, LAYOUT_TYPES ) {
+  .factory('layoutSwitcher', ['$rootScope', 'LAYOUT_TYPES', function ( $rootScope, LAYOUT_TYPES ) {
     var EVENT_NAME = 'layout-switcher:layout';
 
     return {
@@ -22,4 +22,4 @@ angular.module('ClikhomeApp')
         $rootScope.$emit(EVENT_NAME, type);
       }
     };
-  });
+  }]);

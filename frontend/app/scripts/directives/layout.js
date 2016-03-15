@@ -7,7 +7,7 @@
  * # layout
  */
 angular.module('ClikhomeApp')
-  .directive('layout', function ( $rootScope, LAYOUT_TYPES ) {
+  .directive('layout', ['$rootScope', 'LAYOUT_TYPES', function ( $rootScope, LAYOUT_TYPES ) {
     var TYPE_CLASS_MAP = {};
     TYPE_CLASS_MAP[LAYOUT_TYPES.MENU_COLLAPSED] = 'site-menubar-keep site-menubar-fold';
     TYPE_CLASS_MAP[LAYOUT_TYPES.MENU_COLLAPSED_ALT] = 'site-menubar-fold-alt site-menubar-keep site-menubar-fold';
@@ -35,4 +35,4 @@ angular.module('ClikhomeApp')
         layout(LAYOUT_TYPES.MENU_EXPANDED);
       }
     };
-  });
+  }]);

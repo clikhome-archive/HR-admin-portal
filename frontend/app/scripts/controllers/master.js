@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ClikhomeApp')
-  .controller('MasterCtrl', ["$rootScope", "$scope", "$location", "djangoAuth", function ($rootScope, $scope, $location, djangoAuth) {
+  .controller('MasterCtrl', ["$rootScope", "$scope", "$location", "djangoAuth", "layoutSwitcher", function ($rootScope, $scope, $location, djangoAuth, layoutSwitcher) {
     $scope.isMainSearchActive = false;
     $scope.navbarCollapsed = true;
     // Assume user is not logged in until we hear otherwise
@@ -13,6 +13,7 @@ angular.module('ClikhomeApp')
     // Wait and respond to the logout event.
     $scope.$on('djangoAuth.logged_out', function() {
       $scope.authenticated = false;
+      layoutSwitcher.layout(layoutSwitcher.LAYOUT_TYPES.LOGIN);
       $scope.email = null;
       $scope.first_name = null;
       $scope.last_name = null;
@@ -21,6 +22,7 @@ angular.module('ClikhomeApp')
     // Wait and respond to the log in event.
     $scope.$on('djangoAuth.logged_in', function(event, response) {
       $scope.authenticated = true;
+      layoutSwitcher.layout(layoutSwitcher.LAYOUT_TYPES.MENU_EXPANDED);
       $scope.email = response.user.email;
       $scope.first_name = response.user.first_name;
       $scope.last_name = response.user.last_name;
