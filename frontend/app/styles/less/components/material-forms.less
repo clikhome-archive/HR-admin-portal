@@ -143,7 +143,7 @@
   }
 
   .form-control {
-    &:focus, &.focus, &:not(.empty) {
+    &:focus, &.focus, &:not(.ng-empty) {
       ~ .floating-label {
         font-weight: @font-weight-bold;
       }
@@ -201,14 +201,16 @@
 
   // Invalid
   .form-control {
-    &:not(.empty):invalid, &.focus:invalid {
+    &:not(.ng-pristine):invalid,
+    &:not(.no-validation):invalid, &.focus:invalid {
       ~ .floating-label {
         color: @form-material-danger-text;
       }
     }
   }
 
-  .form-control:invalid {
+  .form-control:not(.ng-pristine):invalid,
+  .form-control:not(.no-validation):invalid {
     .form-material-control-underline(@form-material-danger-text, @form-material-underline-color);
   }
 
@@ -278,7 +280,7 @@
     top: (@font-size * (@line-height - 1));
   }
 
-  &:focus, &.focus, &:not(.empty) {
+  &:focus, &.focus, &:not(.ng-empty) {
     ~ .floating-label {
       top: (@ratio * -@font-size);
       font-size: (@ratio * @font-size);
@@ -297,7 +299,7 @@
   .form-control {
     // box-shadow: none;
 
-    &:focus, &.focus, &:not(.empty) {
+    &:focus, &.focus, &:not(.ng-empty) {
       .form-material-control-underline(@text-color, @border-color);
 
       .no-cssgradients & {
@@ -315,7 +317,7 @@
       }
     }
 
-    &:not(.empty){
+    &:not(.ng-empty){
       background-size: 100% 2px, 100% 1px;
     }
   }
@@ -325,7 +327,7 @@
   }
 
   .form-control {
-    &:focus, &.focus, &:not(.empty) {
+    &:focus, &.focus, &:not(.ng-empty) {
       ~ .floating-label {
         color: @text-color;
       }

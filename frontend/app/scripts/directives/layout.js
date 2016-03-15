@@ -14,7 +14,7 @@ angular.module('ClikhomeApp')
     TYPE_CLASS_MAP[LAYOUT_TYPES.MENU_EXPANDED] = 'site-menubar-keep site-menubar-unfold';
     TYPE_CLASS_MAP[LAYOUT_TYPES.BOXED] = 'layout-boxed site-menubar-unfold';
     TYPE_CLASS_MAP[LAYOUT_TYPES.MENU_FLIPPED] = 'site-menubar-flipped site-menubar-unfold';
-    TYPE_CLASS_MAP[LAYOUT_TYPES.LOGIN] = 'page-login-v3 layout-full';
+    TYPE_CLASS_MAP[LAYOUT_TYPES.LOGIN] = 'page-login layout-full';
     TYPE_CLASS_MAP[LAYOUT_TYPES.REGISTER] = 'page-register-v3 layout-full';
 
     return {

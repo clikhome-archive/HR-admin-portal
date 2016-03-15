@@ -1,22 +1,38 @@
-<div class="container" ng-controller="LoginCtrl">
-    <form role="form" class="form-signin" ng-submit="login(loginForm)" name="loginForm" novalidate>
-        <h2 class="form-signin-heading">Please sign in</h2>
+<div class="page-content vertical-align-middle">
+  <div class="panel" ng-controller="LoginCtrl">
+    <div class="panel-body">
+      <div class="brand">
+        <img class="brand-img" src="/images/global/logos/logo_sm_dark.png" alt="...">
+        <h1 class="brand-text font-size-18 font-weight-400">ClikHome</h1>
+      </div>
 
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input name="username" type="email" id="inputEmail" class="form-control" placeholder="Email address" ng-model="model.username" required autofocus>
-        <div class="alert alert-danger" ng-repeat="error in errors.username">{[{error}]}</div>
+      <form role="form" ng-submit="login(loginForm)" name="loginForm" novalidate>
+        <div class="form-group form-material floating">
+          <input name="username" type="email" id="inputEmail" class="form-control no-validation" ng-model="model.username" required autofocus>
+          <label for="inputEmail" class="floating-label">Email address</label>
+          <div class="alert alert-danger" ng-repeat="error in errors.username">{[{error}]}</div>
+        </div>
 
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" ng-model="model.password" required>
-        <div class="alert alert-danger" ng-repeat="error in errors.password">{[{error}]}</div>
+        <div class="form-group form-material floating">
+          <input name="password" type="password" id="inputPassword" class="form-control no-validation" ng-model="model.password" required>
+          <label for="inputPassword" class="floating-label">Password</label>
+          <div class="alert alert-danger" ng-repeat="error in errors.password">{[{error}]}</div>
+        </div>
+
+        <div class="form-group clearfix">
+          <div class="checkbox-custom checkbox-inline checkbox-primary checkbox-lg pull-left">
+            <input type="checkbox" id="inputCheckbox" name="remember">
+            <label for="inputCheckbox">Remember me</label>
+          </div>
+          <a class="pull-right" ui-sref="forgot_password">Forgot password?</a>
+        </div>
 
         <div class="alert alert-danger" ng-repeat="error in errors.non_field_errors">{[{error}]}</div>
         <div class="alert alert-danger" ng-if="error">{[{error}]}</div>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        <br>
-        <p class="text-right">
-            <a ui-sref="forgot_password">Forgot password?</a>
-        </p>
-    </form>
+        <button class="btn btn-primary btn-block btn-lg margin-top-40" type="submit">Sign in</button>
+      </form>
+      <p>Still no account? Please go to <a href="#">Sign up</a></p>
+    </div>
+  </div>
 </div>
