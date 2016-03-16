@@ -85,7 +85,7 @@ module.exports = function (grunt) {
         proxies: [
           {
             context: [
-              '/admin', '/api', '/static', '__debug__', '/accounts', '/rest-auth', '/docs', '/media'
+              '/admin', '/api', '__debug__', '/accounts', '/rest-auth', '/docs', '/media'
             ],
             host: '127.0.0.1',
             port: 8000,
