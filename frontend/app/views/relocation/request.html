@@ -56,20 +56,7 @@
     <div class="panel-footer container-fluid">
       <div class="row">
         <form role="form" class="form col-sm-4 col-sm-offset-4" novalidate>
-          <button
-            class="btn btn-block btn-success btn-outline"
-            mwl-confirm
-            title="Confirmation"
-            message="Are you confirm submitting data?"
-            confirm-text="<i class='icon wb-check-mini'></i> Yes"
-            cancel-text="<i class='icon wb-close-mini'></i> No"
-            on-confirm="store()"
-            on-cancel=""
-            placement="top"
-            confirm-button-type="danger"
-            cancel-button-type="default">
-            Request
-          </button>
+          <button class="btn btn-block btn-success btn-outline" ng-click="confirm()">Request</button>
         </form>
       </div>
     </div>

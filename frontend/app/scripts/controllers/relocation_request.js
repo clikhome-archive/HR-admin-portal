@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ClikhomeApp')
-  .controller('RelocationRequestCtrl', ["$state", "$scope", "$location", "RelocationRequest", "dialogs", function ($state, $scope, $location, RelocationRequest, dialogs) {
+  .controller('RelocationRequestCtrl', ["$state", "$scope", "$location", "RelocationRequest", "dialogs", "$uibModal", function ($state, $scope, $location, RelocationRequest, dialogs, $uibModal) {
 
     // Fill page
     RelocationRequest.get_list().then(function(response){
@@ -10,6 +10,19 @@ angular.module('ClikhomeApp')
       // didn't have licenses
       dialogs.error('Error', response.detail);
     });
+
+    $scope.confirm = function () {
+      var instance = $uibModal.open({
+        templateUrl: 'views/relocation/modal_confirm.html',
+        controller: 'RelocationModalConfirmCtrl'
+      });
+
+      instance.result.then(function (confirm) {
+        if (confirm) {
+          $scope.store();
+        }
+      });
+    };
 
     $scope.store = function() {
       if (!$scope.requests.length) {
