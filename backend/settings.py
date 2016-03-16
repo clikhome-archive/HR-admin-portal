@@ -42,10 +42,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
+    's3direct',
     'authentication',
     'employee',
     'extended_choices',
-    'db_logging'
+    'db_logging',
+    'billing'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -190,6 +192,18 @@ LOGGING = {
             'level': 'DEBUG'
         }
     }
+}
+
+
+AWS_SECRET_ACCESS_KEY = 'FDQ6zhGPUZNZ6I7uyHo+98W9eZQ9aHKgFZG3RS0a'
+AWS_ACCESS_KEY_ID = 'AKIAJ7V5TYLS2PTCOFCQ'
+AWS_STORAGE_BUCKET_NAME = 'clikhome-hr'
+
+S3DIRECT_DESTINATIONS = {
+    'invoices': (
+        'invoices',
+        lambda u: u.is_staff,
+        '*')
 }
 
 try:
