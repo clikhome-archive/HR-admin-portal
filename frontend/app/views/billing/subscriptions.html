@@ -1,0 +1,39 @@
+<div class="page-header">
+  <h1 class="page-title">Subscriptions</h1>
+</div>
+
+<div class="page-content">
+  <!-- Employee List Panel -->
+  <div class="panel" ng-controller="SubscriptionsCtrl">
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Requests</th>
+              <th>My Bill</th>
+              <th>Payment details</th>
+              <th>Expiration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="subscription in subscriptions">
+              <td>
+                  Purchased: {[{subscription.licenses}]}<br>
+                  Assigned: {[{subscription.assigned}]}<br>
+              </td>
+              <td>
+                  Invoice dated of {[{subscription.invoice.created_dt | date : 'yyyy-MM-dd'}]}<br>
+                  Invoice details: {[{subscription.invoice.comment}]}<br>
+                  <a href="{[{subscription.invoice.invoice}]}">Download</a>
+              </td>
+              <td>{[{subscription.comment}]}</td>
+              <td>{[{subscription.expired}]}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- End Employee List Panel -->
+  </div>
+</div>

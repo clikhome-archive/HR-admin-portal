@@ -151,6 +151,19 @@
                   <span class="site-menu-title">Employee Management</span>
                 </a>
               </li>
+              <li class="site-menu-category">Billing</li>
+              <li class="site-menu-item">
+                <a ui-sref="app.billing.invoices">
+                  <i class="site-menu-icon wb-book"></i>
+                  <span>Invoices</span>
+                </a>
+              </li>
+              <li class="site-menu-item">
+                <a ui-sref="app.billing.subscriptions">
+                  <i class="site-menu-icon wb-library"></i>
+                  <span>Subscriptions</span>
+                </a>
+              </li>
             </ul>
             <!-- End Site Menubar Body -->
           </div>
@@ -217,6 +230,8 @@
         <script src="scripts/controllers/profile_form.js"></script>
         <script src="scripts/controllers/forgot_password.js"></script>
         <script src="scripts/controllers/password_reset_confirm.js"></script>
+        <script src="scripts/controllers/subscriptions.js"></script>
+        <script src="scripts/controllers/invoices.js"></script>
         <!-- endbuild -->
 
         <!-- build:js(app) /static/scripts/services.js -->
@@ -228,6 +243,8 @@
         <script src="scripts/services/profile.js"></script>
         <script src="scripts/services/layoutswitcher.js"></script>
         <script src="scripts/services/layout_types.js"></script>
+        <script src="scripts/services/subscriptions.js"></script>
+        <script src="scripts/services/invoices.js"></script>
         <!-- endbuild -->
 
         <!-- build:js(app) /static/scripts/directives.js -->

@@ -31,6 +31,8 @@ angular.module('ClikhomeApp')
         RelocationRequest.process_list()
           .then(function(data){
             $state.go('app.relocation.history')
+          }, function(response) {
+            dialogs.error('Error', response.detail);
           });
       }
     };

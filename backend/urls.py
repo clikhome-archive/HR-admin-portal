@@ -23,6 +23,8 @@ from employee.views import (EmployeeRelocationViewSet,
                             EmployeeViewSet,
                             EmployeeSearchViewSet)
 from authentication.views import ProfileViewSet
+from billing.views import (SubscriptionsViewSet, InvoicesViewSet)
+
 
 router = routers.SimpleRouter()
 router.register(r'employee/relocations_history', EmployeeRelocationsHistoryViewSet, base_name='employee-relocations-history') # Work with relocation request (new/exists)
@@ -31,9 +33,12 @@ router.register(r'employee/relocation_request', EmployeeRelocationViewSet, base_
 router.register(r'employee/search/(?P<query>.+)', EmployeeSearchViewSet, base_name='employee_search') # Work with employee
 router.register(r'employee', EmployeeViewSet, base_name='employee') # Work with employee
 router.register(r'profile', ProfileViewSet, base_name='profile') # Work with profile
+router.register(r'billing/subscritions', SubscriptionsViewSet, base_name='subscriptions')
+router.register(r'billing/invoices', InvoicesViewSet, base_name='invoices')
 
 
 urlpatterns = [
+    url(r'^s3direct/', include('s3direct.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^api/v1/', include(router.urls)),
     url(r'^api/v1/', include('rest_auth.urls')),
