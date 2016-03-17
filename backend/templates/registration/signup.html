@@ -1,10 +1,10 @@
 {% load i18n %}{% autoescape off %}
 {% blocktrans %}Hello!
 
-Thank you for signing up at {{ site_name }}. To confirm your email address, please click the following activation link.
+Thank you for signing up at {{ site_name }}. To confirm your email address, please click the following activation link.{% endblocktrans %}
 {{ protocol }}://{{ domain }}{% url 'account_activate' activate_key=user.activate_key %}
 
-We appreciate your business and look forward to working with you!
+{% blocktrans %}We appreciate your business and look forward to working with you!
 
 Thank you,
 Team ClikHome
