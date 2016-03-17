@@ -206,6 +206,10 @@ S3DIRECT_DESTINATIONS = {
         '*')
 }
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'authentication.backend.AuthByModelBackend'
+]
 try:
     from local_settings import *
 except ImportError:

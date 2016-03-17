@@ -22,7 +22,7 @@ from employee.views import (EmployeeRelocationViewSet,
                             EmployeeRelocationsViewSet,
                             EmployeeViewSet,
                             EmployeeSearchViewSet)
-from authentication.views import ProfileViewSet
+from authentication.views import ProfileViewSet, SignUpViewSet, ActivateViewSet
 from billing.views import (SubscriptionsViewSet, InvoicesViewSet)
 
 
@@ -35,6 +35,8 @@ router.register(r'employee', EmployeeViewSet, base_name='employee') # Work with 
 router.register(r'profile', ProfileViewSet, base_name='profile') # Work with profile
 router.register(r'billing/subscritions', SubscriptionsViewSet, base_name='subscriptions')
 router.register(r'billing/invoices', InvoicesViewSet, base_name='invoices')
+router.register(r'account/signup', SignUpViewSet, base_name='account_signup')
+router.register(r'account/activate', ActivateViewSet, base_name='account_activate')
 
 
 urlpatterns = [
@@ -42,6 +44,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/v1/', include(router.urls)),
     url(r'^api/v1/', include('rest_auth.urls')),
+    url(r'^account/activate/(?P<activate_key>[0-9A-Za-z_\-]+)$',
+        IndexView.as_view(), name='account_activate'),
     url(r'^password-reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$',
         IndexView.as_view(), name='password_reset_confirm'),
     url(r'^.*$', IndexView.as_view(), name='index')

@@ -62,7 +62,7 @@ class AccountAdmin(AccountAdmin):
     list_filter = list_display = ('email', 'first_name', 'last_name', 'is_staff')
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Permissions', {'fields': ('is_staff','is_superuser')}),
+        ('Permissions', {'fields': ('is_staff', 'is_superuser', 'is_active')}),
         (('Personal info'), {'fields': ('first_name', 'last_name', 'phone')}),
         (('Company info'), {'fields': ('company_name', 'company_address')}),
         (('Important dates'), {'fields': ('last_login', 'date_joined')}),

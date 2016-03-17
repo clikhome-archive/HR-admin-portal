@@ -10,7 +10,7 @@ angular.module('ClikhomeApp')
       if(!formData.$invalid){
         djangoAuth.forgot_password($scope.model.email)
           .then(function(data){
-            var dig = dialogs.notify('Norift', data.success)
+            var dig = dialogs.notify('Notify', data.success)
             dig.result.then(function(){
               $state.go('login');
             });

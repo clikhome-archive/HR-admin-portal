@@ -24,6 +24,18 @@ angular.module('ClikhomeApp', [
           'sigin@': { templateUrl: 'views/auth/login.html' }
         }
       })
+      .state('signup', {
+        url: '/signup',
+        views: {
+          'sigin@': { templateUrl: 'views/auth/signup.html' }
+        }
+      })
+      .state('account_activate', {
+        url: '/account/activate/{activate_key}',
+        views: {
+          'sigin@': { templateUrl: 'views/auth/activate.html' }
+        }
+      })
       .state('forgot_password', {
         url: '/forgot_password',
         views: {

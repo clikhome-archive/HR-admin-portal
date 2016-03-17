@@ -3,6 +3,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
+from django.utils.crypto import get_random_string
+from django.db.utils import IntegrityError
 
 
 class AccountManager(BaseUserManager):
@@ -12,7 +14,14 @@ class AccountManager(BaseUserManager):
         account = self.model(
             email=AccountManager.normalize_email(email),
         )
-
+        account.save()
+        while True:
+            account.activate_key = get_random_string(64).lower()
+            try:
+                account.save(using=self._db)
+                break
+            except IntegrityError:
+                pass
         account.set_password(password)
         account.save(using=self._db)
         return account
@@ -21,7 +30,7 @@ class AccountManager(BaseUserManager):
         account = self.create_user(email,
                                 password=password,
         )
-        account.is_staff = account.is_superuser = True
+        account.is_staff = account.is_superuser = account.is_active = True
         account.save(using=self._db)
         return account
 
@@ -42,12 +51,13 @@ class Account(AbstractBaseUser, PermissionsMixin):
     )
     is_active = models.BooleanField(
         _('active'),
-        default=True,
+        default=False,
         help_text=_(
             'Designates whether this user should be treated as active. '
             'Unselect this instead of deleting accounts.'
         ),
     )
+    activate_key = models.CharField(verbose_name=_('Activate key'), max_length=64, unique=True)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
 
     objects = AccountManager()

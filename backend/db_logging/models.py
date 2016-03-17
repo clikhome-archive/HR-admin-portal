@@ -31,7 +31,8 @@ class Log(models.Model):
         ('GET','GET'),
         ('POST', 'POST'),
     )
-    user = models.ForeignKey(Account, verbose_name=_('User'))
+    user = models.ForeignKey(Account, verbose_name=_('User'), blank=True,
+                             null=True, on_delete=models.SET_NULL)
     event = models.CharField(_('Event'), max_length=500)
     method = models.CharField(_('HTTP method'), choices=METHOD, max_length=4)
     data = models.TextField(_('Request data'))

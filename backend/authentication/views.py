@@ -1,7 +1,12 @@
 from rest_framework import mixins, viewsets
-from serializers import UserDetailsSerializer
+from serializers import UserDetailsSerializer, SignUpSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.generics import get_object_or_404
+from models import Account
+from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth import authenticate, login
 
 
 class ProfileViewSet(viewsets.GenericViewSet):
@@ -30,3 +35,31 @@ class ProfileViewSet(viewsets.GenericViewSet):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
+
+
+class SignUpViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    serializer_class = SignUpSerializer
+
+    def create(self, request, *args, **kwargs):
+        super(SignUpViewSet, self).create(request, *args, **kwargs)
+        return Response({'detail': _('We are send you acrtivation email, please check your mail now.')},
+                        status=status.HTTP_201_CREATED)
+
+
+class ActivateViewSet(viewsets.GenericViewSet):
+    lookup_field = 'activate_key'
+
+    def get_object(self):
+        filter_kwargs = {
+            'activate_key': self.kwargs['activate_key'],
+            'is_active': False}
+        return get_object_or_404(Account, **filter_kwargs)
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.is_active = True
+        instance.save()
+        user = authenticate(instance=instance)
+        login(request, user)
+        return Response({'detail': _('Your account is activated now')},
+                        status=status.HTTP_202_ACCEPTED)

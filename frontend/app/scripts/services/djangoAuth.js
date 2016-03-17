@@ -30,6 +30,19 @@ angular.module('ClikhomeApp')
           $rootScope.$broadcast("djangoAuth.logged_in", data);
         });
       },
+      'signup': function (data) {
+        return djangoHttp.request({
+          'method': "POST",
+          'url': "/account/signup/",
+          'data': data
+        });
+      },
+      'activate': function(activate_key) {
+        return djangoHttp.request({
+          'method': "PUT",
+          'url': "/account/activate/" + activate_key + "/"
+        });
+      },
       'logout': function () {
         var djangoAuth = this;
         return djangoHttp.request({
