@@ -44,7 +44,7 @@ class SignUpViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
 
     def create(self, request, *args, **kwargs):
         super(SignUpViewSet, self).create(request, *args, **kwargs)
-        return Response({'detail': _('We are send you acrtivation email, please check your mail now.')},
+        return Response({'detail': _('We sent you an activation email, please check your email now.')},
                         status=status.HTTP_201_CREATED)
 
 
@@ -63,7 +63,7 @@ class ActivateViewSet(viewsets.GenericViewSet):
         instance.save()
         user = authenticate(instance=instance)
         login(request, user)
-        return Response({'detail': _('Your account is activated now')},
+        return Response({'detail': _('Your account is activated')},
                         status=status.HTTP_202_ACCEPTED)
 
 
