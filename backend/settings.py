@@ -31,6 +31,8 @@ ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com', '.clikhome.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'dal',
+    'dal_select2',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -82,6 +84,7 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.request'
             ],
             'libraries': {
                 'staticfiles': 'django.templatetags.static',

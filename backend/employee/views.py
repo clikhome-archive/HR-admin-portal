@@ -6,6 +6,8 @@ from models import Employee, EmployeeRelocation
 from rest_framework.permissions import IsAuthenticated
 from utils.permissions import IsOwnerOfObject
 from rest_framework.response import Response
+from dal import autocomplete
+from django.db.models.query import Q
 
 
 class EmployeeViewSet(viewsets.ModelViewSet):
@@ -63,3 +65,15 @@ class EmployeeSearchViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         return Employee.objects.search(self.kwargs.get('query'))\
             .filter(is_reusable=True, user=self.request.user)
 
+
+class EmployeeSelect2QuerySetView(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        if not self.request.user.is_authenticated() or not self.request.user.is_staff:
+            return Employee.objects.none()
+        qs = Employee.objects.all()
+        if self.q:
+            qs = qs.filter(Q(first_name__icontains=self.q) |
+                           Q(last_name__icontains=self.q) |
+                           Q(email__icontains=self.q) |
+                           Q(phone__icontains=self.q))
+        return qs

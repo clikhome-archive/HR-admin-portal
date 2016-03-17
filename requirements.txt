@@ -10,3 +10,4 @@ whitenoise==2.0.6
 newrelic==2.54.0.41
 django-s3direct==0.3.12
 fabric==1.10.2
+django-autocomplete-light==3.1.4

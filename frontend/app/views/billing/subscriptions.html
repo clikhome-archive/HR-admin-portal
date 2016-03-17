@@ -13,7 +13,9 @@
               <th>Requests</th>
               <th>My Bill</th>
               <th>Payment details</th>
-              <th>Expiration</th>
+              <th>Payment date</th>
+              <th>Contract expired</th>
+              <th>Active</th>
             </tr>
           </thead>
           <tbody>
@@ -28,7 +30,9 @@
                   <a href="{[{subscription.invoice.invoice}]}">Download</a>
               </td>
               <td>{[{subscription.comment}]}</td>
-              <td>{[{subscription.expired}]}</td>
+              <td>{[{subscription.payment_date}]}</td>
+              <td>{[{subscription.contract_expired_date}]}</td>
+              <td><div ng-show="!subscription.suspended">Yes</div><div ng-show="subscription.suspended">No</div></td>
             </tr>
           </tbody>
         </table>

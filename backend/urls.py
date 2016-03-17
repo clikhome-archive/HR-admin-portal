@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
+from dal import autocomplete
 from django.contrib import admin
 from rest_framework import routers
 from index import IndexView
@@ -21,9 +22,19 @@ from employee.views import (EmployeeRelocationViewSet,
                             EmployeeRelocationsHistoryViewSet,
                             EmployeeRelocationsViewSet,
                             EmployeeViewSet,
-                            EmployeeSearchViewSet)
-from authentication.views import ProfileViewSet, SignUpViewSet, ActivateViewSet
-from billing.views import (SubscriptionsViewSet, InvoicesViewSet)
+                            EmployeeSearchViewSet,
+                            EmployeeSelect2QuerySetView)
+from employee.models import Employee
+from authentication.views import (ProfileViewSet,
+                                  SignUpViewSet,
+                                  ActivateViewSet,
+                                  AccountSelect2QuerySetView,
+                                  DepartmentSelect2QuerySetView)
+from authentication.models import Account, Department
+from billing.views import (SubscriptionsViewSet,
+                           InvoicesViewSet,
+                           InvoiceSelect2QuerySetView)
+from billing.models import Invoice
 
 
 router = routers.SimpleRouter()
@@ -41,6 +52,22 @@ router.register(r'account/activate', ActivateViewSet, base_name='account_activat
 
 urlpatterns = [
     url(r'^s3direct/', include('s3direct.urls')),
+    url('admin/select_user/$', AccountSelect2QuerySetView.as_view(
+        model=Account),
+        name='select_user'
+    ),
+    url('admin/select_department/$', DepartmentSelect2QuerySetView.as_view(
+        model=Department),
+        name='select_department'
+    ),
+    url('admin/select_invoice/$', InvoiceSelect2QuerySetView.as_view(
+        model=Invoice),
+        name='select_invoice'
+    ),
+    url('admin/select_employee/$', EmployeeSelect2QuerySetView.as_view(
+        model=Employee),
+        name='select_employee'
+    ),
     url(r'^admin/', admin.site.urls),
     url(r'^api/v1/', include(router.urls)),
     url(r'^api/v1/', include('rest_auth.urls')),

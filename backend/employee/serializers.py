@@ -109,9 +109,7 @@ class EmployeeRelocationsSerializer(serializers.ModelSerializer):
         if not relocations:
             raise NotFound
         # raise PaymentRequired if user didn't have linceses
-        Subscription.objects.withdrawal(user, len(relocations))
-        logger.info(_('Wwithdrawal %d licenses' % len(relocations)), extra=get_extra(self.context.get('request')))
-
+        Subscription.objects.withdrawal(user, len(relocations), self.context.get('request'))
         self.send_email(relocations, user)
         for relocation in relocations:
             logger.info(_('Send relocation request'), extra=get_extra(self.context.get('request'),
