@@ -33,8 +33,11 @@
     "grunt-wiredep": "^2.0.0",
     "jit-grunt": "^0.9.1",
     "jshint-stylish": "^1.0.0",
-    "karma-jasmine": "*",
-    "karma-phantomjs-launcher": "*",
+    "grunt-karma": "^0.9.0",
+    "karma": "^0.12.28",
+    "karma-jasmine": "^0.3.2",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "phantomjs": "just-boris/phantomjs",
     "time-grunt": "^1.0.0"
   },
   "engines": {
