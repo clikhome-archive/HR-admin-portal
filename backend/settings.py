@@ -14,6 +14,7 @@ import os
 import sys
 import dj_database_url
 import re
+import raven
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_auth',
     's3direct',
+    'raven.contrib.django.raven_compat',
     'authentication',
     'employee',
     'extended_choices',
@@ -213,6 +215,14 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'authentication.backend.AuthByModelBackend'
 ]
+
+RAVEN_CONFIG = {
+    'dsn': 'https://ccb5ee8e023c49088c958e3815525ff7:fbed94ab709b422d91b54cc57799e360@app.getsentry.com/70990',
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    'release': raven.fetch_git_sha(BASE_DIR),
+}
+
 try:
     from local_settings import *
 except ImportError:
