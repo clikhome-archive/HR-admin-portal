@@ -61,7 +61,7 @@
               <!-- Navbar Toolbar -->
               <ul class="nav navbar-toolbar">
                 <li class="hidden-float">
-                  <a href="#">
+                  <a href="#" ng-click="toggleMenu()">
                     <i class="icon hamburger hamburger-arrow-left">
                       <span class="hamburger-bar"></span>
                     </i>
@@ -120,48 +120,48 @@
         </nav>
 
         <!-- Site Menubar -->
-        <div class="site-menubar" ng-if="authenticated">
+        <div site-menubar ng-if="authenticated">
           <!-- Site Menubar Body -->
           <div class="site-menubar-body">
             <ul class="site-menu">
               <li class="site-menu-category">General</li>
-              <li class="site-menu-item">
+              <li site-menubar-item>
                 <a ui-sref="app.index">
                   <i class="site-menu-icon wb-dashboard"></i>
                   <span class="site-menu-title">Dashboard</span>
                 </a>
               </li>
               <li class="site-menu-category">Relocation</li>
-              <li class="site-menu-item">
+              <li site-menubar-item>
                 <a ui-sref="app.relocation.request">
                   <i class="site-menu-icon wb-plus"></i>
                   <span class="site-menu-title">New Request</span>
                 </a>
               </li>
-              <li class="site-menu-item">
+              <li site-menubar-item>
                 <a ui-sref="app.relocation.history">
                   <i class="site-menu-icon wb-pluse"></i>
                   <span class="site-menu-title">Request History</span>
                 </a>
               </li>
               <li class="site-menu-category">People</li>
-              <li class="site-menu-item">
+              <li site-menubar-item>
                 <a ui-sref="app.employee.list">
                   <i class="site-menu-icon wb-users"></i>
                   <span class="site-menu-title">Employee Management</span>
                 </a>
               </li>
               <li class="site-menu-category">Billing</li>
-              <li class="site-menu-item">
+              <li site-menubar-item>
                 <a ui-sref="app.billing.invoices">
                   <i class="site-menu-icon wb-book"></i>
-                  <span>Invoices</span>
+                  <span class="site-menu-title">Invoices</span>
                 </a>
               </li>
-              <li class="site-menu-item">
+              <li site-menubar-item>
                 <a ui-sref="app.billing.subscriptions">
                   <i class="site-menu-icon wb-library"></i>
-                  <span>Subscriptions</span>
+                  <span class="site-menu-title">Subscriptions</span>
                 </a>
               </li>
             </ul>
@@ -252,6 +252,8 @@
 
         <!-- build:js(app) /static/scripts/directives.js -->
         <script src="scripts/directives/layout.js"></script>
+        <script src="scripts/directives/sitemenubar.js"></script>
+        <script src="scripts/directives/sitemenubaritem.js"></script>
         <!-- endbuild -->
 
         <!-- build:js(app) /static/scripts/assets.js -->
