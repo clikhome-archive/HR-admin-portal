@@ -1,11 +1,34 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 import models
+from django import forms
+from django.forms.models import fields_for_model
+from dal import autocomplete
+
+
+class EmployeeForm(forms.ModelForm):
+    class Meta:
+        model = models.Employee
+        fields = fields_for_model(models.Employee).keys()
+        widgets = {
+            'user': autocomplete.ModelSelect2('select_user')
+        }
+
+
+class EmployeeRelocationForm(forms.ModelForm):
+    class Meta:
+        model = models.EmployeeRelocation
+        fields = fields_for_model(models.EmployeeRelocation).keys()
+        widgets = {
+            'user': autocomplete.ModelSelect2('select_user'),
+            'employee': autocomplete.ModelSelect2('select_employee')
+        }
 
 
 class EmployeeAdmin(admin.ModelAdmin):
     ordering = search_fields = list_filter = list_display = (
         'first_name', 'last_name', 'email', 'phone', 'job_title', 'is_reusable')
+    form = EmployeeForm
 
 
 class EmployeeRelocationAdmin(admin.ModelAdmin):
@@ -15,6 +38,7 @@ class EmployeeRelocationAdmin(admin.ModelAdmin):
     ordering = search_fields = list_filter = (
         'user', 'relocate_from', 'relocate_to', 'expected_moving_date',
         'need_furniture', 'duration', 'status', 'created_dt', 'updated_dt')
+    form = EmployeeRelocationForm
 
     def _need_furniture(self, instance):
         return instance.need_furniture

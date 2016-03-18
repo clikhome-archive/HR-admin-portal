@@ -72,3 +72,28 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         return self.first_name
+
+
+class Department(models.Model):
+    users = models.ManyToManyField(Account, verbose_name=_('Users'), related_name='department', blank=True)
+    name = models.CharField(_('Department name'), max_length=200)
+    can_use_in_procentage = models.PositiveIntegerField(_('Can use a subscription no more then %'),
+                                                        default=100, help_text=_('Example: You set 50%. To this d'
+                                                                                 'epartment assignet subscription'
+                                                                                 ' with 1000 licenses and this '
+                                                                                 'department can use only 50% '
+                                                                                 'of 1000 licenses'))
+    can_use_in_currency = models.PositiveIntegerField(_('Can use a subscription no more then $'),
+                                                      default=10000, help_text=_('Example: You set 10$. To this d'
+                                                                                 'epartment assignet subscription'
+                                                                                 ' with 100$ price and this '
+                                                                                 'department can use only licenses at '
+                                                                                 'a price no higher than 10$'))
+    can_use_in_licenses = models.PositiveIntegerField(_('Can use a subscription no more then X licenses'),
+                                                      default=10000, help_text=_('Example: You set 100 licenses. To this d'
+                                                                                 'epartment assignet subscription'
+                                                                                 ' with 1000 licenses and this '
+                                                                                 'department can use only 100 licenses'))
+
+    def __unicode__(self):
+        return self.name

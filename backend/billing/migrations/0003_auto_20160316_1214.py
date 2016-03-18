@@ -16,6 +16,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='subscription',
             name='expired',
-            field=models.DateField(default=billing.models.get_expired, verbose_name='Expired date'),
+            field=models.DateField(default=billing.models.get_payment_date, verbose_name='Expired date'),
         ),
     ]

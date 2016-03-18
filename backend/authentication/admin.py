@@ -1,9 +1,20 @@
 from django import forms
+from django.forms.models import fields_for_model
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as AccountAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-from models import Account
+from models import Account, Department
+from dal import autocomplete
+
+
+class DepartmentForm(forms.ModelForm):
+    class Meta:
+        model = Department
+        fields = fields_for_model(Department).keys()
+        widgets = {
+            'users': autocomplete.ModelSelect2Multiple('select_user')
+        }
 
 
 class AccountCreationForm(forms.ModelForm):
@@ -79,5 +90,21 @@ class AccountAdmin(AccountAdmin):
     ordering = ('email',)
     filter_horizontal = ()
 
+
+class DepartmentAdmin(admin.ModelAdmin):
+    ordering = search_fields = list_filter = (
+        'name', 'can_use_in_procentage', 'can_use_in_currency', 'can_use_in_licenses'
+    )
+    list_display = (
+        'name', 'can_use_in_procentage', 'can_use_in_currency', 'can_use_in_licenses', 'users_count'
+    )
+    form = DepartmentForm
+
+    def users_count(self, obj):
+        return obj.users.count()
+
+
+
 admin.site.register(Account, AccountAdmin)
 admin.site.unregister(Group)
+admin.site.register(Department, DepartmentAdmin)

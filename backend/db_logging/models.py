@@ -9,7 +9,7 @@ import json
 class LogManager(models.Manager):
     def create_from_record(self, record):
         log = self.model(
-            user = record.user,
+            user=record.user,
             event=record.msg,
             method=record.method,
             url=record.path,
