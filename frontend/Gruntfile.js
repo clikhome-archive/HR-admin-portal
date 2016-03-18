@@ -96,17 +96,17 @@ module.exports = function (grunt) {
         options: {
           open: true,
           middleware: function (connect, options) {
-            var handleRequest = function(req, res) {
-              if(/\.html$/g.test(req.url) == false) {
-                for(var file, i = 0; i < options.base.length; i++) {
+            var handleRequest = function (req, res) {
+              if (/\.html$/g.test(req.url) == false) {
+                for (var file, i = 0; i < options.base.length; i++) {
                   file = appConfig.app + '/index.html';
-                  if (grunt.file.exists(file)){
+                  if (grunt.file.exists(file)) {
                     require('fs').createReadStream(file).pipe(res);
                     return;
                   }
                 }
               }
-              res.writeHead(404, {"Content-Type": "application/json"});
+              res.writeHead(404, { "Content-Type": "application/json" });
               res.end();
             };
 
@@ -224,7 +224,7 @@ module.exports = function (grunt) {
     postcss: {
       options: {
         processors: [
-          require('autoprefixer-core')({browsers: ['last 1 version']})
+          require('autoprefixer-core')({ browsers: ['last 1 version'] })
         ]
       },
       server: {
@@ -339,19 +339,19 @@ module.exports = function (grunt) {
     //     }
     //   }
     // },
-//    uglify: {
-//      options : {
-//          beautify : true,
-//          mangle   : true
-//      }
-//       dist: {
-//         files: {
-//           '<%= yeoman.dist %>/scripts/scripts.js': [
-//             '<%= yeoman.dist %>/scripts/scripts.js'
-//           ]
-//         }
-//       }
-//    },
+    //    uglify: {
+    //      options : {
+    //          beautify : true,
+    //          mangle   : true
+    //      }
+    //       dist: {
+    //         files: {
+    //           '<%= yeoman.dist %>/scripts/scripts.js': [
+    //             '<%= yeoman.dist %>/scripts/scripts.js'
+    //           ]
+    //         }
+    //       }
+    //    },
     // concat: {
     //   dist: {}
     // },
@@ -450,11 +450,6 @@ module.exports = function (grunt) {
             'images/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*'
           ]
-        },{
-          expand: true,
-          cwd: '.tmp/images',
-          dest: '<%= yeoman.dist %>/images',
-          src: ['generated/*']
         }, {
           expand: true,
           cwd: 'bower_components/bootstrap/dist',
@@ -470,6 +465,11 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.app %>/assets',
           src: 'fonts/{,*/}*.*',
           dest: '<%= yeoman.dist %>/static/'
+        }, {
+          expand: true,
+          cwd: '<%= yeoman.app %>/images',
+          dest: '<%= yeoman.dist %>/static/images',
+          src: '**/*'
         }]
       },
       fonts: {
@@ -510,9 +510,25 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+
+    symlink: {
+      options: {
+        dirmode: 'dir',
+        overwrite: true
+      },
+
+      images: {
+        files: [{
+          expand: true,
+          overwrite: true,
+          cwd: '<%= yeoman.app %>',
+          src: ['images/'],
+          dest: '.tmp/static'
+        }]
+      }
     }
   });
-
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
@@ -524,6 +540,7 @@ module.exports = function (grunt) {
       'wiredep',
       'concurrent:server',
       'postcss:server',
+      'symlink:images',
       'configureProxies:livereload',
       'connect:livereload',
       'watch'
