@@ -40,14 +40,14 @@ class SubscriptionManager(models.Manager):
             if available_licenses >= licenses:
                 subscribe.assigned += licenses
                 subscribe.save()
-                logger.info(_('Wwithdrawal %d licenses' % len(licenses)),
+                logger.info(_('Wwithdrawal %d licenses' % licenses),
                             extra=get_extra(request, object=subscribe))
                 break
             else:
                 subscribe.assigned = subscribe.licenses
                 subscribe.save()
                 licenses -= available_licenses
-                logger.info(_('Wwithdrawal %d licenses' % len(available_licenses)),
+                logger.info(_('Wwithdrawal %d licenses' % available_licenses),
                             extra=get_extra(request, object=subscribe))
 
 
