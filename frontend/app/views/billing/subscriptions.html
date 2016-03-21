@@ -25,14 +25,22 @@
                   Assigned: {[{subscription.assigned}]}<br>
               </td>
               <td>
-                  Invoice dated of {[{subscription.invoice.created_dt | date : 'yyyy-MM-dd'}]}<br>
-                  Invoice details: {[{subscription.invoice.comment}]}<br>
-                  <a href="{[{subscription.invoice.invoice}]}">Download</a>
+                  <span ng-if="subscription.invoices.length != 0">
+                      Invoice dated of {[{subscription.invoices[subscription.invoices.length-1].created_dt | date : 'yyyy-MM-dd'}]}<br>
+                      Invoice details: {[{subscription.invoices[subscription.invoices.length-1].comment}]}<br>
+                      <a href="{[{subscription.invoices[subscription.invoices.length-1].invoice}]}" target="_blank">Download</a>
+                  </span>
+                  <span ng-if="subscription.invoices.length == 0">
+                      No invoice found
+                  </span>
               </td>
               <td>{[{subscription.comment}]}</td>
               <td>{[{subscription.payment_date}]}</td>
               <td>{[{subscription.contract_expired_date}]}</td>
-              <td><div ng-show="!subscription.suspended">Yes</div><div ng-show="subscription.suspended">No</div></td>
+              <td>
+                  <div ng-show="!subscription.suspended">Yes</div>
+                  <div ng-show="subscription.suspended">No</div>
+              </td>
             </tr>
           </tbody>
         </table>

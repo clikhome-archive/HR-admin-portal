@@ -9,7 +9,7 @@ class InvoiceSerializer(serializers.ModelSerializer):
 
 
 class SubscriptionSerializer(serializers.ModelSerializer):
-    invoice = InvoiceSerializer(many=False, read_only=True)
+    invoices = InvoiceSerializer(many=True, read_only=True)
 
     class Meta:
         model = Subscription
