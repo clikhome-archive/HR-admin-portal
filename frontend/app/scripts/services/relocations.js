@@ -23,6 +23,12 @@ angular.module('ClikhomeApp')
           'url': "/employee/relocation_request/" + _id + "/"
         });
       },
+      cancel: function(_id) {
+        return djangoHttp.request({
+          'method': "PUT",
+          'url': '/employee/relocation_request_cancel/' + _id + '/'
+        })
+      },
       get_history: function() {
         return djangoHttp.request({
           'method': "GET",

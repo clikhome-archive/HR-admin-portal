@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.db.models import Q
 from django.utils.timezone import now
 from datetime import timedelta
-from exceptions import PaymentRequired
+from exceptions import PaymentRequired, SubscriptionNotFound
 from s3direct.fields import S3DirectField
 from db_logging import get_extra, logger
 from django.core.urlresolvers import reverse
@@ -31,7 +31,7 @@ class SubscriptionManager(models.Manager):
             .filter(payment_date__gte=now())\
             .filter(contract_expired_date__gte=now())\
             .filter(Q(users=user) | Q(departments=user.department.all()))\
-            .order_by('id', 'payment_date')\
+            .order_by('payment_date')\
             .all()
         if not subscriptions:
             raise PaymentRequired
@@ -53,6 +53,34 @@ class SubscriptionManager(models.Manager):
                 licenses -= available_licenses
                 logger.info(_('Wwithdrawal %d licenses' % available_licenses),
                             extra=get_extra(request, object=subscribe))
+
+    def deposite(self, user, licenses, request):
+        subscriptions = self.model.objects\
+            .filter(suspended=False)\
+            .filter(payment_date__gte=now())\
+            .filter(contract_expired_date__gte=now())\
+            .filter(Q(users=user) | Q(departments=user.department.all()))\
+            .order_by('-payment_date')\
+            .all()
+        if not subscriptions:
+            raise SubscriptionNotFound
+        if sum(map(lambda s: s.assigned, subscriptions)) < licenses:
+            raise SubscriptionNotFound
+        for subscribe in subscriptions:
+            if licenses == 0:
+                break
+            if subscribe.assigned >= licenses:
+                subscribe.assigned -= licenses
+                subscribe.save()
+                logger.info(_('Deposit %d licenses' % licenses),
+                            extra=get_extra(request, object=subscribe))
+                break
+            else:
+                licenses -= subscribe.assigned
+                logger.info(_('Deposit %d licenses' % subscribe.assigned),
+                            extra=get_extra(request, object=subscribe))
+                subscribe.assigned = 0
+                subscribe.save()
 
 
 def get_payment_date():
@@ -76,3 +104,6 @@ class Subscription(models.Model):
     created_dt = models.DateTimeField(_('Created'), auto_now=True)
 
     objects = SubscriptionManager()
+
+    def __unicode__(self):
+        return u'Subscription #%s' % self.id

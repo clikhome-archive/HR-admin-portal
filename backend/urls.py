@@ -23,6 +23,7 @@ from employee.views import (EmployeeRelocationViewSet,
                             EmployeeRelocationsViewSet,
                             EmployeeViewSet,
                             EmployeeSearchViewSet,
+                            EmployeeRelocationRequestCancelViewSet,
                             EmployeeSelect2QuerySetView)
 from employee.models import Employee
 from authentication.views import (ProfileViewSet,
@@ -39,6 +40,7 @@ from billing.models import Invoice
 
 router = routers.SimpleRouter()
 router.register(r'employee/relocations_history', EmployeeRelocationsHistoryViewSet, base_name='employee-relocations-history') # Work with relocation request (new/exists)
+router.register(r'employee/relocation_request_cancel', EmployeeRelocationRequestCancelViewSet, base_name='employee-relocation-cancel') # Work with relocation request (new/exists)
 router.register(r'employee/relocation_requests', EmployeeRelocationsViewSet, base_name='employee-relocation') # Work with relocation request (new/exists)
 router.register(r'employee/relocation_request', EmployeeRelocationViewSet, base_name='employee-relocation') # Work with relocation request (new/exists)
 router.register(r'employee/search/(?P<query>.+)', EmployeeSearchViewSet, base_name='employee_search') # Work with employee

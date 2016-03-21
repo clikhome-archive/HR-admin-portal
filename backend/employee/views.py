@@ -1,7 +1,8 @@
 from rest_framework import viewsets, mixins
 from serializers import (EmployeeRelocationSerializer,
                          EmployeeSerializer,
-                         EmployeeRelocationsSerializer)
+                         EmployeeRelocationsSerializer,
+                         EmployeeRelocationRequestCancelSerializer)
 from models import Employee, EmployeeRelocation
 from rest_framework.permissions import IsAuthenticated
 from utils.permissions import IsOwnerOfObject
@@ -49,6 +50,22 @@ class EmployeeRelocationsHistoryViewSet(EmployeeRelocationViewSet):
     def get_queryset(self):
         return EmployeeRelocation.objects.filter(user=self.request.user) \
              .exclude(status=EmployeeRelocation.STATUS_CHOICE.INITIAL)
+
+
+class EmployeeRelocationRequestCancelViewSet(viewsets.GenericViewSet,
+                                             mixins.UpdateModelMixin):
+    '''
+    Cancel employee relocation request
+    '''
+    _ignore_model_permissions = True
+    _user_field = 'user'
+
+    serializer_class = EmployeeRelocationRequestCancelSerializer
+    permission_classes = (IsAuthenticated, IsOwnerOfObject, )
+
+    def get_queryset(self):
+        return EmployeeRelocation.objects.filter(user=self.request.user,
+                status=EmployeeRelocation.STATUS_CHOICE.RECEIVED)
 
 
 class EmployeeSearchViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):

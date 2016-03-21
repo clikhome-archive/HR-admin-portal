@@ -103,16 +103,17 @@ class EmployeeRelocationsSerializer(serializers.ModelSerializer):
                   'need_furniture', 'duration', 'duration_title')
 
     def create(self, validated_data):
-        user = self.context.get('request').user
+        request = self.context.get('request')
+        user = request.user
         relocations = EmployeeRelocation.objects.filter(user=user,
             status=EmployeeRelocation.STATUS_CHOICE.INITIAL)
         if not relocations:
             raise NotFound
         # raise PaymentRequired if user didn't have linceses
-        Subscription.objects.withdrawal(user, len(relocations), self.context.get('request'))
+        Subscription.objects.withdrawal(user, len(relocations), request)
         self.send_email(relocations, user)
         for relocation in relocations:
-            logger.info(_('Send relocation request'), extra=get_extra(self.context.get('request'),
+            logger.info(_('Send relocation request'), extra=get_extra(request,
                                                                       object=relocation))
         relocations.update(status=EmployeeRelocation.STATUS_CHOICE.RECEIVED)
         return relocations
@@ -132,3 +133,17 @@ class EmployeeRelocationsSerializer(serializers.ModelSerializer):
         msg = EmailMultiAlternatives(subject, text_content, from_email, mamagers_emails)
         msg.attach_alternative(html_content, "text/html")
         msg.send()
+
+
+class EmployeeRelocationRequestCancelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EmployeeRelocation
+        fields = ('status',)
+
+    def update(self, instance, validated_data):
+        request = self.context.get('request')
+        user = request.user
+        Subscription.objects.deposite(user, 1, request)
+        instance.status = EmployeeRelocation.STATUS_CHOICE.INITIAL
+        instance.save()
+        return instance

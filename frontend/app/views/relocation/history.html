@@ -20,6 +20,7 @@
             <th>Expecting Moving Date</th>
             <th>Requested Date</th>
             <th>Status</th>
+            <th>Cancel</th>
           </tr>
           </thead>
           <tbody>
@@ -35,6 +36,7 @@
             <td>{[{request.expected_moving_date | date : 'yyyy-MM-dd'}]}</td>
             <td>{[{request.created_dt | date : 'yyyy-MM-dd'}]}</td>
             <td>{[{request.status_title}]}</td>
+            <td><a ng-click="cnacel_confirm(request.id)">Cancel</a></td>
           </tr>
           </tbody>
         </table>
