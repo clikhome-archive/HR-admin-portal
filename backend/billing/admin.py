@@ -3,6 +3,7 @@ import models
 from django import forms
 from dal import autocomplete
 from django.forms.models import fields_for_model
+from django.utils.html import format_html_join
 
 
 class SubscribeForm(forms.ModelForm):
@@ -37,14 +38,35 @@ class SubscribeAdmin(admin.ModelAdmin):
                                    'assigned', 'comment', 'created_dt')
 
     list_display = ('payment_date', 'contract_expired_date', 'licenses', 'assigned',
-                    'comment', 'total_users', 'total_departments',
-                    'total_invoices', 'created_dt')
+                    'comment', 'users_list', 'departments_list',
+                    'invoices_list', 'created_dt')
     ordering = ('-id',)
     readonly_fields = ('assigned',)
     form = SubscribeForm
 
-    def total_users(self, obj):
-        return obj.users.count()
+    def users_list(self, obj):
+        return format_html_join(
+            '\n',
+            '<li><a href="{}" target="_blank">{}</a></li>',
+            ((u.get_admin_absolute_url(), u.email) for u in obj.users.all())
+        )
+    users_list.short_description = u'Users'
+
+    def departments_list(self, obj):
+        return format_html_join(
+            '\n',
+            '<li><a href="{}" target="_blank">{}</a></li>',
+            ((d.get_admin_absolute_url(), d.name) for d in obj.departments.all())
+        )
+    departments_list.short_description = u'Departments'
+
+    def invoices_list(self, obj):
+        return format_html_join(
+            '\n',
+            '<li><a href="{}" target="_blank">{}</a></li>',
+            ((i.get_admin_absolute_url(), i.invoice_number) for i in obj.invoices.all())
+        )
+    invoices_list.short_description = u'Invoices'
 
     def total_departments(self, obj):
         return obj.departments.count()

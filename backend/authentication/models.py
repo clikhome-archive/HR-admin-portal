@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.db.utils import IntegrityError
+from django.core.urlresolvers import reverse
 
 
 class AccountManager(BaseUserManager):
@@ -73,6 +74,9 @@ class Account(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         return self.first_name
 
+    def get_admin_absolute_url(self):
+        return reverse('admin:authentication_account_change', args=(self.id,))
+
 
 class Department(models.Model):
     users = models.ManyToManyField(Account, verbose_name=_('Users'), related_name='department', blank=True)
@@ -97,3 +101,6 @@ class Department(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_admin_absolute_url(self):
+        return reverse('admin:authentication_department_change', args=(self.id,))

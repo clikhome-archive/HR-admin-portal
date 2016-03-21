@@ -7,6 +7,7 @@ from datetime import timedelta
 from exceptions import PaymentRequired
 from s3direct.fields import S3DirectField
 from db_logging import get_extra, logger
+from django.core.urlresolvers import reverse
 
 
 class Invoice(models.Model):
@@ -18,6 +19,9 @@ class Invoice(models.Model):
 
     def __unicode__(self):
         return 'Invoice #%s' % self.invoice_number
+
+    def get_admin_absolute_url(self):
+        return reverse('admin:billing_invoice_change', args=(self.id,))
 
 
 class SubscriptionManager(models.Manager):
