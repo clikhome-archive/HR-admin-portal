@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_auth',
     's3direct',
-    # 'raven.contrib.django.raven_compat',
+    'raven.contrib.django.raven_compat',
     'authentication',
     'employee',
     'extended_choices',
