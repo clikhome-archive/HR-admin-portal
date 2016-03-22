@@ -50,7 +50,7 @@ class EmployeeRelocationAdmin(admin.ModelAdmin):
     _duration.short_description = _('Preferred lease term')
 
     def _user_company_name(self, obj):
-        return obj.user.company_name
+        return obj.user.company.name
     _user_company_name.short_description = _('Company name')
     _user_company_name.admin_order_field = 'user__company_name'
 
