@@ -11,7 +11,7 @@ from django.core.urlresolvers import reverse
 
 
 class Invoice(models.Model):
-    user = models.ForeignKey(Account, verbose_name=_('User'))
+    company = models.ForeignKey(Company, verbose_name=_('Company'))
     invoice_number = models.CharField(_('Invoice number'), max_length=255)
     invoice = S3DirectField(_('Invoice'), dest='invoices')
     comment = models.CharField(_('Comment'), max_length=500)

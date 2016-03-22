@@ -11,13 +11,13 @@ class InvoiceForm(forms.ModelForm):
         model = models.Invoice
         fields = fields_for_model(models.Invoice).keys()
         widgets = {
-            'user': autocomplete.ModelSelect2('select_user')
+            'company': autocomplete.ModelSelect2('select_company')
         }
 
 
 class InvoiceAdmin(admin.ModelAdmin):
     search_fields = list_filter = list_display = (
-        'user', 'invoice_number', 'invoice', 'comment', 'created_dt')
+        'company', 'invoice_number', 'invoice', 'comment', 'created_dt')
     ordering = ('-id',)
     form = InvoiceForm
 

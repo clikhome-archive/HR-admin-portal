@@ -12,7 +12,7 @@ class InvoicesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
-        return Invoice.objects.filter(user=self.request.user)
+        return Invoice.objects.filter(company=self.request.user.company)
 
 
 class SubscriptionsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
