@@ -61,7 +61,7 @@ class AccountChangeForm(forms.ModelForm):
         instance = kw.get('instance')
         if instance:
             try:
-                initial['company'] = instance.company.get()
+                initial['company'] = instance.company
             except ObjectDoesNotExist:
                 pass
         super(AccountChangeForm, self).__init__(initial=initial, *a, **kw)
@@ -76,11 +76,8 @@ class AccountChangeForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super(AccountChangeForm, self).save(commit)
         instance.save()
-        if instance.company.get() != self.cleaned_data.get('company'):
-            instance.company.clear()
-            instance.company.add(
-                self.cleaned_data.get('company')
-            )
+        if instance.company != self.cleaned_data.get('company'):
+            instance.company = self.cleaned_data.get('company')
             instance.save()
         return instance
 

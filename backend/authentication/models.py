@@ -57,9 +57,9 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     @company.setter
     def company(self, value):
-        assert not isinstance(value, Company), 'value must be instance of Company'
         self.company_set.clear()
-        self.company_set.add(value)
+        if value:
+            self.company_set.add(value)
 
 
 class Department(models.Model):
