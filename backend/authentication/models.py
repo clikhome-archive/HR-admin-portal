@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.core.urlresolvers import reverse
 from managers import AccountManager
+from django.db.models import ObjectDoesNotExist
 
 
 class Account(AbstractBaseUser, PermissionsMixin):
@@ -47,6 +48,19 @@ class Account(AbstractBaseUser, PermissionsMixin):
     def get_admin_absolute_url(self):
         return reverse('admin:authentication_account_change', args=(self.id,))
 
+    @property
+    def company(self):
+        try:
+            return self.company_set.get()
+        except ObjectDoesNotExist:
+            return None
+
+    @company.setter
+    def company(self, value):
+        assert not isinstance(value, Company), 'value must be instance of Company'
+        self.company_set.clear()
+        self.company_set.add(value)
+
 
 class Department(models.Model):
     # company = models.OneToOneField(Company, verbose_name=_('Company'))
@@ -80,7 +94,7 @@ class Department(models.Model):
 class Company(models.Model):
     name = models.CharField(_('Company Name'), max_length=100, unique=True)
     address = models.CharField(_('Company Address'), max_length=200, blank=True)
-    users = models.ManyToManyField(Account, verbose_name=_('Users'), blank=True, related_name='company')
+    users = models.ManyToManyField(Account, verbose_name=_('Users'), blank=True)
     departments = models.ManyToManyField(Department, verbose_name=_('Departments'), blank=True, related_name='company')
 
     def __unicode__(self):

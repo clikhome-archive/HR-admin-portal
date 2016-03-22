@@ -6,17 +6,6 @@ from django.forms.models import fields_for_model
 from django.utils.html import format_html_join
 
 
-class SubscribeForm(forms.ModelForm):
-    class Meta:
-        model = models.Subscription
-        fields = fields_for_model(models.Subscription).keys()
-        widgets = {
-            'users': autocomplete.ModelSelect2Multiple('select_user'),
-            'departments': autocomplete.ModelSelect2Multiple('select_department'),
-            'invoices': autocomplete.ModelSelect2Multiple('select_invoice')
-        }
-
-
 class InvoiceForm(forms.ModelForm):
     class Meta:
         model = models.Invoice
@@ -33,24 +22,25 @@ class InvoiceAdmin(admin.ModelAdmin):
     form = InvoiceForm
 
 
+class SubscribeForm(forms.ModelForm):
+    class Meta:
+        model = models.Subscription
+        fields = fields_for_model(models.Subscription).keys()
+        widgets = {
+            'departments': autocomplete.ModelSelect2Multiple('select_department'),
+            'invoices': autocomplete.ModelSelect2Multiple('select_invoice'),
+            'company': autocomplete.ModelSelect2('select_company')
+        }
+
+
 class SubscribeAdmin(admin.ModelAdmin):
     search_fields = list_filter = ('payment_date', 'contract_expired_date', 'licenses',
-                                   'assigned', 'comment', 'created_dt')
-
+                                   'assigned', 'comment', 'created_dt', 'company')
     list_display = ('payment_date', 'contract_expired_date', 'licenses', 'assigned',
-                    'comment', 'users_list', 'departments_list',
-                    'invoices_list', 'created_dt')
+                    'comment', 'departments_list', 'invoices_list', 'created_dt', 'company')
     ordering = ('-id',)
     readonly_fields = ('assigned',)
     form = SubscribeForm
-
-    def users_list(self, obj):
-        return format_html_join(
-            '\n',
-            '<li><a href="{}" target="_blank">{}</a></li>',
-            ((u.get_admin_absolute_url(), u.email) for u in obj.users.all())
-        )
-    users_list.short_description = u'Users'
 
     def departments_list(self, obj):
         return format_html_join(

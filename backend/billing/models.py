@@ -1,5 +1,5 @@
 from django.db import models
-from authentication.models import Account, Department
+from authentication.models import Account, Department, Company
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import Q
 from django.utils.timezone import now
@@ -26,11 +26,12 @@ class Invoice(models.Model):
 
 class SubscriptionManager(models.Manager):
     def withdrawal(self, user, licenses, request):
+        user_departments = Department.objects.filter(users=user)
         subscriptions = self.model.objects\
             .filter(suspended=False)\
             .filter(payment_date__gte=now())\
             .filter(contract_expired_date__gte=now())\
-            .filter(Q(users=user) | Q(departments=user.department.all()))\
+            .filter(Q(company=user.company) | Q(departments=user_departments))\
             .order_by('payment_date')\
             .all()
         if not subscriptions:
@@ -55,11 +56,12 @@ class SubscriptionManager(models.Manager):
                             extra=get_extra(request, object=subscribe))
 
     def deposite(self, user, licenses, request):
+        user_departments = Department.objects.filter(users=user)
         subscriptions = self.model.objects\
             .filter(suspended=False)\
             .filter(payment_date__gte=now())\
             .filter(contract_expired_date__gte=now())\
-            .filter(Q(users=user) | Q(departments=user.department.all()))\
+            .filter(Q(company=user.company) | Q(departments=user_departments))\
             .order_by('-payment_date')\
             .all()
         if not subscriptions:
@@ -92,8 +94,8 @@ def get_contract_expired_date():
 
 
 class Subscription(models.Model):
-    users = models.ManyToManyField(Account, verbose_name=_('User'), blank=True)
     departments = models.ManyToManyField(Department, verbose_name=_('Departments'), blank=True)
+    company = models.ForeignKey(Company, verbose_name=_('Company'), blank=True, null=True)
     invoices = models.ManyToManyField(Invoice, verbose_name=_('Invoice'), blank=True)
     payment_date = models.DateField(_('Payment date'), default=get_payment_date)
     contract_expired_date = models.DateField(_('Contract expired'), default=get_contract_expired_date)

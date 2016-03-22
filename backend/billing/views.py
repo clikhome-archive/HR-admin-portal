@@ -4,6 +4,7 @@ from models import Invoice, Subscription
 from serializers import InvoiceSerializer, SubscriptionSerializer
 from dal import autocomplete
 from django.db.models.query import Q
+from authentication.models import Department
 
 
 class InvoicesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -19,10 +20,11 @@ class SubscriptionsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
+        user_departments = Department.objects.filter(users=self.request.user)
         return Subscription.objects\
                     .filter(
-                        Q(users=self.request.user) |
-                        Q(departments=self.request.user.department.all())
+                        Q(departments__in=user_departments) |
+                        Q(company=self.request.user.company)
                 )
 
 
