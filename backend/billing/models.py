@@ -28,8 +28,9 @@ class SubscriptionManager(models.Manager):
     _available_licenses = {}
 
     def get_available_licenses(self, subscription, department=None):
-        if self._available_licenses.has_key(subscription.pk):
-            return self._available_licenses[subscription.pk]
+        if self._available_licenses.has_key(subscription.pk) or department is None:
+            return self._available_licenses.get(subscription.pk,
+                                                subscription.licenses)
         else:
             r = int(
                 float(subscription.licenses) / 100 *
@@ -51,21 +52,23 @@ class SubscriptionManager(models.Manager):
             .order_by('payment_date')\
             .all()
         exclude = []
+        subscription_have_company = False
         total_available_licenses = 0
         for subscription in subscriptions:
             departments = filter(lambda d: d in user_departments,
                                  subscription.departments.all())
+            if subscription.company:
+                subscription_have_company = True
             for department in departments:
                 available_licenses = self.get_available_licenses(subscription, department)
                 if subscription.assigned > available_licenses:
                     exclude.append(subscription.pk)
                 else:
                     total_available_licenses += (available_licenses - subscription.assigned)
-                    print available_licenses, subscription.assigned
         subscriptions = subscriptions.exclude(pk__in=exclude)
         if not subscriptions:
             raise PaymentRequired
-        if total_available_licenses < licenses:
+        if total_available_licenses < licenses and not subscription_have_company:
             raise PaymentRequired
         if sum(map(lambda s: s.licenses-s.assigned, subscriptions)) < licenses:
             raise PaymentRequired
