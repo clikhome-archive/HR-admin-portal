@@ -36,7 +36,7 @@
             <td>{[{request.expected_moving_date | date : 'yyyy-MM-dd'}]}</td>
             <td>{[{request.created_dt | date : 'yyyy-MM-dd'}]}</td>
             <td>{[{request.status_title}]}</td>
-            <td><a ng-if="request.status==1" ng-click="cnacel_confirm(request.id)">Cancel</a></td>
+            <td><a ng-if="request.status==1" ng-click="cnacel_confirm(request.id)" style="cursor: pointer">Cancel</a></td>
           </tr>
           </tbody>
         </table>
