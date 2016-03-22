@@ -21,10 +21,11 @@ class SubscriptionsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
     def get_queryset(self):
         user_departments = Department.objects.filter(users=self.request.user)
+        user_company = self.request.user.company
         return Subscription.objects\
                     .filter(
                         Q(departments__in=user_departments) |
-                        Q(company=self.request.user.company)
+                        Q(company=user_company if user_company else -1)
                 )
 
 
