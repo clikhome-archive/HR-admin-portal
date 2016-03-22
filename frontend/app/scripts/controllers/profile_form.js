@@ -6,8 +6,6 @@ angular.module('ClikhomeApp')
         $scope.model = {
           'first_name': response.first_name,
           'last_name': response.last_name,
-          'company_name': response.company_name,
-          'company_address': response.company_address,
           'phone': response.phone,
           'password': '',
           'confirm_password': ''
