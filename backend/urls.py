@@ -38,6 +38,7 @@ from billing.views import (SubscriptionsViewSet,
                            InvoicesViewSet,
                            InvoiceSelect2QuerySetView)
 from billing.models import Invoice
+from support.views import FeedbackViewSet
 
 
 router = routers.SimpleRouter()
@@ -52,6 +53,7 @@ router.register(r'billing/subscritions', SubscriptionsViewSet, base_name='subscr
 router.register(r'billing/invoices', InvoicesViewSet, base_name='invoices')
 router.register(r'account/signup', SignUpViewSet, base_name='account_signup')
 router.register(r'account/activate', ActivateViewSet, base_name='account_activate')
+router.register(r'support/feedback', FeedbackViewSet, base_name='feedback')
 
 
 urlpatterns = [

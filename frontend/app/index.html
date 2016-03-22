@@ -164,6 +164,13 @@
                   <span class="site-menu-title">Subscriptions</span>
                 </a>
               </li>
+              <li class="site-menu-category">Support</li>
+              <li site-menubar-item>
+                <a ui-sref="app.support.feedback">
+                  <i class="site-menu-icon wb-book"></i>
+                  <span class="site-menu-title">Feedback</span>
+                </a>
+              </li>
             </ul>
             <!-- End Site Menubar Body -->
           </div>
@@ -235,6 +242,7 @@
         <script src="scripts/controllers/signup.js"></script>
         <script src="scripts/controllers/activate.js"></script>
         <script src="scripts/controllers/relocationmodalconfirm.js"></script>
+        <script src="scripts/controllers/feedback.js"></script>
         <!-- endbuild -->
 
         <!-- build:js(app) /static/scripts/services.js -->
@@ -248,6 +256,7 @@
         <script src="scripts/services/layout_types.js"></script>
         <script src="scripts/services/subscriptions.js"></script>
         <script src="scripts/services/invoices.js"></script>
+        <script src="scripts/services/support.js"></script>
         <!-- endbuild -->
 
         <!-- build:js(app) /static/scripts/directives.js -->
@@ -264,7 +273,8 @@
 
         <!-- build:js({.,app}) /static/scripts/ie9.js -->
         <!--[if lt IE 9]>
-        <script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+        <script src="assets/js/ie8-responsive-file-warning.js"></script>
+        <![endif]-->
         <!-- endbuild -->
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->

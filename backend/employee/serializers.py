@@ -58,7 +58,7 @@ class EmployeeRelocationSerializer(serializers.ModelSerializer):
         employee_data = validated_data.pop('employee')
         if employee_data.get('is_reusable') == True:
             email = employee_data.pop('email')
-            employee, created = Employee.objects.get_or_create(email=email, defaults=employee_data)
+            employee, created = Employee.objects.get_or_create(user=user, email=email, defaults=employee_data)
             if not created:
                 for attr, value in employee_data.iteritems():
                     setattr(employee, attr, value)

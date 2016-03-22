@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'employee',
     'extended_choices',
     'db_logging',
-    'billing'
+    'billing',
+    'support'
 ]
 
 MIDDLEWARE_CLASSES = [

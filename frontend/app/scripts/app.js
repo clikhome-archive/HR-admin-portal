@@ -146,20 +146,31 @@ angular.module('ClikhomeApp', [
             }
           }
         })
-        .state('app.logout', {
-          url: '/logout',
-          onEnter: ['djangoAuth', function(djangoAuth){
-            djangoAuth.logout();
-          }]
-        })
-        .state('app.index', {
-          url: '/',
+      .state('app.support', {
+        url: '/support'
+      })
+        .state('app.support.feedback', {
+          url: '/feedback',
           views: {
             'content@': {
-              templateUrl: 'views/index.html'
+              templateUrl: 'views/support/feedback.html'
             }
           }
-        });
+        })
+      .state('app.logout', {
+        url: '/logout',
+        onEnter: ['djangoAuth', function(djangoAuth){
+          djangoAuth.logout();
+        }]
+      })
+      .state('app.index', {
+        url: '/',
+        views: {
+          'content@': {
+            templateUrl: 'views/index.html'
+          }
+        }
+      });
     $locationProvider.html5Mode(true);
     $interpolateProvider.startSymbol('{[{');
     $interpolateProvider.endSymbol('}]}');
