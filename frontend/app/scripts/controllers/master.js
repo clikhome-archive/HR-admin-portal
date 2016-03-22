@@ -19,6 +19,7 @@ angular.module('ClikhomeApp')
       $scope.first_name = null;
       $scope.last_name = null;
       $scope.company_name = null;
+      $scope.department_name = null;
     });
     // Wait and respond to the log in event.
     $scope.$on('djangoAuth.logged_in', function(event, response) {
@@ -27,7 +28,13 @@ angular.module('ClikhomeApp')
       $scope.email = response.user.email;
       $scope.first_name = response.user.first_name;
       $scope.last_name = response.user.last_name;
-      $scope.company_name = response.user.company_name;
+      if (response.user.company) {
+        $scope.company_name = response.user.company.name;
+      }
+      if (response.user.department) {
+        $scope.department_name = response.user.department[response.user.department.length-1].name;
+      }
+
     });
     $scope.$back = function() {
       window.history.back();

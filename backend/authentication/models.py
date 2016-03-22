@@ -64,7 +64,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
 class Department(models.Model):
     # company = models.OneToOneField(Company, verbose_name=_('Company'))
-    users = models.ManyToManyField(Account, verbose_name=_('Users'), blank=True)
+    users = models.ManyToManyField(Account, verbose_name=_('Users'), related_name='department', blank=True)
     name = models.CharField(_('Department name'), max_length=200)
     can_use_in_procentage = models.PositiveIntegerField(_('Can use a subscription no more then %'),
                                                         default=100, help_text=_('Example: You set 50%. To this d'

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
-from models import Account
+from models import Account, Company, Department
 from django.contrib.auth import update_session_auth_hash, login, authenticate
 from rest_auth.serializers import PasswordResetConfirmSerializer as PasswordResetConfirmSerializerBase
 from django.utils.translation import ugettext_lazy as _
@@ -9,16 +9,32 @@ from django.template.loader import get_template
 from django.template import Context
 from django.core.mail import EmailMultiAlternatives
 from django.contrib.sites.shortcuts import get_current_site
+from django.forms.models import fields_for_model
 import settings
 
 
+class CompanySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
+        read_only_fields = fields = ('name', 'address')
+
+
+class DepartmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Department
+        read_only_fields = fields = ('name',)
+
+
 class UserDetailsSerializer(serializers.ModelSerializer):
+    company = CompanySerializer(many=False, read_only=True)
+    department = DepartmentSerializer(many=True, read_only=True)
     password = serializers.CharField(allow_blank=True)
 
     class Meta:
         model = Account
-        fields = ('email', 'first_name', 'last_name', 'phone', 'password')
-        read_only_fields = ('email', 'password')
+        fields = ('email', 'first_name', 'last_name', 'phone', 'password', 'company', 'department')
+        read_only_fields = ('email',)
+        extra_kwargs = {'password': {'write_only': True}}
 
     def update(self, instance, validated_data):
         password = validated_data.pop('password', None)
