@@ -37,7 +37,7 @@ class SubscribeAdmin(admin.ModelAdmin):
     search_fields = list_filter = ('payment_date', 'contract_expired_date', 'licenses',
                                    'assigned', 'comment', 'created_dt', 'company')
     list_display = ('payment_date', 'contract_expired_date', 'licenses', 'assigned',
-                    'comment', 'departments_list', 'invoices_list', 'created_dt', 'company')
+                    'comment', 'departments_list', 'invoices_list', 'created_dt', '_company')
     ordering = ('-id',)
     readonly_fields = ('assigned',)
     form = SubscribeForm
@@ -57,6 +57,15 @@ class SubscribeAdmin(admin.ModelAdmin):
             ((i.get_admin_absolute_url(), i.invoice_number) for i in obj.invoices.all())
         )
     invoices_list.short_description = u'Invoices'
+
+    def _company(self, obj):
+        if obj.company:
+            return obj.company.name
+        return format_html_join(
+            '\n',
+            '<li>{}</li>',
+            ((d.company.get().name, ) for d in obj.departments.all()))
+    _company.short_description = u'Company'
 
     def total_departments(self, obj):
         return obj.departments.count()
