@@ -85,7 +85,7 @@ class Department(models.Model):
                                                                                  'department can use only 100 licenses'))
 
     def __unicode__(self):
-        return '%s -> %s' % (self.company.get().name, self.name)
+        return 'Company `%s`: %s' % (self.company.get().name, self.name)
 
     def get_admin_absolute_url(self):
         return reverse('admin:authentication_department_change', args=(self.id,))

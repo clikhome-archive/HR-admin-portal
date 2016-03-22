@@ -101,7 +101,7 @@ class DepartmentSelect2QuerySetView(autocomplete.Select2QuerySetView):
             return Department.objects.none()
         qs = Department.objects.all()
         if self.q:
-            qs = qs.filter(name__icontains=self.q)
+            qs = qs.filter(Q(name__icontains=self.q) | Q(company__name__icontains=self.q))
         return qs
 
 
