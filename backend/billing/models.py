@@ -1,7 +1,7 @@
 from django.db import models
 from authentication.models import Account, Department, Company
 from django.utils.translation import ugettext_lazy as _
-from django.db.models import Q
+from django.db.models import Q, F, Sum
 from django.utils.timezone import now
 from datetime import timedelta
 from exceptions import PaymentRequired, SubscriptionNotFound
@@ -25,6 +25,22 @@ class Invoice(models.Model):
 
 
 class SubscriptionManager(models.Manager):
+    _available_licenses = {}
+
+    def get_available_licenses(self, subscription, department=None):
+        if self._available_licenses.has_key(subscription.pk):
+            return self._available_licenses[subscription.pk]
+        else:
+            r = int(
+                float(subscription.licenses) / 100 *
+                department.can_use_in_procentage)
+            if r < department.can_use_in_licenses:
+                r = department.can_use_in_licenses
+            if r > subscription.licenses:
+                r = subscription.licenses
+            self._available_licenses[subscription.pk] = r
+            return r
+
     def withdrawal(self, user, licenses, request):
         user_departments = Department.objects.filter(users=user)
         subscriptions = self.model.objects\
@@ -34,14 +50,29 @@ class SubscriptionManager(models.Manager):
             .filter(Q(company=user.company) | Q(departments=user_departments))\
             .order_by('payment_date')\
             .all()
+        exclude = []
+        total_available_licenses = 0
+        for subscription in subscriptions:
+            departments = filter(lambda d: d in user_departments,
+                                 subscription.departments.all())
+            for department in departments:
+                available_licenses = self.get_available_licenses(subscription, department)
+                if subscription.assigned > available_licenses:
+                    exclude.append(subscription.pk)
+                else:
+                    total_available_licenses += (available_licenses - subscription.assigned)
+                    print available_licenses, subscription.assigned
+        subscriptions = subscriptions.exclude(pk__in=exclude)
         if not subscriptions:
+            raise PaymentRequired
+        if total_available_licenses < licenses:
             raise PaymentRequired
         if sum(map(lambda s: s.licenses-s.assigned, subscriptions)) < licenses:
             raise PaymentRequired
         for subscribe in subscriptions:
             if licenses == 0:
                 break
-            available_licenses = subscribe.licenses-subscribe.assigned
+            available_licenses = self.get_available_licenses(subscribe)-subscribe.assigned
             if available_licenses >= licenses:
                 subscribe.assigned += licenses
                 subscribe.save()
@@ -49,7 +80,7 @@ class SubscriptionManager(models.Manager):
                             extra=get_extra(request, object=subscribe))
                 break
             else:
-                subscribe.assigned = subscribe.licenses
+                subscribe.assigned += available_licenses
                 subscribe.save()
                 licenses -= available_licenses
                 logger.info(_('Wwithdrawal %d licenses' % available_licenses),
