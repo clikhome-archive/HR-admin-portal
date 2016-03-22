@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
 
     def gen_fake_company(apps, schema_editor):
         from authentication.models import Company
-        if Company.object.count() == 0:
+        if Company.objects.count() == 0:
             Company(name='Fake').save()
 
     operations = [
