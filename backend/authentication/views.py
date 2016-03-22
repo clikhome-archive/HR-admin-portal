@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import get_object_or_404
-from models import Account, Department
+from models import Account, Department, Company
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import authenticate, login
 from dal import autocomplete
@@ -75,7 +75,20 @@ class AccountSelect2QuerySetView(autocomplete.Select2QuerySetView):
         if self.q:
             qs = qs.filter(Q(first_name__icontains=self.q) |
                            Q(last_name__icontains=self.q) |
-                           Q(company_name__icontains=self.q) |
+                           Q(email__icontains=self.q) |
+                           Q(phone__icontains=self.q))\
+                .filter(is_active=True)
+        return qs
+
+
+class AccountSelectByCompany2QuerySetView(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        if not self.request.user.is_authenticated() or not self.request.user.is_staff:
+            return Account.objects.none()
+        qs = Account.objects.filter(company__pk=self.kwargs.get('company_id'))
+        if self.q:
+            qs = qs.filter(Q(first_name__icontains=self.q) |
+                           Q(last_name__icontains=self.q) |
                            Q(email__icontains=self.q) |
                            Q(phone__icontains=self.q))\
                 .filter(is_active=True)
@@ -87,6 +100,16 @@ class DepartmentSelect2QuerySetView(autocomplete.Select2QuerySetView):
         if not self.request.user.is_authenticated() or not self.request.user.is_staff:
             return Department.objects.none()
         qs = Department.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class CompanySelect2QuerySetView(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        if not self.request.user.is_authenticated() or not self.request.user.is_staff:
+            return Company.objects.none()
+        qs = Company.objects.all()
         if self.q:
             qs = qs.filter(name__icontains=self.q)
         return qs

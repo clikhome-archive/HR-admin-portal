@@ -1,39 +1,10 @@
 from __future__ import unicode_literals
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
-from django.utils.crypto import get_random_string
-from django.db.utils import IntegrityError
 from django.core.urlresolvers import reverse
-
-
-class AccountManager(BaseUserManager):
-    def create_user(self, email, password=None):
-        if not email:
-            raise ValueError(_('Users must have an email address'))
-        account = self.model(
-            email=AccountManager.normalize_email(email),
-        )
-        account.save()
-        while True:
-            account.activate_key = get_random_string(64).lower()
-            try:
-                account.save(using=self._db)
-                break
-            except IntegrityError:
-                pass
-        account.set_password(password)
-        account.save(using=self._db)
-        return account
-
-    def create_superuser(self, email, password):
-        account = self.create_user(email,
-                                password=password,
-        )
-        account.is_staff = account.is_superuser = account.is_active = True
-        account.save(using=self._db)
-        return account
+from managers import AccountManager
 
 
 class Account(AbstractBaseUser, PermissionsMixin):
@@ -42,8 +13,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
     phone = models.CharField(_('Contact phone number'), max_length=40, blank=True)
-    company_name = models.CharField(_('Company Name'), max_length=100, blank=True)
-    company_address = models.CharField(_('Company Address'), max_length=200, blank=True)
+    # company = models.ForeignKey(Company, verbose_name=_('Company'), blank=True)
 
     is_staff = models.BooleanField(
         _('staff status'),
@@ -58,7 +28,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
             'Unselect this instead of deleting accounts.'
         ),
     )
-    activate_key = models.CharField(verbose_name=_('Activate key'), max_length=64, unique=True)
+    activate_key = models.CharField(verbose_name=_('Activate key'), max_length=64, blank=True, null=True, unique=True)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
 
     objects = AccountManager()
@@ -79,7 +49,8 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
 
 class Department(models.Model):
-    users = models.ManyToManyField(Account, verbose_name=_('Users'), related_name='department', blank=True)
+    # company = models.OneToOneField(Company, verbose_name=_('Company'))
+    users = models.ManyToManyField(Account, verbose_name=_('Users'), blank=True)
     name = models.CharField(_('Department name'), max_length=200)
     can_use_in_procentage = models.PositiveIntegerField(_('Can use a subscription no more then %'),
                                                         default=100, help_text=_('Example: You set 50%. To this d'
@@ -104,3 +75,13 @@ class Department(models.Model):
 
     def get_admin_absolute_url(self):
         return reverse('admin:authentication_department_change', args=(self.id,))
+
+
+class Company(models.Model):
+    name = models.CharField(_('Company Name'), max_length=100, unique=True)
+    address = models.CharField(_('Company Address'), max_length=200, blank=True)
+    users = models.ManyToManyField(Account, verbose_name=_('Users'), blank=True, related_name='company')
+    departments = models.ManyToManyField(Department, verbose_name=_('Departments'), blank=True, related_name='company')
+
+    def __unicode__(self):
+        return self.name
