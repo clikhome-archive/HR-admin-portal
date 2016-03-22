@@ -4,7 +4,7 @@ import models
 
 class LogAdmin(admin.ModelAdmin):
     search_fields = list_filter = (
-        'user', 'event', 'url', 'method', 'created_dt')
+        'user__email', 'event', 'url', 'method', 'created_dt')
     list_display = (
         'user', 'event', 'url', 'method', 'content_object', 'created_dt')
     ordering = ('-id',)

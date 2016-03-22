@@ -16,8 +16,9 @@ class InvoiceForm(forms.ModelForm):
 
 
 class InvoiceAdmin(admin.ModelAdmin):
-    search_fields = list_filter = list_display = (
-        'company', 'invoice_number', 'invoice', 'comment', 'created_dt')
+    search_fields = list_filter = (
+        'company__name', 'invoice_number', 'invoice', 'comment', 'created_dt')
+    list_display = ('company', 'invoice_number', 'invoice', 'comment', 'created_dt')
     ordering = ('-id',)
     form = InvoiceForm
 
@@ -35,7 +36,7 @@ class SubscribeForm(forms.ModelForm):
 
 class SubscribeAdmin(admin.ModelAdmin):
     search_fields = list_filter = ('payment_date', 'contract_expired_date', 'licenses',
-                                   'assigned', 'comment', 'created_dt', 'company')
+                                   'assigned', 'comment', 'created_dt', 'company__name')
     list_display = ('payment_date', 'contract_expired_date', 'licenses', 'assigned',
                     'comment', 'departments_list', 'invoices_list', 'created_dt', '_company')
     ordering = ('-id',)

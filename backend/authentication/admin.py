@@ -217,7 +217,7 @@ class CompanyForm(forms.ModelForm):
 
 
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = (
+    ordering = search_fields = list_filter = list_display = (
         'name', 'address')
     form = CompanyForm
 

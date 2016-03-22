@@ -36,7 +36,7 @@ class EmployeeRelocationAdmin(admin.ModelAdmin):
         'user', '_user_company_name', 'employee', 'relocate_from', 'relocate_to', 'expected_moving_date',
         '_need_furniture', '_duration', 'status', 'created_dt', 'updated_dt')
     ordering = search_fields = list_filter = (
-        'user', 'relocate_from', 'relocate_to', 'expected_moving_date',
+        'user__email', 'relocate_from', 'relocate_to', 'expected_moving_date',
         'need_furniture', 'duration', 'status', 'created_dt', 'updated_dt')
     form = EmployeeRelocationForm
 
