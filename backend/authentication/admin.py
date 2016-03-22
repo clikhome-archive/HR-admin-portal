@@ -170,10 +170,10 @@ class DepartmentAddForm(DepartmentForm):
 
 class DepartmentAdmin(admin.ModelAdmin):
     ordering = search_fields = list_filter = (
-        'name', 'can_use_in_procentage', 'can_use_in_currency', 'can_use_in_licenses'
+        'name', 'can_use_in_procentage', 'can_use_in_licenses'
     )
     list_display = (
-        'name', 'can_use_in_procentage', 'can_use_in_currency', 'can_use_in_licenses', 'users_count'
+        'name', 'can_use_in_procentage', 'can_use_in_licenses', 'users_count'
     )
     add_fieldsets = (
         (None, {

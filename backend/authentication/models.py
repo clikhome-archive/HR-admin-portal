@@ -72,12 +72,12 @@ class Department(models.Model):
                                                                                  ' with 1000 licenses and this '
                                                                                  'department can use only 50% '
                                                                                  'of 1000 licenses'))
-    can_use_in_currency = models.PositiveIntegerField(_('Can use a subscription no more then $'),
-                                                      default=10000, help_text=_('Example: You set 10$. To this d'
-                                                                                 'epartment assignet subscription'
-                                                                                 ' with 100$ price and this '
-                                                                                 'department can use only licenses at '
-                                                                                 'a price no higher than 10$'))
+    # can_use_in_currency = models.PositiveIntegerField(_('Can use a subscription no more then $'),
+    #                                                   default=10000, help_text=_('Example: You set 10$. To this d'
+    #                                                                              'epartment assignet subscription'
+    #                                                                              ' with 100$ price and this '
+    #                                                                              'department can use only licenses at '
+    #                                                                              'a price no higher than 10$'))
     can_use_in_licenses = models.PositiveIntegerField(_('Can use a subscription no more then X licenses'),
                                                       default=10000, help_text=_('Example: You set 100 licenses. To this d'
                                                                                  'epartment assignet subscription'
