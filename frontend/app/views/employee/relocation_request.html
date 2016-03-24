@@ -8,7 +8,7 @@
     <div class="panel-body">
       <form role="form" class="form" name="EmployeeForm" novalidate>
         <div class="form-group row">
-          <div class="col-xlg-4 col-xlg-offset-8 col-lg-4 col-lg-offset-8 col-md-6 col-md-offset-6">
+          <div class="col-xlg-4 col-xlg-offset-6 col-lg-4 col-lg-offset-6 col-md-6 col-md-offset-6">
             <div class="input-search input-search-dark">
               <i class="input-search-icon wb-search"></i>
               <input type="text" class="form-control" placeholder="Search for user" id="employee_select" ui-autocomplete="EmployeeSelectOption" ng-model="employee_select">
@@ -184,7 +184,8 @@
 <script type="text/javascript">
   $(function () {
     $("#id_expected_moving_date").datepicker({
-      dateFormat: 'yy-mm-dd'
+      dateFormat: 'yy-mm-dd',
+      minDate: 7
     });
   });
 </script>

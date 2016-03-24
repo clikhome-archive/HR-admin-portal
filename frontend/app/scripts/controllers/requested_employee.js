@@ -16,7 +16,7 @@ angular.module('ClikhomeApp')
             'email': data.employee.email,
             'phone': data.employee.phone,
             'job_title': data.employee.job_title,
-            'is_reusable': data.employee.is_reusable
+            'is_reusable': data.employee.is_reusable = true
         },
         'need_furniture': data.need_furniture,
         'duration': data.duration,
