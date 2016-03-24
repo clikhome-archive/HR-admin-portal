@@ -69,7 +69,7 @@ angular.module('ClikhomeApp', [
           url: '/relocation'
         })
           .state('app.relocation.request', {
-            url: '/reuqest',
+            url: '/request',
             views: {
               'content@': {
                 templateUrl: 'views/relocation/request.html'
