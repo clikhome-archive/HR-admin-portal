@@ -35,7 +35,11 @@
             </td>
             <td>{[{request.expected_moving_date | date : 'yyyy-MM-dd'}]}</td>
             <td>{[{request.created_dt | date : 'yyyy-MM-dd'}]}</td>
-            <td>{[{request.status_title}]}</td>
+            <td>
+              <span class="label label-round"
+                    ng-class="{'label-primary': request.status == 1, 'label-success': request.status == 2, 'label-danger': request.status == 3}">
+                {[{request.status_title}]}
+              </span></td>
             <td><a ng-if="request.status==1" ng-click="cnacel_confirm(request.id)" style="cursor: pointer">Cancel</a></td>
           </tr>
           </tbody>
