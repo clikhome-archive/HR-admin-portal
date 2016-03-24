@@ -35,7 +35,7 @@ angular.module('ClikhomeApp')
       if (response.user.company) {
         $scope.company_name = response.user.company.name;
       }
-      if (response.user.department) {
+      if (response.user.department && response.user.department[response.user.department.length - 1]) {
         $scope.department_name = response.user.department[response.user.department.length - 1].name;
       }
 
