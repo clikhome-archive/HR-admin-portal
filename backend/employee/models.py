@@ -64,8 +64,10 @@ class EmployeeRelocation(models.Model):
     STATUS_CHOICE = Choices(
         ('INITIAL', 0, 'Initial'),
         ('RECEIVED', 1, 'Received'),
-        ('CONFIRMED', 2, 'Confirmed'),
-        ('CANCELLED', 3, 'Cancelled')
+        ('IN_PROCESS', 2, 'In process'),
+        ('CONFIRMED', 3, 'Confirmed'),
+        ('SUCCESSFUL', 4, 'Successful'),
+        ('CANCELLED', 5, 'Cancelled')
     )
     DURATION_CHOICE = Choices(
         ('THREE_MONTHS', 3, '3 Months'),
