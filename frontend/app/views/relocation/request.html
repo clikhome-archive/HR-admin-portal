@@ -38,7 +38,8 @@
             <td>
               <b>Relocate</b> from {[{request.relocate_from}]} to {[{request.relocate_to}]}<br>
               <b>Need furniture:</b> <span ng-show="request.need_furniture">Yes</span><span ng-show="!request.need_furniture">No</span><br>
-              <b>How long will this employee stay:</b> {[{ request.duration_title }]}
+              <b>How long will this employee stay:</b> {[{ request.duration_title }]}<br>
+              <span ng-show="request.special_needs"><b>Special needs:</b> {[{ request.special_needs }]}</span>
             </td>
             <td>{[{request.expected_moving_date | date : 'yyyy-MM-dd'}]}</td>
             <td>{[{request.created_dt | date : 'yyyy-MM-dd'}]}</td>

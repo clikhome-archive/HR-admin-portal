@@ -89,6 +89,7 @@ class EmployeeRelocation(models.Model):
     duration = models.PositiveIntegerField(choices=DURATION_CHOICE,
            default=DURATION_CHOICE.THREE_MONTHS,
            verbose_name=_('How long will this employee stay?'))
+    special_needs = models.TextField(_('Special needs'), blank=True)
 
     status = models.PositiveIntegerField(choices=STATUS_CHOICE,
              default=STATUS_CHOICE.INITIAL,

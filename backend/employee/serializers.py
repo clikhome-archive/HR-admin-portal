@@ -50,7 +50,7 @@ class EmployeeRelocationSerializer(serializers.ModelSerializer):
         model = EmployeeRelocation
         fields = ('id', 'employee', 'relocate_from', 'relocate_to',
                   'expected_moving_date', 'status', 'status_title', 'created_dt',
-                  'need_furniture', 'duration', 'duration_title')
+                  'need_furniture', 'duration', 'duration_title', 'special_needs')
         read_only_fields = ('id', 'created_dt', 'status', 'status_title', 'duration_title')
 
     def create(self, validated_data):
@@ -100,7 +100,7 @@ class EmployeeRelocationsSerializer(serializers.ModelSerializer):
         model = EmployeeRelocation
         read_only_fields = fields = ('id', 'employee', 'relocate_from', 'relocate_to',
                   'expected_moving_date', 'status', 'status_title', 'created_dt',
-                  'need_furniture', 'duration', 'duration_title')
+                  'need_furniture', 'duration', 'duration_title', 'special_needs')
 
     def create(self, validated_data):
         request = self.context.get('request')

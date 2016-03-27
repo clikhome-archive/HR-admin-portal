@@ -146,6 +146,14 @@
               </div>
             </div>
 
+            <div class="row">
+              <div class="form-group col-xs-12">
+                <label for="id_special_needs">Special needs:</label><br>
+                <textarea class="form-control" id="id_special_needs" name="special_needs" ng-model="model.special_needs"></textarea>
+                <div class="alert alert-danger" ng-repeat="error in errors.special_needs">{[{error}]}</div>
+              </div>
+            </div>
+
             <br>
             <div class="alert alert-danger" ng-repeat="error in errors.non_field_errors">{[{error}]}</div>
             <div class="alert alert-danger" ng-if="error">{[{error}]}</div>
