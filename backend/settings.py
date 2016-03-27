@@ -217,6 +217,8 @@ AUTHENTICATION_BACKENDS = [
     'authentication.backend.AuthByModelBackend'
 ]
 
+DEBUG = os.environ.get('DJANGO_DEBUG', False)
+
 
 try:
     from local_settings import *
