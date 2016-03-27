@@ -22,7 +22,6 @@ def init():
     ask_for_aws_keys()
     for environment in env.environments:
         env.environment = environment
-        env.server_name = '{}-{}'.format(env.project_name, env.environment)
         create_standard_server()
 
 
@@ -142,13 +141,13 @@ def create_secret_key():
     return ''.join(random.choice(string.ascii_letters + string.digits) for i in range(30))
 
 
-def dev():
+def developement():
     """fab dev [command]"""
     env.environment = 'developement'
     env.branch = 'master'
 
 
-def prod():
+def production():
     """fab staging [command]"""
     env.environment = 'production'
     env.branch = 'production'
