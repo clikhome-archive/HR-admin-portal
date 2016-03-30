@@ -38,7 +38,7 @@ angular.module('clikhomeHR')
           });
         },
         source: function(rx, tx) {
-          Employee.seaerch_employee(rx.term)
+          Employee.search(rx.term)
             .then(function(response){
               tx(
                 response.map(

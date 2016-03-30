@@ -4,7 +4,7 @@ angular.module('clikhomeHR')
   .controller('EmployeeListCtrl', ["$state", "$scope", "$location", "Employee", function ($state, $scope, $location, Employee) {
 
     // Fill page
-    Employee.get_list().then(function(response){
+    Employee.getList().then(function(response){
       $scope.employees = response;
     });
 
