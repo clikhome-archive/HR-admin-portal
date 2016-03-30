@@ -21,7 +21,7 @@
 
     function login(formData) {
       vm.errors = [];
-      Validate.form_validation(formData, vm.errors);
+      Validate.form(formData, vm.errors);
       if (!formData.$invalid) {
         djangoAuth.login(vm.username, vm.password)
                   .then(loginSuccess, loginError);

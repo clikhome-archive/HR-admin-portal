@@ -6,7 +6,7 @@ angular.module('clikhomeHR')
 
     $scope.send = function(formData){
       $scope.errors = [];
-      Validate.form_validation(formData, $scope.errors);
+      Validate.form(formData, $scope.errors);
       if(!formData.$invalid){
         Support.feedback($scope.model)
           .then(function(data){

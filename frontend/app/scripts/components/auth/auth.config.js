@@ -2,7 +2,8 @@
   'use strict';
 
   angular.module('clikhomeHR.auth')
-         .config(configure);
+         .config(configure)
+         .run(run);
 
   configure.$inject = ['$stateProvider'];
 
@@ -17,6 +18,10 @@
             controllerAs: 'signin'
           }
         }
+      })
+      .state('app.logout', {
+        url: '/logout',
+        onEnter: ['djangoAuth', function(djangoAuth) { djangoAuth.logout(); }]
       })
       .state('signup', {
         url: '/signup',
@@ -58,5 +63,29 @@
           }
         }
       });
+  }
+
+  run.$inject = ['$rootScope', '$state', '$cookies', 'djangoAuth'];
+
+  function run($rootScope, $state, $cookies, djangoAuth) {
+    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {
+      if (djangoAuth.authenticated === null) {
+        // First run
+        if ($cookies.get('is_authenticated') === '1') {
+          djangoAuth.authenticated = true;
+        }
+      }
+      if (!djangoAuth.authenticated && toState.data && toState.data.authorization) {
+        if (djangoAuth.memorizedState && (!fromState.data || !fromState.data.redirectTo || toState.name !== fromState.data.redirectTo)) {
+          djangoAuth.logout();
+        }
+        if (toState.data.redirectTo) {
+          if (toState.data.memory) {
+            djangoAuth.memorizedState = toState.name;
+          }
+          $state.go(toState.data.redirectTo);
+        }
+      }
+    });
   }
 })();

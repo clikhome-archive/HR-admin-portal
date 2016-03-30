@@ -15,9 +15,9 @@
 
     function resetRequest(formData) {
       vm.errors = [];
-      Validate.form_validation(formData, vm.errors);
+      Validate.form(formData, vm.errors);
       if (!formData.$invalid) {
-        djangoAuth.forgot_password(vm.email)
+        djangoAuth.forgotPassword(vm.email)
                   .then(requestSuccess, requestError);
       }
     }

@@ -123,12 +123,6 @@
           }
         }
       })
-      .state('app.logout', {
-        url: '/logout',
-        onEnter: ['djangoAuth', function(djangoAuth) {
-          djangoAuth.logout();
-        }]
-      })
       .state('app.index', {
         url: '/',
         views: {

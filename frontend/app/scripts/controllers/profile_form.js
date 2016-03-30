@@ -14,7 +14,7 @@ angular.module('clikhomeHR')
 
     $scope.store = function(formData) {
       $scope.errors = [];
-      Validate.form_validation(formData, $scope.errors);
+      Validate.form(formData, $scope.errors);
       if (!formData.$invalid) {
         Profile.save($scope.model)
           .then(function(data){

@@ -22,7 +22,7 @@
     function register(formData) {
       var payload = { 'email': vm.email, 'password': vm.password };
       vm.errors = [];
-      Validate.form_validation(formData, vm.errors);
+      Validate.form(formData, vm.errors);
       if (!formData.$invalid) {
         djangoAuth.signup(payload)
                   .then(registerSuccess, registerError);

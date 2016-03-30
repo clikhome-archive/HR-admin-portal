@@ -27,9 +27,9 @@
         'token': $stateParams.token
       };
       vm.errors = [];
-      Validate.form_validation(formData, vm.errors);
+      Validate.form(formData, vm.errors);
       if (!formData.$invalid) {
-        djangoAuth.password_reset_confirm(payload)
+        djangoAuth.passwordReset(payload)
                   .then(resetSuccess, resetError);
       }
     }
