@@ -7,7 +7,7 @@
  * # RelocationmodalconfirmctrlCtrl
  * Controller of the ClikhomeApp
  */
-angular.module('ClikhomeApp')
+angular.module('clikhomeHR')
   .controller('RelocationModalConfirmCtrl', ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
     $scope.close = function (result) {
       $uibModalInstance.close(result);

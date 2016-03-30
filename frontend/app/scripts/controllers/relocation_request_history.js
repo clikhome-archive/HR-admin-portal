@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ClikhomeApp')
+angular.module('clikhomeHR')
   .controller('RelocationRequestHistoryCtrl', ["$state", "$scope", "$location", "Employee", "RelocationRequest", "Validate", "dialogs", "$uibModal", function ($state, $scope, $location, Employee, RelocationRequest, Validate, dialogs, $uibModal) {
     var load_requests = function () {
       RelocationRequest.get_history().then(function (response) {

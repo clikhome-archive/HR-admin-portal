@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ClikhomeApp')
+angular.module('clikhomeHR')
   .service('Validate', [function Validate() {
     return {
       'message': {

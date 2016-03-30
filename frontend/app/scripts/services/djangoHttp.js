@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ClikhomeApp')
+angular.module('clikhomeHR')
   .service('djangoHttp', ['$q', '$http', '$cookies', function djangoHttp($q, $http, $cookies) {
     var service = {
       'API_URL': '/api/v1',

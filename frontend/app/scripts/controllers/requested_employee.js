@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ClikhomeApp')
+angular.module('clikhomeHR')
   .controller('RequestdEmployeeCtrl', ["$state", "$scope", "$location", "$stateParams", "RelocationRequest", "Validate", "Employee", function ($state, $scope, $location, $stateParams, RelocationRequest, Validate, Employee) {
     var search_mode = false;
     $scope.google_autocomplete_options = {

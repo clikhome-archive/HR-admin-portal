@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ClikhomeApp')
+angular.module('clikhomeHR')
   .controller('EmployeeListCtrl', ["$state", "$scope", "$location", "Employee", function ($state, $scope, $location, Employee) {
 
     // Fill page

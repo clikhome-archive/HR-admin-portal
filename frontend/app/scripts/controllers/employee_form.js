@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ClikhomeApp')
+angular.module('clikhomeHR')
   .controller('EmployeeFormCtrl', ["$state", "$scope", "$location", "$stateParams", "Employee", "Validate", function ($state, $scope, $location, $stateParams, Employee, Validate) {
     $scope.save_button_text = 'Create new profile';
     $scope.model = {

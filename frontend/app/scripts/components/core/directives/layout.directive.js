@@ -1,13 +1,18 @@
-'use strict';
+(function() {
+  'use strict';
 
-/**
- * @ngdoc directive
- * @name ClikhomeApp.directive:layout
- * @description
- * # layout
- */
-angular.module('ClikhomeApp')
-  .directive('layout', ['$rootScope', 'LAYOUT_TYPES', function ($rootScope, LAYOUT_TYPES) {
+  /**
+   * @ngdoc directive
+   * @name clikhomeHR.core.directive:layout
+   * @description
+   * # layout
+   */
+  angular.module('clikhomeHR.core')
+         .directive('layout', layout);
+
+  layout.$inject = ['$rootScope', 'LAYOUT_TYPES'];
+
+  function layout($rootScope, LAYOUT_TYPES) {
     var TYPE_CLASS_MAP = {};
     TYPE_CLASS_MAP[LAYOUT_TYPES.MENU_COLLAPSED] = 'site-menubar-fold';
     TYPE_CLASS_MAP[LAYOUT_TYPES.MENU_COLLAPSED_ALT] = 'site-menubar-fold-alt site-menubar-fold';
@@ -17,17 +22,23 @@ angular.module('ClikhomeApp')
     TYPE_CLASS_MAP[LAYOUT_TYPES.LOGIN] = 'page-login layout-full';
     TYPE_CLASS_MAP[LAYOUT_TYPES.REGISTER] = 'page-register-v3 layout-full';
 
-    var link = function (scope, element, attrs) {
+    var directive = {
+      restrict: 'A',
+      link: link
+    };
+    return directive;
+
+    function link() {
       var $body = $('body');
       var activeType = '';
-      var layout = function (type) {
+      var layout = function(type) {
         if (type !== activeType && TYPE_CLASS_MAP[type]) {
           $body.removeClass(TYPE_CLASS_MAP[activeType]);
           $body.addClass(TYPE_CLASS_MAP[type]);
           activeType = type;
         }
       };
-      var toggleMenu = function (isOpen) {
+      var toggleMenu = function(isOpen) {
         if (isOpen) {
           $body.removeClass(TYPE_CLASS_MAP[LAYOUT_TYPES.MENU_COLLAPSED]);
           $body.addClass(TYPE_CLASS_MAP[LAYOUT_TYPES.MENU_EXPANDED]);
@@ -36,17 +47,13 @@ angular.module('ClikhomeApp')
           $body.addClass(TYPE_CLASS_MAP[LAYOUT_TYPES.MENU_COLLAPSED]);
         }
       };
-      $rootScope.$on('layout-switcher:layout', function (evt, type) {
+      $rootScope.$on('layout-switcher:layout', function(evt, type) {
         layout(type);
       });
-      $rootScope.$on('layout-switcher:toggleMenu', function (evt, isOpen) {
+      $rootScope.$on('layout-switcher:toggleMenu', function(evt, isOpen) {
         toggleMenu(isOpen);
       });
       $body.addClass('site-menubar-native');
-    };
-
-    return {
-      restrict: 'A',
-      link: link
-    };
-  }]);
+    }
+  }
+})();

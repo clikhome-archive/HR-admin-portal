@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ClikhomeApp')
+angular.module('clikhomeHR')
   .service('Subscription', ['$q', '$http', '$cookies', '$rootScope', '$state', 'djangoHttp', function Subscription($q, $http, $cookies, $rootScope, $state, djangoHttp) {
     var service = {
       get_list: function() {

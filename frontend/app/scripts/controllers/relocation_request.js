@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ClikhomeApp')
+angular.module('clikhomeHR')
   .controller('RelocationRequestCtrl', ["$state", "$scope", "$location", "RelocationRequest", "dialogs", "$uibModal", function ($state, $scope, $location, RelocationRequest, dialogs, $uibModal) {
 
     // Fill page

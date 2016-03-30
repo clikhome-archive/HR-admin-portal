@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ClikhomeApp')
+angular.module('clikhomeHR')
   .controller('ProfileFormCtrl', ["$rootScope", "$state", "$scope", "$location", "$stateParams", "Profile", "Validate", function ($rootScope, $state, $scope, $location, $stateParams, Profile, Validate) {
     Profile.get().then(function(response){
         $scope.model = {

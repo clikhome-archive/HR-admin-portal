@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ClikhomeApp')
+angular.module('clikhomeHR')
   .controller('FeedbackCtrl', ["$state", "$scope", "$location", "Support", "dialogs", "Validate", function ($state, $scope, $location, Support, dialogs, Validate) {
     $scope.model = {'subject':'', 'body':''};
 

@@ -1,14 +1,18 @@
-'use strict';
+(function() {
+  'use strict';
 
-/**
- * @ngdoc service
- * @name ClikhomeApp.layoutSwitcher
- * @description
- * # layoutSwitcher
- * Factory in the ClikhomeApp.
- */
-angular.module('ClikhomeApp')
-  .factory('layoutSwitcher', ['$rootScope', 'LAYOUT_TYPES', function ($rootScope, LAYOUT_TYPES) {
+  /**
+   * @ngdoc service
+   * @name clikhomeHR.core.layoutSwitcher
+   * @description
+   * # layoutSwitcher
+   */
+  angular.module('clikhomeHR.core')
+         .factory('layoutSwitcher', layoutSwitcher);
+
+  layoutSwitcher.$inject = ['$rootScope', 'LAYOUT_TYPES'];
+
+  function layoutSwitcher($rootScope, LAYOUT_TYPES) {
     var LAYOUT_EVENT = 'layout-switcher:layout';
     var MENU_EVENT = 'layout-switcher:toggleMenu';
     var MENU_MOBILE_EVENT = 'layout-switcher:toggleMenuMobile';
@@ -17,7 +21,7 @@ angular.module('ClikhomeApp')
       LAYOUT_TYPES: LAYOUT_TYPES,
       menuExpanded: false,
       menuMobileExpanded: false,
-      layout: function (type) {
+      layout: function(type) {
         if (angular.isUndefined(type)) {
           console.warn('Invalid layout type undefined');
           return false;
@@ -25,11 +29,11 @@ angular.module('ClikhomeApp')
         service.selected = type;
         $rootScope.$emit(LAYOUT_EVENT, type);
       },
-      toggleMenu: function () {
+      toggleMenu: function() {
         service.menuExpanded = !service.menuExpanded;
         $rootScope.$emit(MENU_EVENT, service.menuExpanded);
       },
-      toggleMenuMobile: function () {
+      toggleMenuMobile: function() {
         service.menuMobileExpanded = !service.menuMobileExpanded;
         $rootScope.$emit(MENU_MOBILE_EVENT, service.menuExpanded);
       }
@@ -37,4 +41,5 @@ angular.module('ClikhomeApp')
     service.toggleMenu();
 
     return service;
-  }]);
+  }
+})();

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ClikhomeApp')
+angular.module('clikhomeHR')
   .service('djangoAuth', ['$q', '$http', '$cookies', '$rootScope', '$state', 'djangoHttp', function djangoAuth($q, $http, $cookies, $rootScope, $state, djangoHttp) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     var service = {

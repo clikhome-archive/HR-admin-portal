@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="ClikhomeApp" ng-controller="MasterCtrl">
+<html ng-app="clikhomeHR" ng-controller="AppController as App">
     <head>
         <base href="/">
         <meta charset="utf-8">
@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Clikhome.HR {[{ company_name }]}</title>
+        <title ng-bind="Clikhome.HR {[{ App.user.company.name }]}"></title>
         <!-- build:css({.,app}) /static/styles/vendor.css -->
         <!-- bower:css -->
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
@@ -32,16 +32,16 @@
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
             your browser</a> to improve your experience.</p>
         <![endif]-->
-        <div ui-view="sigin" class="page vertical-align text-center" ng-if="!authenticated"></div>
+        <div ui-view="sigin" class="page vertical-align text-center" ng-if="!App.user"></div>
 
         <!-- Navbar -->
-        <nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega" ng-if="authenticated">
+        <nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega" ng-if="App.user">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle hamburger hamburger-close navbar-toggle-left hided">
               <span class="sr-only">Toggle navigation</span>
               <span class="hamburger-bar"></span>
             </button>
-            <button type="button" class="navbar-toggle collapsed" ng-click="navbarCollapsed = !navbarCollapsed">
+            <button type="button" class="navbar-toggle collapsed" ng-click="App.navbarCollapsed = !App.navbarCollapsed">
               <i class="icon wb-more-horizontal" aria-hidden="true"></i>
             </button>
             <div class="navbar-brand navbar-brand-center site-gridmenu-toggle">
@@ -61,7 +61,7 @@
               <!-- Navbar Toolbar -->
               <ul class="nav navbar-toolbar">
                 <li class="hidden-float">
-                  <a href="#" ng-click="toggleMenu()">
+                  <a href="#" ng-click="App.toggleMenu()">
                     <i class="icon hamburger hamburger-arrow-left">
                       <span class="hamburger-bar"></span>
                     </i>
@@ -78,7 +78,7 @@
               <!-- Navbar Toolbar Right-->
               <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
                 <li class="navbar-text">
-                  <span>Hello, <span>{[{first_name + ' ' + last_name}]}</span></span>
+                  <span>Hello, <span>{[{App.user.firstName + ' ' + App.user.lastName}]}</span></span>
                 </li>
                 <li uib-dropdown>
                   <a href="#" class="navbar-avatar" uib-dropdown-toggle role="button">
@@ -88,7 +88,7 @@
                     </span>
                   </a>
                   <ul uib-dropdown-menu role="menu">
-                    <li role="presentation" class="dropdown-header">{[{first_name + ' ' + last_name}]}</li>
+                    <li role="presentation" class="dropdown-header">{[{App.user.firstName + ' ' + App.user.lastName}]}</li>
                     <li class="divider" role="presentation"></li>
                     <li role="presentation">
                       <a href="#" ui-sref="app.profile" role="menuitem"><i class="icon wb-user" aria-hidden="true"></i> Profile</a>
@@ -104,13 +104,13 @@
             <!-- End Navbar Collapse -->
 
             <!-- Navbar Search -->
-            <div class="collapse navbar-search-overlap" uib-collapse="!isMainSearchActive">
+            <div class="collapse navbar-search-overlap" uib-collapse="!App.isMainSearchActive">
               <form role="search">
                 <div class="form-group">
                   <div class="input-search">
                     <i class="input-search-icon wb-search"></i>
                     <input type="text" class="form-control" name="site_search" placeholder="Search...">
-                    <button type="button" class="input-search-close icon wb-close" aria-label="Close" ng-click="isMainSearchActive = false"></button>
+                    <button type="button" class="input-search-close icon wb-close" aria-label="Close" ng-click="App.isMainSearchActive = false"></button>
                   </div>
                 </div>
               </form>
@@ -120,7 +120,7 @@
         </nav>
 
         <!-- Site Menubar -->
-        <div site-menubar ng-if="authenticated">
+        <div site-menubar ng-if="App.user">
           <!-- Site Menubar Body -->
           <div class="site-menubar-body">
             <ul class="site-menu">
@@ -192,7 +192,7 @@
         </div>
 
         <!-- Page Content -->
-        <div ui-view="content" class="page" ng-if="authenticated"></div>
+        <div ui-view="content" class="page" ng-if="App.user"></div>
 
         <!-- build:js(.) /static/scripts/vendor.js -->
         <!-- bower:js -->
@@ -220,46 +220,44 @@
         <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) /static/scripts/app.js -->
-        <script src="scripts/app.js"></script>
-        <!-- endbuild -->
+        <script src="scripts/app.module.js"></script>
+        <!-- clikhomeHR.core -->
+        <script src="scripts/components/core/core.module.js"></script>
+        <script src="scripts/components/core/core.config.js"></script>
+        <script src="scripts/components/core/constants/layout-types.const.js"></script>
+        <script src="scripts/components/core/services/layout-switcher.factory.js"></script>
+        <script src="scripts/components/core/controllers/app.controller.js"></script>
+        <script src="scripts/components/core/directives/layout.directive.js"></script>
+        <script src="scripts/components/core/directives/site-menubar.directive.js"></script>
+        <script src="scripts/components/core/directives/site-menubar-item.directive.js"></script>
+        <!-- clikhomeHR.auth -->
+        <script src="scripts/components/auth/auth.module.js"></script>
+        <script src="scripts/components/auth/auth.config.js"></script>
+        <script src="scripts/components/auth/controllers/activation.controller.js"></script>
+        <script src="scripts/components/auth/controllers/forgot.controller.js"></script>
+        <script src="scripts/components/auth/controllers/login.controller.js"></script>
+        <script src="scripts/components/auth/controllers/reset.controller.js"></script>
+        <script src="scripts/components/auth/controllers/signup.controller.js"></script>
 
-        <!-- build:js(app) /static/scripts/controllers.js -->
-        <script src="scripts/controllers/login.js"></script>
-        <script src="scripts/controllers/master.js"></script>
         <script src="scripts/controllers/requested_employee.js"></script>
         <script src="scripts/controllers/relocation_request_history.js"></script>
         <script src="scripts/controllers/relocation_request.js"></script>
         <script src="scripts/controllers/employee_list.js"></script>
         <script src="scripts/controllers/employee_form.js"></script>
         <script src="scripts/controllers/profile_form.js"></script>
-        <script src="scripts/controllers/forgot_password.js"></script>
-        <script src="scripts/controllers/password_reset_confirm.js"></script>
         <script src="scripts/controllers/subscriptions.js"></script>
         <script src="scripts/controllers/invoices.js"></script>
-        <script src="scripts/controllers/signup.js"></script>
-        <script src="scripts/controllers/activate.js"></script>
         <script src="scripts/controllers/relocationmodalconfirm.js"></script>
         <script src="scripts/controllers/feedback.js"></script>
-        <!-- endbuild -->
-
-        <!-- build:js(app) /static/scripts/services.js -->
         <script src="scripts/services/djangoHttp.js"></script>
         <script src="scripts/services/djangoAuth.js"></script>
         <script src="scripts/services/validate.js"></script>
         <script src="scripts/services/employee.js"></script>
         <script src="scripts/services/relocations.js"></script>
         <script src="scripts/services/profile.js"></script>
-        <script src="scripts/services/layoutswitcher.js"></script>
-        <script src="scripts/services/layout_types.js"></script>
         <script src="scripts/services/subscriptions.js"></script>
         <script src="scripts/services/invoices.js"></script>
         <script src="scripts/services/support.js"></script>
-        <!-- endbuild -->
-
-        <!-- build:js(app) /static/scripts/directives.js -->
-        <script src="scripts/directives/layout.js"></script>
-        <script src="scripts/directives/sitemenubar.js"></script>
-        <script src="scripts/directives/sitemenubaritem.js"></script>
         <!-- endbuild -->
 
         <!-- build:js(app) /static/scripts/assets.js -->
