@@ -93,25 +93,6 @@
           }
         }
       })
-      .state('app.billing', {
-        url: '/billing'
-      })
-      .state('app.billing.invoices', {
-        url: '/invoices',
-        views: {
-          'content@': {
-            templateUrl: 'views/billing/invoices.html'
-          }
-        }
-      })
-      .state('app.billing.subscriptions', {
-        url: '/subscriptions',
-        views: {
-          'content@': {
-            templateUrl: 'views/billing/subscriptions.html'
-          }
-        }
-      })
       .state('app.support', {
         url: '/support'
       })

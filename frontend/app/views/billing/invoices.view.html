@@ -1,0 +1,30 @@
+<div class="page-header">
+  <h1 class="page-title">Invoices</h1>
+</div>
+
+<div class="page-content">
+  <!-- Employee List Panel -->
+  <div class="panel">
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <th>Invoice details</th>
+            <th>Invoice dated of</th>
+            <th>View</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="invoice in invoices.list">
+            <td>{[{invoice.comment}]}</td>
+            <td>{[{invoice.created_dt | date : 'yyyy-MM-dd'}]}</td>
+            <td><a href="{[{invoice.invoice}]}">Download</a></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- End Employee List Panel -->
+  </div>
+</div>

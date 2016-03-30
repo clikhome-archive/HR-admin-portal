@@ -18,6 +18,7 @@
     'vsGoogleAutocomplete',
 
     /* Internal */
-    'clikhomeHR.auth'
+    'clikhomeHR.auth',
+    'clikhomeHR.billing'
   ]);
 })();
