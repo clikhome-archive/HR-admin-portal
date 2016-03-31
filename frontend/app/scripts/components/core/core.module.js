@@ -19,6 +19,7 @@
 
     /* Internal */
     'clikhomeHR.auth',
-    'clikhomeHR.billing'
+    'clikhomeHR.billing',
+    'clikhomeHR.employee'
   ]);
 })();

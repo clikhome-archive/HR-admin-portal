@@ -4,7 +4,7 @@
 
 <div class="page-content">
   <!-- Employee List Panel -->
-  <div class="panel" ng-controller="EmployeeListCtrl">
+  <div class="panel">
     <div class="panel-heading">
       <div class="panel-actions">
         <button type="button"
@@ -27,12 +27,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="employee in employees">
+            <tr ng-repeat="employee in employees.list">
               <td>{[{employee.first_name}]} {[{employee.last_name}]}</td>
               <td>Email: {[{employee.email}]}<br>Phone: {[{employee.phone}]}</td>
               <td>{[{employee.job_title}]}</td>
               <td>
-                <a href="" ng-click="delete_employee(employee)">Remove</a>
+                <a href="" ng-click="employees.remove(employee)">Remove</a>
                 <br>
                 <a ui-sref="app.employee.edit_profile({id: employee.id})">Edit</a>
               </td>

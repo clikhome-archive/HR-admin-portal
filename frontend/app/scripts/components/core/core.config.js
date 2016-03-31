@@ -50,49 +50,6 @@
           }
         }
       })
-      .state('app.employee', {
-        url: '/employee'
-      })
-      .state('app.employee.list', {
-        url: '/',
-        views: {
-          'content@': {
-            templateUrl: 'views/employee/list.html'
-          }
-        }
-      })
-      .state('app.employee.new_profile', {
-        url: '/new_profile',
-        views: {
-          'content@': {
-            templateUrl: 'views/employee/form.html'
-          }
-        }
-      })
-      .state('app.employee.edit_profile', {
-        url: '/edit_profile{id:int}',
-        views: {
-          'content@': {
-            templateUrl: 'views/employee/form.html'
-          }
-        }
-      })
-      .state('app.employee.relocation_request', {
-        url: '/requested_employee',
-        views: {
-          'content@': {
-            templateUrl: 'views/employee/relocation_request.html'
-          }
-        }
-      })
-      .state('app.employee.relocation_request_edit', {
-        url: '/requested_employee/{id:int}',
-        views: {
-          'content@': {
-            templateUrl: 'views/employee/relocation_request.html'
-          }
-        }
-      })
       .state('app.support', {
         url: '/support'
       })
