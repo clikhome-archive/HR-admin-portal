@@ -404,7 +404,7 @@ module.exports = function (grunt) {
     ngtemplates: {
       dist: {
         options: {
-          module: 'ClikhomeApp',
+          module: 'clikhomeHR',
           htmlmin: '<%= htmlmin.dist.options %>',
           usemin: 'scripts/app.js'
         },

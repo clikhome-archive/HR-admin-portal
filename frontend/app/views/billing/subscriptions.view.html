@@ -1,0 +1,60 @@
+<div class="page-header">
+  <h1 class="page-title">Subscriptions</h1>
+</div>
+
+<div class="page-content">
+  <!-- Employee List Panel -->
+  <div class="panel">
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <th>Requests</th>
+            <th>My Bill</th>
+            <th>Payment details</th>
+            <th>Payment date</th>
+            <th>Contract expired</th>
+            <th>Owner</th>
+            <th>Active</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="subscription in subscriptions.list">
+            <td>
+              Purchased: {[{subscription.licenses}]}<br> Assigned: {[{subscription.assigned}]}<br>
+            </td>
+            <td>
+                  <span ng-if="subscription.invoices.length != 0">
+                      Invoice dated of {[{subscription.invoices[subscription.invoices.length-1].created_dt | date : 'yyyy-MM-dd'}]}<br>
+                      Invoice details: {[{subscription.invoices[subscription.invoices.length-1].comment}]}<br>
+                      <a href="{[{subscription.invoices[subscription.invoices.length-1].invoice}]}" target="_blank">Download</a>
+                  </span>
+                  <span ng-if="subscription.invoices.length == 0">
+                      No invoice found
+                  </span>
+            </td>
+            <td>{[{subscription.comment}]}</td>
+            <td>{[{subscription.payment_date}]}</td>
+            <td>{[{subscription.contract_expired_date}]}</td>
+            <td>
+              <span ng-if="subscription.company">Company: {[{subscription.company.name}]}</span>
+                  <span ng-if="subscription.departments.length">
+                      Departments:
+                      <span ng-repeat="department in subscription.departments">
+                          <li>{[{department.name}]}</li>
+                      </span>
+                  </span>
+            </td>
+            <td>
+              <div ng-show="!subscription.suspended">Yes</div>
+              <div ng-show="subscription.suspended">No</div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- End Employee List Panel -->
+  </div>
+</div>
