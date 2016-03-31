@@ -14,6 +14,7 @@ import os
 import sys
 import dj_database_url
 import re
+from kombu import Queue, Exchange
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.sites',
     'django.contrib.staticfiles',
+    'djcelery',
     'corsheaders',
     'django_extensions',
     'rest_framework',
@@ -52,7 +54,8 @@ INSTALLED_APPS = [
     'extended_choices',
     'db_logging',
     'billing',
-    'support'
+    'support',
+    'bridge'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -128,7 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'America/Belize'
+CELERY_TIMEZONE = TIME_ZONE = 'America/Belize'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
@@ -219,6 +222,30 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 DEBUG = os.environ.get('DJANGO_DEBUG', False)
+
+import djcelery
+djcelery.setup_loader()
+
+BROKER_URL = os.environ.get('REDISCLOUD_URL', 'redis://127.0.0.1:6379')
+CELERY_RESULT_BACKEND = 'redis'
+CELERY_IGNORE_RESULT = False
+CELERY_TASK_RESULT_EXPIRES = 151200 # 2 Days
+
+CELERY_ACCEPT_CONTENT = ['json',]
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_SEND_TASK_ERROR_EMAILS = True
+CELERY_SEND_EVENTS = True
+
+CELERY_DEFAULT_QUEUE = 'hr_admin'
+CELERY_QUEUES = (
+    Queue('hr_admin', routing_key='hr_admin'),
+    Queue('main_site', routing_key='main_site'),
+)
+
+ADMINS = (
+    ('Constantin Slednev', 'c.slednev@gmail.com'),
+)
 
 
 try:
