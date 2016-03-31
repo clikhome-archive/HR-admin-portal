@@ -47,7 +47,7 @@
         url: '/forgot-password',
         views: {
           'sigin@': {
-            templateUrl: 'views/auth/forgot_password.view.html',
+            templateUrl: 'views/auth/forgot-password.view.html',
             controller: 'ForgotController',
             controllerAs: 'vm'
           }
@@ -57,7 +57,7 @@
         url: '/password-reset/confirm/{uidb64}/{token}',
         views: {
           'sigin@': {
-            templateUrl: 'views/auth/reset_password.view.html',
+            templateUrl: 'views/auth/password-reset.view.html',
             controller: 'ResetController',
             controllerAs: 'vm'
           }
