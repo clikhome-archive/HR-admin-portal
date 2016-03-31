@@ -42,17 +42,6 @@
           }
         }
       })
-      .state('app.support', {
-        url: '/support'
-      })
-      .state('app.support.feedback', {
-        url: '/feedback',
-        views: {
-          'content@': {
-            templateUrl: 'views/support/feedback.html'
-          }
-        }
-      })
       .state('app.index', {
         url: '/',
         views: {

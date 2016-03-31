@@ -21,6 +21,7 @@
     'clikhomeHR.auth',
     'clikhomeHR.billing',
     'clikhomeHR.employee',
-    'clikhomeHR.profile'
+    'clikhomeHR.profile',
+    'clikhomeHR.support'
   ]);
 })();
