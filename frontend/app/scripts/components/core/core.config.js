@@ -23,25 +23,6 @@
           memory: true
         }
       })
-      .state('app.relocation', {
-        url: '/relocation'
-      })
-      .state('app.relocation.request', {
-        url: '/request',
-        views: {
-          'content@': {
-            templateUrl: 'views/relocation/request.html'
-          }
-        }
-      })
-      .state('app.relocation.history', {
-        url: '/history',
-        views: {
-          'content@': {
-            templateUrl: 'views/relocation/history.html'
-          }
-        }
-      })
       .state('app.index', {
         url: '/',
         views: {

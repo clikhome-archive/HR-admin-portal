@@ -22,6 +22,7 @@
     'clikhomeHR.billing',
     'clikhomeHR.employee',
     'clikhomeHR.profile',
+    'clikhomeHR.relocation',
     'clikhomeHR.support'
   ]);
 })();

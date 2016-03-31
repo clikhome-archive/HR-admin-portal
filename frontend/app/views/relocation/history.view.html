@@ -1,21 +1,13 @@
 <div class="page-header">
-  <h1 class="page-title">Request New Employee Relocation</h1>
+  <h1 class="page-title">Request history</h1>
 </div>
 
 <div class="page-content">
-  <!-- New Request Panel -->
-  <div class="panel" ng-controller="RelocationRequestCtrl">
+  <!-- Requested History Panel -->
+  <div class="panel">
     <div class="panel-heading">
-      <div class="panel-actions">
-        <button type="button"
-                class="btn btn-primary btn-outline"
-                ui-sref="app.employee.relocation_request">
-          <span><i class="icon wb-plus"></i> Add employee</span>
-        </button>
-      </div>
-      <h3 class="panel-title">Request for</h3>
+      <h3 class="panel-title">Requests</h3>
     </div>
-
     <div class="panel-body">
       <div class="table-responsive">
         <table class="table table-striped">
@@ -27,11 +19,12 @@
             <th>Relocation Info</th>
             <th>Expecting Moving Date</th>
             <th>Requested Date</th>
-            <th>Manage</th>
+            <th>Status</th>
+            <th>Cancel</th>
           </tr>
           </thead>
           <tbody>
-          <tr ng-repeat="request in requests">
+          <tr ng-repeat="request in history.requests">
             <td>{[{request.employee.first_name}]}</td>
             <td>{[{request.employee.last_name}]}</td>
             <td>Email: {[{request.employee.email}]}<br>Phone: {[{request.employee.phone}]}</td>
@@ -44,23 +37,16 @@
             <td>{[{request.expected_moving_date | date : 'yyyy-MM-dd'}]}</td>
             <td>{[{request.created_dt | date : 'yyyy-MM-dd'}]}</td>
             <td>
-              <a ng-click="delete_request(request)">Remove</a>
-              <br>
-              <a ui-sref="app.employee.relocation_request_edit({id: request.id})">Edit</a>
-            </td>
+              <span class="label label-round"
+                    ng-class="{'label-dark': request.status == 1, 'label-warning': request.status == 2, 'label-info': request.status == 3, 'label-success': request.status == 4, 'label-danger': request.status == 5}">
+                {[{request.status_title}]}
+              </span></td>
+            <td><a ng-if="request.status==1" ng-click="history.confirmRequestCancel(request.id)" style="cursor: pointer">Cancel</a></td>
           </tr>
           </tbody>
         </table>
       </div>
     </div>
-
-    <div class="panel-footer container-fluid">
-      <div class="row">
-        <form role="form" class="form col-sm-4 col-sm-offset-4" novalidate>
-          <button class="btn btn-block btn-success btn-outline" ng-click="confirm()">Request</button>
-        </form>
-      </div>
-    </div>
-    <!-- End New Request Panel -->
+    <!-- End Requested History Panel -->
   </div>
 </div>
