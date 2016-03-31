@@ -3,7 +3,7 @@
 describe('Directive: siteMenubarItem', function () {
 
   // load the directive's module
-  beforeEach(module('ClikhomeApp'));
+  beforeEach(module('clikhomeHR'));
 
   var element,
     scope;

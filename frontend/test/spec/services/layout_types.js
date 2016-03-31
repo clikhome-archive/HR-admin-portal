@@ -3,7 +3,7 @@
 describe('Service: LAYOUTTYPES', function () {
 
   // load the service's module
-  beforeEach(module('ClikhomeApp'));
+  beforeEach(module('clikhomeHR'));
 
   // instantiate service
   var LAYOUTTYPES;

@@ -23,7 +23,7 @@
     "angular-mocks": "^1.5.0"
   },
   "appPath": "app",
-  "moduleName": "ClikhomeApp",
+  "moduleName": "clikhomeHR",
   "overrides": {
     "bootstrap": {
       "main": [

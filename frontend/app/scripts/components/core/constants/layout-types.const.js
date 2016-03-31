@@ -6,7 +6,7 @@
    * @name clikhomeHR.core.LAYOUT_TYPES
    * @description
    * # LAYOUT_TYPES
-   * Constant in the ClikhomeApp.
+   * Constant in the clikhomeHR.
    */
 
   angular.module('clikhomeHR.core')
