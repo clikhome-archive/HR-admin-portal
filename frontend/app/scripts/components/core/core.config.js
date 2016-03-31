@@ -23,14 +23,6 @@
           memory: true
         }
       })
-      .state('app.profile', {
-        url: '/profile',
-        views: {
-          'content@': {
-            templateUrl: 'views/profile/form.html'
-          }
-        }
-      })
       .state('app.relocation', {
         url: '/relocation'
       })
