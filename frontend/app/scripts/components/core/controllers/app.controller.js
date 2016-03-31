@@ -4,9 +4,9 @@
   angular.module('clikhomeHR.core')
          .controller('AppController', AppController);
 
-  AppController.$inject = ['$rootScope', '$scope', 'djangoAuth', 'layoutSwitcher', '$window'];
+  AppController.$inject = ['$rootScope', 'djangoAuth', 'layoutSwitcher', '$window'];
 
-  function AppController($rootScope, $scope, djangoAuth, layoutSwitcher, $window) {
+  function AppController($rootScope, djangoAuth, layoutSwitcher, $window) {
     var vm = this;
     vm.isMainSearchActive = false;
     vm.navbarCollapsed = true;
@@ -52,9 +52,5 @@
         }
       });
     }
-
-    $scope.$back = function() {
-      window.history.back();
-    };
   }
 })();
