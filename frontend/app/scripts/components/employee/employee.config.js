@@ -22,7 +22,7 @@
         }
       })
       .state('app.employee.new_profile', {
-        url: '/new_profile',
+        url: '/new-profile',
         views: {
           'content@': {
             templateUrl: 'views/employee/form.view.html',
@@ -32,7 +32,7 @@
         }
       })
       .state('app.employee.edit_profile', {
-        url: '/edit_profile{id:int}',
+        url: '/edit-profile{id:int}',
         views: {
           'content@': {
             templateUrl: 'views/employee/form.view.html',
@@ -42,7 +42,7 @@
         }
       })
       .state('app.employee.relocation_request', {
-        url: '/requested_employee',
+        url: '/requested-employee',
         views: {
           'content@': {
             templateUrl: 'views/employee/relocation-request.view.html',
@@ -52,7 +52,7 @@
         }
       })
       .state('app.employee.relocation_request_edit', {
-        url: '/requested_employee/{id:int}',
+        url: '/requested-employee/{id:int}',
         views: {
           'content@': {
             templateUrl: 'views/employee/relocation-request.view.html',
