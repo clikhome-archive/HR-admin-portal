@@ -1,0 +1,38 @@
+<div class="page-content vertical-align-middle">
+  <div class="panel">
+    <div class="panel-body">
+      <div class="brand">
+        <img class="brand-img" src="/static/images/global/logos/logo_sm_dark.png" alt="...">
+        <h1 class="brand-text font-size-18 font-weight-400">ClikHome</h1>
+      </div>
+
+      <form role="form" ng-submit="signin.login(loginForm)" name="loginForm" novalidate>
+        <div class="form-group form-material floating">
+          <input name="username" type="email" id="inputEmail" class="form-control no-validation" ng-model="signin.username" required autofocus>
+          <label for="inputEmail" class="floating-label">Email address</label>
+          <div class="alert alert-danger" ng-repeat="error in signin.errors.username">{[{error}]}</div>
+        </div>
+
+        <div class="form-group form-material floating">
+          <input name="password" type="password" id="inputPassword" class="form-control no-validation" ng-model="signin.password" required>
+          <label for="inputPassword" class="floating-label">Password</label>
+          <div class="alert alert-danger" ng-repeat="error in signin.errors.password">{[{error}]}</div>
+        </div>
+
+        <div class="form-group clearfix">
+          <div class="checkbox-custom checkbox-inline checkbox-primary checkbox-lg pull-left">
+            <input type="checkbox" id="inputCheckbox" name="remember">
+            <label for="inputCheckbox">Remember me</label>
+          </div>
+          <a class="pull-right" ui-sref="forgot_password">Forgot password?</a>
+        </div>
+
+        <div class="alert alert-danger" ng-repeat="error in signin.errors.non_field_errors">{[{error}]}</div>
+        <div class="alert alert-danger" ng-if="error">{[{error}]}</div>
+
+        <button class="btn btn-primary btn-block btn-lg margin-top-40" type="submit">Sign in</button>
+      </form>
+      <p>Still no account? Please go to <a ui-sref="signup">Sign up</a></p>
+    </div>
+  </div>
+</div>

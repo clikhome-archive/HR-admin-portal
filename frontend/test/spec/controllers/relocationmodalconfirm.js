@@ -3,7 +3,7 @@
 describe('Controller: RelocationModalConfirmCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('ClikhomeApp'));
+  beforeEach(module('clikhomeHR'));
 
   var RelocationModalConfirmCtrl,
     scope;
