@@ -30,6 +30,7 @@ class Employee(models.Model):
     # XXX: We must make unqique fields with condition.
     # Now we can validate it from ModelForm and EmployeeSerializer
     # We can't validate from raw (didn't lose .update .create)
+
     first_name = models.CharField(_('first name'), max_length=30,
                                   help_text=_('eg. John'))
     last_name = models.CharField(_('last name'), max_length=30,
@@ -46,6 +47,7 @@ class Employee(models.Model):
 
     created_dt = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(Account)
+    activated_date = models.DateTimeField(_('Activated date on main site'), blank=True, null=True)
 
     objects = EmployeeManager()
 
@@ -62,21 +64,21 @@ class Employee(models.Model):
 
 class EmployeeRelocation(models.Model):
     STATUS_CHOICE = Choices(
-        ('INITIAL', 0, 'Initial'),
-        ('RECEIVED', 1, 'Received'),
-        ('IN_PROCESS', 2, 'In process'),
-        ('CONFIRMED', 3, 'Confirmed'),
-        ('SUCCESSFUL', 4, 'Successful'),
-        ('CANCELLED', 5, 'Cancelled')
+        ('INITIAL', 0, _('Initial')),
+        ('RECEIVED', 1, _('Received')),
+        ('IN_PROCESS', 2, _('In process')),
+        ('CONFIRMED', 3, _('Confirmed')),
+        ('SUCCESSFUL', 4, _('Successful')),
+        ('CANCELLED', 5, _('Cancelled'))
     )
     DURATION_CHOICE = Choices(
-        ('THREE_MONTHS', 3, '3 Months'),
-        ('SIX_MONTHS', 6, '6 Months'),
-        ('ONE_YEAR', 1, '1 Year or longer'),
+        ('THREE_MONTHS', 3, _('3 Months')),
+        ('SIX_MONTHS', 6, _('6 Months')),
+        ('ONE_YEAR', 1, _('1 Year or longer')),
     )
     YES_NO = Choices(
-        ('YES', 1, 'Yes'),
-        ('NO', 0, 'No')
+        ('YES', 1, _('Yes')),
+        ('NO', 0, _('No'))
     )
 
     employee = models.ForeignKey(Employee, verbose_name=_('Employee'))

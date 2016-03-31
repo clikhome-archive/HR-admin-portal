@@ -3,13 +3,14 @@ from rest_framework.exceptions import NotFound
 from models import Employee, EmployeeRelocation
 from django.template.loader import get_template
 from django.template import Context
-from django.core.mail import EmailMultiAlternatives
 from authentication.models import Account
 from django.db.models import Q, F
 from rest_framework.validators import UniqueValidator
 from django.utils.translation import ugettext_lazy as _
 from db_logging import get_extra, logger
 from billing.models import Subscription
+from tasks import send_managers_email
+from bridge.tasks import create_user_on_main_site
 import settings
 
 
@@ -58,7 +59,10 @@ class EmployeeRelocationSerializer(serializers.ModelSerializer):
         employee_data = validated_data.pop('employee')
         if employee_data.get('is_reusable') == True:
             email = employee_data.pop('email')
-            employee, created = Employee.objects.get_or_create(user=user, email=email, defaults=employee_data)
+            employee, created = Employee.objects.get_or_create(user=user,
+                                                               email=email,
+                                                               is_reusable=True,
+                                                               defaults=employee_data)
             if not created:
                 for attr, value in employee_data.iteritems():
                     setattr(employee, attr, value)
@@ -66,6 +70,12 @@ class EmployeeRelocationSerializer(serializers.ModelSerializer):
                 logger.info(_('Update reusable employee'), extra=get_extra(self.context.get('request'),
                                                                            object=employee))
             else:
+                create_user_on_main_site.delay(
+                    email=email,
+                    first_name=employee_data.get('first_name'),
+                    last_name=employee_data.get('last_name'),
+                    company_name=employee_data.get('company_name')
+                )
                 logger.info(_('Create reusable employee'), extra=get_extra(self.context.get('request'),
                                                                            object=employee))
         else:
@@ -130,9 +140,7 @@ class EmployeeRelocationsSerializer(serializers.ModelSerializer):
         html_content = htmly.render(context)
         mamagers = Account.objects.filter(Q(is_staff=True) | Q(is_superuser=True))
         mamagers_emails = map(lambda manager: manager.email, mamagers)
-        msg = EmailMultiAlternatives(subject, text_content, from_email, mamagers_emails)
-        msg.attach_alternative(html_content, "text/html")
-        msg.send()
+        send_managers_email.delay(subject, text_content, html_content, from_email, mamagers_emails)
 
 
 class EmployeeRelocationRequestCancelSerializer(serializers.ModelSerializer):
