@@ -73,7 +73,7 @@
   redirect_authorized_users.$inject = ['djangoAuth', '$state', '$cookies'];
 
   function redirect_authorized_users(djangoAuth, $state, $cookies) {
-   if (djangoAuth.authenticated) {
+   if ($cookies.get('is_authenticated') === '1') {
      $state.go('app.index');
    }
   }
