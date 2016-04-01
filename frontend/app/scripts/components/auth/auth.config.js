@@ -11,6 +11,7 @@
     $stateProvider
       .state('login', {
         url: '/login',
+        onEnter: redirect_authorized_users,
         views: {
           'sigin@': {
             templateUrl: 'views/auth/login.view.html',
@@ -25,6 +26,7 @@
       })
       .state('signup', {
         url: '/signup',
+        onEnter: redirect_authorized_users,
         views: {
           'sigin@': {
             templateUrl: 'views/auth/signup.view.html',
@@ -35,6 +37,7 @@
       })
       .state('account_activate', {
         url: '/account/activate/{activateKey}',
+        onEnter: redirect_authorized_users,
         views: {
           'sigin@': {
             templateUrl: 'views/auth/activate.view.html',
@@ -45,6 +48,7 @@
       })
       .state('forgot_password', {
         url: '/forgot-password',
+        onEnter: redirect_authorized_users,
         views: {
           'sigin@': {
             templateUrl: 'views/auth/forgot-password.view.html',
@@ -55,6 +59,7 @@
       })
       .state('reset_password_confirm', {
         url: '/password-reset/confirm/{uidb64}/{token}',
+        onEnter: redirect_authorized_users,
         views: {
           'sigin@': {
             templateUrl: 'views/auth/password-reset.view.html',
@@ -63,6 +68,14 @@
           }
         }
       });
+  }
+
+  redirect_authorized_users.$inject = ['djangoAuth', '$state', '$cookies'];
+
+  function redirect_authorized_users(djangoAuth, $state, $cookies) {
+   if (djangoAuth.authenticated) {
+     $state.go('app.index');
+   }
   }
 
   run.$inject = ['$rootScope', '$state', '$cookies', 'djangoAuth'];
