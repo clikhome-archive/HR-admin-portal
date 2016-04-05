@@ -1,6 +1,7 @@
 from django.contrib.auth.models import BaseUserManager
 from django.utils.crypto import get_random_string
 from django.db.utils import IntegrityError
+from django.utils.translation import ugettext_lazy as _
 
 
 class AccountManager(BaseUserManager):
