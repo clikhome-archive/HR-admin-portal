@@ -221,14 +221,16 @@
 
         <!-- build:js({.tmp,app}) /static/scripts/app.js -->
         <script src="scripts/app.module.js"></script>
+        <!-- clikhomeHR.const -->
+        <script src="scripts/components/const/const.module.js"></script>
+        <script src="scripts/components/const/constants/layout-types.const.js"></script>
         <!-- clikhomeHR.core -->
         <script src="scripts/components/core/core.module.js"></script>
         <script src="scripts/components/core/core.config.js"></script>
-        <script src="scripts/components/core/constants/layout-types.const.js"></script>
         <script src="scripts/components/core/services/django-http.service.js"></script>
         <script src="scripts/components/core/services/django-auth.service.js"></script>
         <script src="scripts/components/core/services/validate.service.js"></script>
-        <script src="scripts/components/core/services/layout-switcher.factory.js"></script>
+        <script src="scripts/components/core/services/layout-switcher.provider.js"></script>
         <script src="scripts/components/core/services/resources/employee.service.js"></script>
         <script src="scripts/components/core/services/resources/invoice.service.js"></script>
         <script src="scripts/components/core/services/resources/profile.service.js"></script>

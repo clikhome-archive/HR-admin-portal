@@ -5,12 +5,17 @@
          .config(configure)
          .run(run);
 
-  configure.$inject = ['$stateProvider'];
+  configure.$inject = ['$stateProvider', 'LAYOUT_TYPES'];
 
-  function configure($stateProvider) {
+  function configure($stateProvider, LAYOUT_TYPES) {
+    var data = {
+      layout: LAYOUT_TYPES.AUTH
+    };
+
     $stateProvider
       .state('login', {
         url: '/login',
+        data: data,
         onEnter: redirectAuthorizedUsers,
         views: {
           'sigin@': {
@@ -26,6 +31,7 @@
       })
       .state('signup', {
         url: '/signup',
+        data: data,
         onEnter: redirectAuthorizedUsers,
         views: {
           'sigin@': {
@@ -37,6 +43,7 @@
       })
       .state('account_activate', {
         url: '/account/activate/{activateKey}',
+        data: data,
         onEnter: redirectAuthorizedUsers,
         views: {
           'sigin@': {
@@ -48,6 +55,7 @@
       })
       .state('forgot_password', {
         url: '/forgot-password',
+        data: data,
         onEnter: redirectAuthorizedUsers,
         views: {
           'sigin@': {
@@ -59,6 +67,7 @@
       })
       .state('reset_password_confirm', {
         url: '/password-reset/confirm/{uidb64}/{token}',
+        data: data,
         onEnter: redirectAuthorizedUsers,
         views: {
           'sigin@': {

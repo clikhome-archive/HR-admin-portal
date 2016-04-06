@@ -4,9 +4,9 @@
   angular.module('clikhomeHR.auth')
          .controller('SignupController', SignupController);
 
-  SignupController.$inject = ['djangoAuth', 'Validate', 'dialogs', 'layoutSwitcher'];
+  SignupController.$inject = ['djangoAuth', 'Validate', 'dialogs'];
 
-  function SignupController(djangoAuth, Validate, dialogs, layoutSwitcher) {
+  function SignupController(djangoAuth, Validate, dialogs) {
     var vm = this;
     vm.errors = [];
     vm.email = '';
@@ -16,7 +16,6 @@
     activate();
 
     function activate() {
-      layoutSwitcher.layout(layoutSwitcher.LAYOUT_TYPES.LOGIN);
     }
 
     function register(formData) {

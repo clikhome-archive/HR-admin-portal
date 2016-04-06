@@ -18,6 +18,7 @@
     'vsGoogleAutocomplete',
 
     /* Internal */
+    'clikhomeHR.const',
     'clikhomeHR.auth',
     'clikhomeHR.billing',
     'clikhomeHR.employee',
