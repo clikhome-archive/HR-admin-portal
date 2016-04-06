@@ -4,7 +4,8 @@
   angular.module('clikhomeHR.core')
          .config(configureRouting)
          .config(configureDialogs)
-         .run();
+         .config(configureLayout)
+         .run(run);
 
   configureRouting.$inject = ['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$interpolateProvider'];
 
@@ -36,7 +37,7 @@
     $interpolateProvider.endSymbol('}]}');
   }
 
-  configureDialogs.$inject = ['dialogsProvider', '$translateProvider'];
+  configureDialogs.$inject = ['dialogsProvider', '$translateProvider', 'layoutSwitcherProvider', 'LAYOUT_TYPES'];
 
   function configureDialogs(dialogsProvider, $translateProvider) {
     dialogsProvider.useBackdrop('static');
@@ -45,5 +46,18 @@
     dialogsProvider.setSize('sm');
     $translateProvider.preferredLanguage('en-US');
     $translateProvider.useSanitizeValueStrategy('sanitize');
+  }
+
+  configureLayout.$inject = ['layoutSwitcherProvider', 'LAYOUT_TYPES'];
+
+  function configureLayout(layoutSwitcherProvider, LAYOUT_TYPES) {
+    layoutSwitcherProvider.setDefault(LAYOUT_TYPES.MENU_EXPANDED);
+  }
+
+  run.$inject = ['layoutSwitcher'];
+
+  function run(layoutSwitcher) {
+    // listen to state changes and apply layout
+    layoutSwitcher.run();
   }
 })();

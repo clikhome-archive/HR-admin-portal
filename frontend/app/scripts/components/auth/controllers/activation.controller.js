@@ -4,13 +4,12 @@
   angular.module('clikhomeHR.auth')
          .controller('ActivationController', ActivationController);
 
-  ActivationController.$inject = ['$rootScope', '$state', '$stateParams', 'djangoAuth', 'layoutSwitcher'];
+  ActivationController.$inject = ['$rootScope', '$state', '$stateParams', 'djangoAuth'];
 
-  function ActivationController($rootScope, $state, $stateParams, djangoAuth, layoutSwitcher) {
+  function ActivationController($rootScope, $state, $stateParams, djangoAuth) {
     activate();
 
     function activate() {
-      layoutSwitcher.layout(layoutSwitcher.LAYOUT_TYPES.LOGIN);
       djangoAuth.activate($stateParams.activateKey)
                 .then(activationSuccess, activationError);
     }
