@@ -1,12 +1,12 @@
 {% load i18n %}{% autoescape off %}
-{% blocktrans %}Hello!
-
-Thank you for signing up at {{ site_name }}. To confirm your email address, please click the following activation link.{% endblocktrans %}
-{{ protocol }}://{{ domain }}{% url 'account_activate' activate_key=user.activate_key %}
-
-{% blocktrans %}We appreciate your business and look forward to working with you!
-
-Thank you,
+{% blocktrans %}Hello!<br>
+<br>
+Thank you for signing up at {{ site_name }}. To confirm your email address, please click the following activation link.{% endblocktrans %}<br>
+{{ protocol }}://{{ domain }}{% url 'account_activate' activate_key=user.activate_key %}<br>
+<br>
+{% blocktrans %}We appreciate your business and look forward to working with you!<br>
+<br>
+Thank you,<br>
 Team ClikHome
 {% endblocktrans %}
 {% endautoescape %}
