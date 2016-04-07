@@ -47,10 +47,11 @@ class AccountChangeForm(forms.ModelForm):
         help_text=_("Raw passwords are not stored, so there is no way to see "
                     "this user's password, but you can change the password "
                     "using <a href=\"../password/\">this form</a>."))
-    company = forms.ModelChoiceField(label=_('Company'),
+    company = forms.ModelMultipleChoiceField(label=_('Company'),
                                      queryset=Company.objects.all(),
-                                     widget=autocomplete.ModelSelect2('select_company'))
-
+                                     widget=autocomplete.ModelSelect2Multiple('select_company'),
+                                     required=False)
+    #
 
     class Meta:
         model = Account

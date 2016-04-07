@@ -8,7 +8,8 @@
 
   function Support(djangoHttp) {
     var service = {
-      feedback: feedback
+      feedback: feedback,
+      logs: logs
     };
     return service;
 
@@ -17,6 +18,13 @@
         'method': 'POST',
         'url': '/support/feedback/',
         'data': data
+      });
+    };
+
+    function logs() {
+      return djangoHttp.request({
+        method: 'GET',
+        url: '/support/logs/'
       });
     }
   }

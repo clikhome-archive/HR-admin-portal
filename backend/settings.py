@@ -154,12 +154,14 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
     ),
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # 'PAGE_SIZE': 25
 }
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'authentication.serializers.UserDetailsSerializer',
     'TOKEN_SERIALIZER': 'authentication.serializers.TokenSerializer',
-    'PASSWORD_RESET_CONFIRM_SERIALIZER': 'authentication.serializers.PasswordResetConfirmSerializer'
+    'PASSWORD_RESET_CONFIRM_SERIALIZER': 'authentication.serializers.PasswordResetConfirmSerializer',
 }
 
 AUTH_USER_MODEL = 'authentication.Account'

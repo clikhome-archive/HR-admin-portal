@@ -1,0 +1,42 @@
+<div class="page-header">
+  <h1 class="page-title">Logs</h1>
+</div>
+
+<div class="page-content">
+  <!-- Logs Panel -->
+  <div class="panel">
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>User</th>
+            <th>Event type</th>
+            <th>IP</th>
+            <th>Date</th>
+            <th>HTTP Method</th>
+            <th>Object Type</th>
+            <th>Object ID</th>
+            <th>Requested URL</th>
+            <th>Sent data</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="log in logs.list.results">
+            <td>{[{log.user.first_name}]} {[{log.user.last_name}]}<br>Email: {[{log.user.email}]}</td>
+            <td>{[{log.event}]}</td>
+            <td>{[{log.ip}]}</td>
+            <td>{[{log.created_dt | date : 'yyyy-MM-dd HH:mm:ss'}]}</td>
+            <td>{[{log.method}]}</td>
+            <td>{[{log.content_type}]}</td>
+            <td>{[{log.object_id}]}</td>
+            <td>{[{log.url}]}</td>
+            <td>{[{log.data}]}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- End Requested History Panel -->
+  </div>
+</div>

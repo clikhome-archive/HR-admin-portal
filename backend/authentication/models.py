@@ -50,10 +50,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     @property
     def company(self):
-        try:
-            return self.company_set.get()
-        except ObjectDoesNotExist:
-            return None
+        return self.company_set.all()
 
     @company.setter
     def company(self, value):

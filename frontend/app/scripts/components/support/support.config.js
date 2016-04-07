@@ -20,6 +20,16 @@
             controllerAs: 'feedback'
           }
         }
+      })
+      .state('app.support.logs', {
+        url: '/logs',
+        views: {
+          'content@': {
+            templateUrl: 'views/support/logs.view.html',
+            controller: 'LogsController',
+            controllerAs: 'logs'
+          }
+        }
       });
   }
 })();
