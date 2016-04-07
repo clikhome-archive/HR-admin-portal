@@ -110,7 +110,7 @@ class AccountAdmin(AccountAdmin):
         ),
     )
     search_fields = ('email',)
-    ordering = ('email',)
+    ordering = ('-date_joined',)
     filter_horizontal = ()
 
 
