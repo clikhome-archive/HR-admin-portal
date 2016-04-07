@@ -14,13 +14,13 @@
 
   function layout($rootScope, LAYOUT_TYPES) {
     var TYPE_CLASS_MAP = {};
+    TYPE_CLASS_MAP[LAYOUT_TYPES.DEFAULT] = 'default';
     TYPE_CLASS_MAP[LAYOUT_TYPES.MENU_COLLAPSED] = 'site-menubar-fold';
     TYPE_CLASS_MAP[LAYOUT_TYPES.MENU_COLLAPSED_ALT] = 'site-menubar-fold-alt site-menubar-fold';
     TYPE_CLASS_MAP[LAYOUT_TYPES.MENU_EXPANDED] = 'site-menubar-unfold';
     TYPE_CLASS_MAP[LAYOUT_TYPES.BOXED] = 'layout-boxed';
     TYPE_CLASS_MAP[LAYOUT_TYPES.MENU_FLIPPED] = 'site-menubar-flipped';
-    TYPE_CLASS_MAP[LAYOUT_TYPES.LOGIN] = 'page-login layout-full';
-    TYPE_CLASS_MAP[LAYOUT_TYPES.REGISTER] = 'page-register-v3 layout-full';
+    TYPE_CLASS_MAP[LAYOUT_TYPES.AUTH] = 'page-login layout-full';
 
     var directive = {
       restrict: 'A',

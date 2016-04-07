@@ -4,9 +4,9 @@
   angular.module('clikhomeHR.auth')
          .controller('LoginController', LoginController);
 
-  LoginController.$inject = ['$state', 'djangoAuth', 'Validate', 'layoutSwitcher'];
+  LoginController.$inject = ['$state', 'djangoAuth', 'Validate'];
 
-  function LoginController($state, djangoAuth, Validate, layoutSwitcher) {
+  function LoginController($state, djangoAuth, Validate) {
     var vm = this;
     vm.username = '';
     vm.password = '';
@@ -16,7 +16,6 @@
     activate();
 
     function activate() {
-      layoutSwitcher.layout(layoutSwitcher.LAYOUT_TYPES.LOGIN);
     }
 
     function login(formData) {
@@ -29,7 +28,6 @@
     }
 
     function loginSuccess() {
-      layoutSwitcher.layout(layoutSwitcher.LAYOUT_TYPES.MENU_EXPANDED);
       $state.go('app.index');
     }
 

@@ -4,9 +4,9 @@
   angular.module('clikhomeHR.core')
          .controller('AppController', AppController);
 
-  AppController.$inject = ['$rootScope', 'djangoAuth', 'layoutSwitcher', '$window'];
+  AppController.$inject = ['$rootScope', 'djangoAuth', '$window', 'layoutSwitcher'];
 
-  function AppController($rootScope, djangoAuth, layoutSwitcher, $window) {
+  function AppController($rootScope, djangoAuth, $window, layoutSwitcher) {
     var vm = this;
     vm.isMainSearchActive = false;
     vm.navbarCollapsed = true;
@@ -22,16 +22,11 @@
       djangoAuth.authenticationStatus(true).then(
         function(response) {
           $rootScope.$broadcast('djangoAuth.logged_in', { user: response });
-          layoutSwitcher.layout(layoutSwitcher.LAYOUT_TYPES.MENU_EXPANDED);
-        },
-        function() {
-          layoutSwitcher.layout(layoutSwitcher.LAYOUT_TYPES.LOGIN);
         });
 
       // Wait and respond to the logout event.
       $rootScope.$on('djangoAuth.logged_out', function() {
         vm.user = null;
-        layoutSwitcher.layout(layoutSwitcher.LAYOUT_TYPES.LOGIN);
       });
       // Wait and respond to the log in event.
       $rootScope.$on('djangoAuth.logged_in', function(event, response) {
