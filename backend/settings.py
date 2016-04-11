@@ -206,7 +206,7 @@ LOGGING = {
 }
 
 
-# TODO: Make difference storages for loca/production/developement forks.
+# TODO: Make difference storages for loca/production/development forks.
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', 'FDQ6zhGPUZNZ6I7uyHo+98W9eZQ9aHKgFZG3RS0a')
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', 'AKIAJ7V5TYLS2PTCOFCQ')
 AWS_STORAGE_BUCKET_NAME = 'clikhome-hr'

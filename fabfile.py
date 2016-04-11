@@ -9,7 +9,7 @@ from fabric.operations import prompt
 current_dir = os.getcwd()
 env.project_name = 'clikhome-hr'
 env.branch = 'master'
-env.environments = ['developement',
+env.environments = ['development',
                     'production']
 
 
@@ -32,7 +32,7 @@ def set_remotes():
     require('project_name')
     print cyan('Setting git remotes...')
 
-    local('git remote add developement git@heroku.com:{}-developement.git'.format(env.project_name))
+    local('git remote add development git@heroku.com:{}-development.git'.format(env.project_name))
     local('git remote add production git@heroku.com:{}-production.git'.format(env.project_name))
 
 
@@ -141,9 +141,9 @@ def create_secret_key():
     return ''.join(random.choice(string.ascii_letters + string.digits) for i in range(30))
 
 
-def developement():
+def development():
     """fab dev [command]"""
-    env.environment = 'developement'
+    env.environment = 'development'
     env.branch = 'master'
 
 
