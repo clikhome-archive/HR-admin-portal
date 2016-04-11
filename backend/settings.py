@@ -175,7 +175,7 @@ IGNORABLE_404_URLS = (
     re.compile(r'^/robots\.txt$'),
 )
 
-DEFAULT_FROM_EMAIL = EMAIL_FROM = 'robot@clikhome.com'
+DEFAULT_FROM_EMAIL = EMAIL_FROM = 'robot@apartmentocean.com'
 EMAIL_SUBJECT = 'CLIKHOME BOT'
 EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME', 'app47632078@heroku.com')
 EMAIL_HOST= 'smtp.sendgrid.net'
