@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.core.urlresolvers import reverse
 from managers import AccountManager
 from django.db.models import ObjectDoesNotExist
+from django.db.models.query import QuerySet
 
 
 class Account(AbstractBaseUser, PermissionsMixin):
@@ -55,8 +56,9 @@ class Account(AbstractBaseUser, PermissionsMixin):
     @company.setter
     def company(self, value):
         self.company_set.clear()
-        if value:
-            self.company_set.add(value)
+        if not isinstance(value, QuerySet):
+            value = [value,]
+        self.company_set.add(*value)
 
 
 class Department(models.Model):
