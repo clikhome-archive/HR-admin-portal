@@ -228,8 +228,7 @@ DEBUG = os.environ.get('DJANGO_DEBUG', False)
 import djcelery
 djcelery.setup_loader()
 
-BROKER_URL = os.environ.get('REDISCLOUD_URL', 'redis://127.0.0.1:6379')
-CELERY_RESULT_BACKEND = 'redis'
+CELERY_RESULT_BACKEND = BROKER_URL = os.environ.get('REDISCLOUD_URL', 'redis://127.0.0.1:6379')
 CELERY_IGNORE_RESULT = False
 CELERY_TASK_RESULT_EXPIRES = 151200 # 2 Days
 
