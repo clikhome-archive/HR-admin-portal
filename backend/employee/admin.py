@@ -51,7 +51,7 @@ class EmployeeRelocationAdmin(admin.ModelAdmin):
 
     def _user_company_name(self, obj):
         if obj.user.company:
-            return obj.user.company.name
+            return ', '.join([company.name for company in obj.user.company])
         return ''
     _user_company_name.short_description = _('Company name')
     _user_company_name.admin_order_field = 'user__company_name'
