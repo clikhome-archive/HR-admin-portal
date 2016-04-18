@@ -4,6 +4,7 @@ import models
 from django import forms
 from django.forms.models import fields_for_model
 from dal import autocomplete
+from bridge.tasks import create_user_on_main_site
 
 
 class EmployeeForm(forms.ModelForm):
@@ -55,6 +56,28 @@ class EmployeeRelocationAdmin(admin.ModelAdmin):
         return ''
     _user_company_name.short_description = _('Company name')
     _user_company_name.admin_order_field = 'user__company_name'
+
+    def save_model(self, request, obj, form, change):
+        instance = form.save(commit=False)
+        if (change
+                and not instance.employee.is_created_on_main_site
+                and models
+                    .EmployeeRelocation
+                    .STATUS_CHOICE
+                    .IN_PROCESS == instance.status
+                and instance.employee.is_reusable):
+            instance.employee.is_created_on_main_site = True
+            instance.employee.save()
+            create_user_on_main_site.delay(
+                email=instance.employee.email,
+                first_name=instance.employee.first_name,
+                last_name=instance.employee.last_name,
+                company_name=', '.join([company.name for company in instance.user.company])
+            )
+        instance.save()
+        form.save_m2m()
+        return instance
+
 
 admin.site.register(models.Employee, EmployeeAdmin)
 admin.site.register(models.EmployeeRelocation, EmployeeRelocationAdmin)

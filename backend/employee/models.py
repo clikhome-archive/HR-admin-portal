@@ -6,11 +6,6 @@ from django.utils.translation import ugettext_lazy as _
 from authentication.models import Account
 from django.utils import timezone
 from django.core.exceptions import ValidationError
-from django.db.models.signals import pre_save
-from django.dispatch import receiver
-
-
-from django.contrib.auth.models import User
 
 
 class EmployeeManager(models.Manager):
@@ -43,7 +38,8 @@ class Employee(models.Model):
     job_title = models.CharField(_('Job Title'), blank=True,
                                  max_length=100,
                                  help_text=_('eg. Engineer'))
-    is_reusable = models.BooleanField(_('Is reusable employee?'), default=True)
+    is_reusable = models.BooleanField(_('Is reusable employee?'), default=False)
+    is_created_on_main_site = models.BooleanField(_('Is created on the main site?'), default=False)
 
     created_dt = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(Account)
@@ -67,7 +63,6 @@ class EmployeeRelocation(models.Model):
         ('INITIAL', 0, _('Initial')),
         ('RECEIVED', 1, _('Received')),
         ('IN_PROCESS', 2, _('In process')),
-        ('CONFIRMED', 3, _('Confirmed')),
         ('SUCCESSFUL', 4, _('Successful')),
         ('CANCELLED', 5, _('Cancelled'))
     )

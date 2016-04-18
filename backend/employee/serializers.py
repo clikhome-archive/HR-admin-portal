@@ -10,7 +10,6 @@ from django.utils.translation import ugettext_lazy as _
 from db_logging import get_extra, logger
 from billing.models import Subscription
 from tasks import send_managers_email
-from bridge.tasks import create_user_on_main_site
 import settings
 
 
@@ -34,7 +33,6 @@ class EmployeeSerializer(serializers.ModelSerializer):
                                                             self.context.get('request'),
                                                             object=employee)
                                                         )
-
 
 
 class _EmployeeSerializer(EmployeeSerializer):
@@ -70,12 +68,6 @@ class EmployeeRelocationSerializer(serializers.ModelSerializer):
                 logger.info(_('Update reusable employee'), extra=get_extra(self.context.get('request'),
                                                                            object=employee))
             else:
-                create_user_on_main_site.delay(
-                    email=email,
-                    first_name=employee_data.get('first_name'),
-                    last_name=employee_data.get('last_name'),
-                    company_name=employee_data.get('company_name')
-                )
                 logger.info(_('Create reusable employee'), extra=get_extra(self.context.get('request'),
                                                                            object=employee))
         else:
