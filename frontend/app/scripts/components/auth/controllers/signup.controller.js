@@ -11,6 +11,8 @@
     vm.errors = [];
     vm.email = '';
     vm.password = '';
+    vm.phone = '';
+    vm.company_name = '';
     vm.register = register;
 
     activate();
@@ -19,7 +21,12 @@
     }
 
     function register(formData) {
-      var payload = { 'email': vm.email, 'password': vm.password };
+      var payload = {
+        'email': vm.email,
+        'password': vm.password,
+        'phone': vm.phone,
+        'company_name': vm.company_name
+      };
       vm.errors = [];
       Validate.form(formData, vm.errors);
       if (!formData.$invalid) {
