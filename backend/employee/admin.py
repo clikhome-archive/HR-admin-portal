@@ -72,7 +72,8 @@ class EmployeeRelocationAdmin(admin.ModelAdmin):
                 email=instance.employee.email,
                 first_name=instance.employee.first_name,
                 last_name=instance.employee.last_name,
-                company_name=', '.join([company.name for company in instance.user.company])
+                company_name=', '.join([company.name for company in instance.user.company]),
+                phone=instance.user.phone
             )
         instance.save()
         form.save_m2m()
