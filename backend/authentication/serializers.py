@@ -69,13 +69,21 @@ class PasswordResetConfirmSerializer(PasswordResetConfirmSerializerBase):
 
 
 class SignUpSerializer(serializers.ModelSerializer):
+    company_name = serializers.CharField(source='company', allow_blank=True)
+
     class Meta:
         model = Account
-        fields = ('email', 'password')
+        fields = ('email', 'password', 'phone', 'company_name')
 
     def create(self, validated_data):
         account = Account.objects.create_user(email=validated_data.get('email'),
-                                    password=validated_data.get('password'))
+                                    password=validated_data.get('password'),
+                                    phone=validated_data.get('phone'))
+        company_name = validated_data.get('company', None)
+        if company_name:
+            company, created = Company.objects.get_or_create(name=company_name)
+            company.users.add(account)
+            company.save()
         self.send_email(account)
         return account
 

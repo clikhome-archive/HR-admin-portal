@@ -14,7 +14,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
-    phone = models.CharField(_('Contact phone number'), max_length=40, blank=True)
+    phone = models.CharField(_('Contact phone number'), max_length=40)
     # company = models.ForeignKey(Company, verbose_name=_('Company'), blank=True)
 
     is_staff = models.BooleanField(

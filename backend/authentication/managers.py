@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class AccountManager(BaseUserManager):
-    def create_user(self, email, password=None):
+    def create_user(self, email, password=None, **kwargs):
         if not email:
             raise ValueError(_('Users must have an email address'))
         account = self.model(
@@ -20,6 +20,11 @@ class AccountManager(BaseUserManager):
             except IntegrityError:
                 pass
         account.set_password(password)
+        for field, value in kwargs.items():
+            if hasattr(account, field):
+                setattr(account, field, value)
+            else:
+                raise AttributeError(_('Field %(field)s doesn\'t exists') % {'field': field})
         account.save(using=self._db)
         return account
 
