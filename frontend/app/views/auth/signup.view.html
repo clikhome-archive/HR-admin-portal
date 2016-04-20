@@ -1,43 +1,50 @@
-<div class="page-content vertical-align-middle">
-  <div class="panel">
-    <div class="panel-body">
-      <div class="brand">
-        <img class="brand-img" src="/static/images/global/logos/apartmentocean-dark.png" alt="Apartment Ocean">
-        <h1 class="brand-text sr-only">Apartment Ocean</h1>
-        <h2 class="brand-text font-size-16 font-weight-300">Sign Up</h2>
+<div class="page-content">
+  <div class="page-brand-info hidden-xs">
+    <div class="brand">
+      <img class="brand-img" src="/static/images/global/logos/apartmentocean-white@2x.png" alt="Apartment Ocean">
+      <h1 class="brand-text sr-only">Apartment Ocean</h1>
+    </div>
+
+    <p class="font-size-20">Relocate employees with confidence and clarity</p>
+  </div>
+
+  <div class="page-login-main">
+    <div class="brand visible-xs">
+      <img class="brand-img" src="/static/images/global/logos/apartmentocean-sm-dark.png" alt="Apartment Ocean">
+      <h3 class="brand-text font-size-22">Apartment Ocean</h3>
+    </div>
+    <h3 class="font-size-24">Sign Up</h3>
+
+    <form role="form" ng-submit="signup.register(SignupForm)" name="SignupForm" novalidate>
+      <div class="form-group">
+        <input name="email" type="email" id="inputEmail" class="form-control no-validation" placeholder="Email address" ng-model="signup.email" required autofocus>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <div class="alert alert-danger" ng-repeat="error in signup.errors.email">{[{error}]}</div>
       </div>
 
-      <form role="form" ng-submit="signup.register(SignupForm)" name="SignupForm" novalidate>
-        <div class="form-group form-material floating">
-          <input name="email" type="email" id="inputEmail" class="form-control no-validation" ng-model="signup.email" required autofocus>
-          <label for="inputEmail" class="floating-label">Email address</label>
-          <div class="alert alert-danger" ng-repeat="error in signup.errors.email">{[{error}]}</div>
-        </div>
+      <div class="form-group">
+        <input name="password" type="password" id="inputPassword" class="form-control no-validation" placeholder="Password" ng-model="signup.password" required>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <div class="alert alert-danger" ng-repeat="error in signup.errors.password">{[{error}]}</div>
+      </div>
 
-        <div class="form-group form-material floating">
-          <input name="password" type="password" id="inputPassword" class="form-control no-validation" ng-model="signup.password" required>
-          <label for="inputPassword" class="floating-label">Password</label>
-          <div class="alert alert-danger" ng-repeat="error in signup.errors.password">{[{error}]}</div>
-        </div>
-          
-        <div class="form-group form-material floating">
-          <input name="phone" type="phone" id="inputPhone" class="form-control no-validation" ng-model="signup.phone" required>
-          <label for="inputPhone" class="floating-label">Phone</label>
-          <div class="alert alert-danger" ng-repeat="error in signup.errors.phone">{[{error}]}</div>
-        </div>
-          
-        <div class="form-group form-material floating">
-          <input name="company_name" type="company_name" id="inputCompanyName" class="form-control no-validation" ng-model="signup.company_name">
-          <label for="inputCompanyName" class="floating-label">Company name</label>
-          <div class="alert alert-danger" ng-repeat="error in signup.errors.company_name">{[{error}]}</div>
-        </div>
+      <div class="form-group">
+        <input name="phone" type="phone" id="inputPhone" class="form-control no-validation" placeholder="Phone" ng-model="signup.phone" required>
+        <label for="inputPhone" class="sr-only">Phone</label>
+        <div class="alert alert-danger" ng-repeat="error in signup.errors.phone">{[{error}]}</div>
+      </div>
 
-        <div class="alert alert-danger" ng-repeat="error in signup.errors.non_field_errors">{[{error}]}</div>
-        <div class="alert alert-danger" ng-if="error">{[{error}]}</div>
+      <div class="form-group">
+        <input name="company_name" type="company_name" id="inputCompanyName" class="form-control no-validation" placeholder="Company name" ng-model="signup.company_name">
+        <label for="inputCompanyName" class="sr-only">Company name</label>
+        <div class="alert alert-danger" ng-repeat="error in signup.errors.company_name">{[{error}]}</div>
+      </div>
 
-        <button class="btn btn-primary btn-block btn-lg margin-top-40" type="submit">Sign up</button>
-      </form>
-      <p>Have account already? Please go to <a ui-sref="login">Sign In</a></p>
-    </div>
+      <div class="alert alert-danger" ng-repeat="error in signup.errors.non_field_errors">{[{error}]}</div>
+      <div class="alert alert-danger" ng-if="error">{[{error}]}</div>
+
+      <button class="btn btn-primary btn-block btn-lg margin-top-40" type="submit">Sign up</button>
+    </form>
+    <p>Have account already? Please go to <a ui-sref="login">Sign In</a></p>
   </div>
 </div>

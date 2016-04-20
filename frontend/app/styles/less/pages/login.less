@@ -1,65 +1,134 @@
-.page-login:before {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  width: 100%;
+.page-login {
   height: 100%;
-  content: '';
-  background: #62a8ea;
-  /* Old browsers */
-  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
-  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzYyYThlYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxNTcxYjEiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-  background-image: -webkit-linear-gradient(top, #62a8ea 0%, #3583ca 100%);
-  background-image:      -o-linear-gradient(top, #62a8ea 0%, #3583ca 100%);
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#62a8ea), to(#3583ca));
-  background-image:         linear-gradient(to bottom, #62a8ea 0%, #3583ca 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff62a8ea', endColorstr='#ff3583ca', GradientType=0);
-  background-repeat: repeat-x;
-  background-position: center top;
-  -webkit-background-size: cover;
-  background-size: cover;
-}
-.page-login .panel {
-  width: 400px;
-  margin-bottom: 45px;
-  background: #fff;
-  border-radius: 4px;
 
-  .panel-body {
-    padding: 50px 40px 40px;
+  &:before {
+    background-image: url('/static/images/auth/employee-relocation-specialist.jpg');
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    content: '';
+    background-position: center top;
+    -webkit-background-size: cover;
+    background-size: cover;
   }
 
-  .brand-text {
-    margin-top: 8px;
+  &:after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(38, 50, 56, .3);
   }
-}
 
-.page-login form {
-  margin: 45px 0 30px;
-  a {
+  .page-brand-info {
+    margin: 220px 100px 0 90px;
+  }
+
+  .page-brand-info .brand-img {
+    vertical-align: middle;
+  }
+
+  .page-brand-info .brand-text {
+    display: inline-block;
+    margin: 11px 0 11px 20px;
+    vertical-align: middle;
+  }
+
+  .page-brand-info p {
+    max-width: 650px;
+    opacity: .6;
+  }
+
+  .page-login-main {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: auto;
+    min-height: 100%;
+    padding: 150px 60px 180px;
+    color: #76838f;
+    background: #fff;
+  }
+
+  .page-login-main .brand {
+    margin-bottom: 60px;
+  }
+
+  .page-login-main .brand-img {
+    vertical-align: middle;
+  }
+
+  .page-login-main .brand-text {
+    display: inline-block;
+    margin: 11px 0 11px 20px;
+    color: #62a8ea;
+    vertical-align: middle;
+  }
+
+  form {
+    width: 350px;
+    margin: 45px 0 20px;
+  }
+
+  form > button {
+    margin-top: 38px;
+  }
+
+  form a {
     margin-left: 20px;
   }
 
-  .form-material.floating + .page-login form .form-material.floating {
-    margin-top: 30px;
+  @media (min-width: 992px) {
+    .page-content {
+      padding-right: 500px;
+    }
   }
 
-  .form-material label {
-    font-weight: 300;
-    color: #a3afb7;
+  @media (max-width: 768px) {
+    .page-login-main {
+      padding-top: 60px;
+    }
   }
-}
 
-@media (max-width: 480px) {
-  .page-login .page-content {
-    padding: 30px 20px;
+  @media (min-width: 768px) and (max-width: 991px) {
+    .page-login-main {
+      padding-top: 80px;
+    }
+
+    .page-brand-info {
+      margin: 160px 0 0 35px;
+    }
+
+    .page-brand-info > p {
+      color: transparent;
+      opacity: 0;
+    }
   }
-  .page-login .panel {
-    width: auto;
-    padding: 10px;
+
+  @media (max-width: 767px) {
+    .page-login-main {
+      width: 100%;
+      padding-top: 60px;
+    }
+
+    form {
+      width: auto;
+    }
   }
-  .page-login .panel .panel-body {
-    padding: 35px 25px 35px;
+
+  @media (max-width: 480px) {
+    .page-login-main {
+      padding: 50px 30px 180px;
+    }
+
+    form {
+      width: auto;
+    }
   }
 }
