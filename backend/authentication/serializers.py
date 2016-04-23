@@ -73,12 +73,14 @@ class SignUpSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Account
-        fields = ('email', 'password', 'phone', 'company_name')
+        fields = ('email', 'password', 'phone', 'company_name', 'first_name', 'last_name')
 
     def create(self, validated_data):
         account = Account.objects.create_user(email=validated_data.get('email'),
-                                    password=validated_data.get('password'),
-                                    phone=validated_data.get('phone'))
+                                              password=validated_data.get('password'),
+                                              phone=validated_data.get('phone'),
+                                              first_name=validated_data.get('first_name'),
+                                              last_name=validated_data.get('last_name'))
         company_name = validated_data.get('company', None)
         if company_name:
             company, created = Company.objects.get_or_create(name=company_name)
