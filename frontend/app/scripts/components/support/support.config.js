@@ -22,7 +22,8 @@
         }
       })
       .state('app.support.logs', {
-        url: '/logs',
+        url: '/logs?page',
+        reloadOnSearch: false,
         views: {
           'content@': {
             templateUrl: 'views/support/logs.view.html',

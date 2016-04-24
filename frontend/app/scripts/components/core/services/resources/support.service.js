@@ -19,12 +19,20 @@
         'url': '/support/feedback/',
         'data': data
       });
-    };
+    }
 
-    function logs() {
+    function logs(pagenum) {
+      pagenum = parseInt(pagenum);
+      if (isNaN(pagenum) || pagenum < 1) {
+        pagenum = 1;
+      }
+
       return djangoHttp.request({
         method: 'GET',
-        url: '/support/logs/'
+        url: '/support/logs/',
+        params: {
+          page: pagenum
+        }
       });
     }
   }
