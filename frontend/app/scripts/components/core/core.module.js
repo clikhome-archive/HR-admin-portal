@@ -21,6 +21,7 @@
     'clikhomeHR.const',
     'clikhomeHR.auth',
     'clikhomeHR.billing',
+    'clikhomeHR.dashboard',
     'clikhomeHR.employee',
     'clikhomeHR.profile',
     'clikhomeHR.relocation',
