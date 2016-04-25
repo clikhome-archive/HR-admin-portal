@@ -177,11 +177,12 @@ IGNORABLE_404_URLS = (
 
 DEFAULT_FROM_EMAIL = EMAIL_FROM = 'info@apartmentocean.com'
 EMAIL_SUBJECT = 'New Requests from Apartment Ocean'
-EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME', 'app47632078@heroku.com')
-EMAIL_HOST= 'smtp.sendgrid.net'
-EMAIL_PORT = 587
+
+EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', 'postmaster@app2e2df3f124074815bd2a5d931ad054f9.mailgun.org')
+EMAIL_HOST= os.environ.get('MAILGUN_SMTP_SERVER', 'smtp.mailgun.org')
+EMAIL_PORT = int(os.environ.get('MAILGUN_SMTP_PORT', '587'))
 EMAIL_USE_TLS = True
-EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD', 'mi2eomdr4442')
+EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '4c0110df8c5107922b6f7dce2aa5c628')
 
 LOGGING = {
     'version': 1,
