@@ -35,6 +35,24 @@
           </tr>
           </tbody>
         </table>
+
+        <!-- Logs Pagination start -->
+        <div class="pagination-container text-center">
+          <div uib-pagination
+               ng-model="logs.pagination.page"
+               items-per-page="logs.pagination.pageSize"
+               total-items="logs.pagination.count"
+               max-size="logs.pagination.maxSize"
+               rotate="true"
+               boundary-links="true"
+               boundary-link-numbers="true"
+               ng-change="logs.pageChanged()"
+               previous-text="&lsaquo;"
+               next-text="&rsaquo;"
+               first-text="&laquo;"
+               last-text="&raquo;"></div>
+          <!-- Logs Pagination end -->
+        </div>
       </div>
     </div>
     <!-- End Requested History Panel -->

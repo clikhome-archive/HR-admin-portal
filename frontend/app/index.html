@@ -32,7 +32,7 @@
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
             your browser</a> to improve your experience.</p>
         <![endif]-->
-        <div ui-view="sigin" class="page vertical-align text-center" ng-if="!App.user"></div>
+        <div ui-view="sigin" class="page" ng-if="!App.user"></div>
 
         <!-- Navbar -->
         <nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega" ng-if="App.user">
@@ -81,7 +81,7 @@
                 <li class="navbar-text">
                   <span>Hello, <span>{[{App.user.firstName + ' ' + App.user.lastName}]}</span></span>
                 </li>
-                <li uib-dropdown>
+                <li uib-dropdown class="animate">
                   <a href="#" class="navbar-avatar" uib-dropdown-toggle role="button">
                     <span class="avatar avatar-online">
                       <img src="/static/images/global/portraits/default-user-img-225x225.png" alt="...">
@@ -262,6 +262,9 @@
         <script src="scripts/components/billing/billing.config.js"></script>
         <script src="scripts/components/billing/controllers/invoices.controller.js"></script>
         <script src="scripts/components/billing/controllers/subscriptions.controller.js"></script>
+        <!-- clikhomeHR.billing -->
+        <script src="scripts/components/dashboard/dashboard.module.js"></script>
+        <script src="scripts/components/dashboard/dashboard.config.js"></script>
         <!-- clikhomeHR.employee -->
         <script src="scripts/components/employee/employee.module.js"></script>
         <script src="scripts/components/employee/employee.config.js"></script>

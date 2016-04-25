@@ -12,8 +12,11 @@
   function configureRouting($httpProvider, $stateProvider, $urlRouterProvider, $locationProvider, $interpolateProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-
     $urlRouterProvider.otherwise('/');
+    $locationProvider.html5Mode(true);
+    $interpolateProvider.startSymbol('{[{');
+    $interpolateProvider.endSymbol('}]}');
+
     $stateProvider
       .state('app', {
         abstract: true,
@@ -23,18 +26,7 @@
           redirectTo: 'login',
           memory: true
         }
-      })
-      .state('app.index', {
-        url: '/',
-        views: {
-          'content@': {
-            templateUrl: 'views/index.html'
-          }
-        }
       });
-    $locationProvider.html5Mode(true);
-    $interpolateProvider.startSymbol('{[{');
-    $interpolateProvider.endSymbol('}]}');
   }
 
   configureDialogs.$inject = ['dialogsProvider', '$translateProvider', 'layoutSwitcherProvider', 'LAYOUT_TYPES'];
