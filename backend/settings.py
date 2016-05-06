@@ -15,6 +15,7 @@ import sys
 import dj_database_url
 import re
 from kombu import Queue, Exchange
+from datetime import timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -238,6 +239,10 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_SEND_TASK_ERROR_EMAILS = True
 CELERY_SEND_EVENTS = True
+
+CELERYCAM_EXPIRE_SUCCESS = timedelta(days=1)
+CELERYCAM_EXPIRE_ERROR = timedelta(days=3)
+CELERYCAM_EXPIRE_PENDING = timedelta(days=5)
 
 CELERY_DEFAULT_QUEUE = 'hr_admin'
 CELERY_QUEUES = (
