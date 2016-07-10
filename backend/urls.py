@@ -91,5 +91,6 @@ urlpatterns = [
         IndexView.as_view(), name='account_activate'),
     url(r'^password-reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$',
         IndexView.as_view(), name='password_reset_confirm'),
+    url(r'^.well-known/acme-challenge/(?P<token>.+)$', 'letsencrypt_views.letsencrypt_challenge'),
     url(r'^.*$', IndexView.as_view(), name='index')
 ]

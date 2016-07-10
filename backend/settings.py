@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.9/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
-
+import json
 import os
 import sys
 import dj_database_url
@@ -28,6 +28,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'a8&7=502e!+0up*^2=gyus%75%jera35+otd0!w@s6tdqg#7w-'
 
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com', '.clikhome.com', '.apartmentocean.com']
+
+LETSENCRYPT_CHALLENGE_TOKENS = dict()
+if os.getenv('LETSENCRYPT_CHALLENGE_TOKENS', None):
+    LETSENCRYPT_CHALLENGE_TOKENS = json.loads(os.getenv('LETSENCRYPT_CHALLENGE_TOKENS', '{}'))
 
 
 # Application definition
